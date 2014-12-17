@@ -5,7 +5,8 @@ html, body, ul, li, hr, h6, h5, h4, h3, h2, h1, form, table, tr, td, img, p, fig
     -webkit-text-size-adjust: none;
     -webkit-font-smoothing: antialiased;
     -webkit-touch-callout: none;
-    }
+    font-family: 'Arial';
+}
     
 ul {
     list-style: none;
@@ -103,15 +104,14 @@ body {
 /* ----- Fonts ----- */
 
 h2 {
-    font-family: 'Lato';
     text-transform: uppercase;
     font-size: 1em;
     letter-spacing: 2px;
 }
 
 p {
-    font-family: 'Heuristica';
     font-size: 1em;
+    line-height: 1.4;
 }
 
 /* ----- Header ----- */
@@ -151,6 +151,25 @@ button {
 
 .sound-3 {
     background: rgb(223, 117, 20); /* this is an orange */
+}
+
+.datafield, .label { 
+    display: inline-block;
+    width: 200px;
+    background: #f0f0f0;
+    border: 1px solid #e0e0e0; 
+    text-align:right; 
+    line-height: 25px;
+    height: 25px;
+    border-radius: 0 5px 5px 0;
+    padding: 3px 5px;
+    margin-bottom: 5px;
+}
+
+.label { 
+    width: auto; 
+    border-radius: 5px 0 0 5px;
+    border-right: 0;
 }
 
 audio { clear: left; display: block; margin: 20px 0; }
