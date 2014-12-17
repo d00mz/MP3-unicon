@@ -98,37 +98,42 @@ $(document).on('click', '.sound-3', function(){
 // ACCELEROMETER --------------------------------
 
 var x = 0, y = 0,
-    vx = 0, vy = 0,
-  ax = 0, ay = 0;
+vx = 0, vy = 0,
+ax = 0, ay = 0;
 
 if (window.DeviceMotionEvent != undefined) {
-  window.ondevicemotion = function(e) {
-    $(".accelerationGravityX").html(parseFloat(e.accelerationIncludingGravity.x).toFixed(8));
-    $(".accelerationGravityY").html(parseFloat(e.accelerationIncludingGravity.y).toFixed(8));
-    $(".accelerationGravityZ").html(parseFloat(e.accelerationIncludingGravity.z).toFixed(8));
+	window.ondevicemotion = function(e) {
+		$(".accelerationGravityX").html(parseFloat(e.accelerationIncludingGravity.x).toFixed(8));
+		$(".accelerationGravityY").html(parseFloat(e.accelerationIncludingGravity.y).toFixed(8));
+		$(".accelerationGravityZ").html(parseFloat(e.accelerationIncludingGravity.z).toFixed(8));
 
-    if(typeof e.accelerationGravity !== typeof undefined){
-        $(".accelerationX").html(parseFloat(e.accelerationGravity.x).toFixed(8));
-        $(".accelerationY").html(parseFloat(e.accelerationGravity.y).toFixed(8));
-        $(".accelerationZ").html(parseFloat(e.accelerationGravity.z).toFixed(8));
-    }
+		if(typeof e.accelerationGravity !== typeof undefined){
+			$(".accelerationX").html(parseFloat(e.acceleration.x).toFixed(8));
+			$(".accelerationY").html(parseFloat(e.acceleration.y).toFixed(8));
+			$(".accelerationZ").html(parseFloat(e.acceleration.z).toFixed(8));
+		}
 
-    if ( e.rotationRate ) {
-      $(".rotationAlpha").html(parseFloat(e.rotationRate.alpha).toFixed(8));
-      $(".rotationBeta").html(parseFloat(e.rotationRate.beta).toFixed(8));
-      $(".rotationGamma").html(parseFloat(e.rotationRate.gamma).toFixed(8));
-    }   
-    
-    if($('.eventData').length == 0){
-      var $eventData = $('<div class="eventData col12"/>');
-      $eventData.appendTo('div.innerWrap');
+		if ( e.rotationRate ) {
+			$(".rotationAlpha").html(parseFloat(e.rotationRate.alpha).toFixed(8));
+			$(".rotationBeta").html(parseFloat(e.rotationRate.beta).toFixed(8));
+			$(".rotationGamma").html(parseFloat(e.rotationRate.gamma).toFixed(8));
+		}   
 
-      var data = '<h2>ondevicemotion event data</h2>';
-      for(var item in event){
-        data += item + ' [' + typeof event[item] + '] <br>';
-      }
-      $eventData.html(data);
+		if($('.eventData').length == 0){
+			var $eventData = $('<div class="eventData col12"/>');
+			$eventData.appendTo('div.innerWrap');
 
-    }
-  }
+			var data = '<h2>ondevicemotion event data</h2>';
+			for(var item in event){
+				data += item + ' [' + typeof event[item] + '] <br>';
+				if(typeof event[item] === 'object'){
+					for(var innerItem in event[item]){
+						data += '-> ' + innerItem + ' [' + typeof event[item][innerItem] + '] <br>';
+					}
+				}
+			}
+			$eventData.html(data);
+
+		}
+	}
 } 
