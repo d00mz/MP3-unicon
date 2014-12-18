@@ -89,7 +89,11 @@ $(document).on('click', '.sound-2', function(){
 });
 
 $(document).on('click', '.sound-3', function(){
-  sources[2].start(0);
+  if(typeof sources[2].noteOn !== 'undefined'){
+    sources[2].noteOn(0);
+  } else {
+    sources[2].start(0);
+  }
 });
 
 
@@ -107,7 +111,7 @@ if (window.DeviceMotionEvent != undefined) {
 		$(".accelerationGravityY").html(parseFloat(e.accelerationIncludingGravity.y).toFixed(8));
 		$(".accelerationGravityZ").html(parseFloat(e.accelerationIncludingGravity.z).toFixed(8));
 
-		if(typeof e.accelerationGravity !== typeof undefined){
+		if(typeof e.acceleration !== typeof undefined){
 			$(".accelerationX").html(parseFloat(e.acceleration.x).toFixed(8));
 			$(".accelerationY").html(parseFloat(e.acceleration.y).toFixed(8));
 			$(".accelerationZ").html(parseFloat(e.acceleration.z).toFixed(8));
