@@ -1,25 +1,13 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
 var app = {
     // Application Constructor
     initialize: function() {
         this.bindEvents();
+		
+		window.AudioContext = window.AudioContext || window.webkitAudioContext;
+		context = new AudioContext();
+
+		this.getLocation(this.generateMap);
+
     },
     // Bind Event Listeners
     //
@@ -27,6 +15,9 @@ var app = {
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
+        $('.bufferResources').on('click',this.bufferResources);
+        $('.play').on('click',this.playback);
+        $('.updatePos').on('click',this.updateMarker);
     },
     // deviceready Event Handler
     //
@@ -45,7 +36,75 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
-    }
+    },
+    // Buffer soundfiles
+    bufferResources: function(event){
+
+		bufferLoader = new BufferLoader(context, [
+			'sounds/01.wav',
+			'sounds/02.wav',
+			'sounds/03.wav',
+		], app.bufferFinish);
+
+		bufferLoader.load();
+    },
+    bufferFinish: function(bufferList){	
+    	for(var i = 0; i<bufferList.length; i++){
+			sources[i] = context.createBufferSource();
+			sources[i].buffer = bufferList[i];
+			sources[i].connect(context.destination);
+    	}
+
+		console.log('finished Buffering');
+		$('.buffer').slideUp();
+		$('.playback').slideDown().removeClass('hide');
+    },
+    playback: function(event){
+    	var soundId = $(this).data('id');
+    	sources[soundId].start(0);
+    },
+
+    // Geolocation
+    getLocation: function(callback) {
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(callback);
+		}
+	},
+	generateMap: function(position){
+		var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);  
+
+		// Calling the constructor, thereby initializing the map  
+		var map = new google.maps.Map(document.getElementById('map'), {  
+			zoom: 15,
+			center: latlng,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		});  
+						
+		marker = new google.maps.Marker({
+			position: latlng, 
+			map: map
+		});
+
+	},
+    // Geolocation
+	setMarker: function(position){
+		console.log('setMarker');
+		console.log(position.coords.latitude + ' , ' +  position.coords.longitude);
+		var newPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+		marker.setPosition(newPosition);
+	},
+    updateMarker: function() {
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(app.setMarker);
+		}
+	}
+
 };
 
+// Init App
 app.initialize();
+
+// Global Vars
+var context;
+var bufferLoader;
+var sources = new Array();

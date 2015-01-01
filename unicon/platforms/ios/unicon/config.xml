@@ -28,4 +28,7 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
+    <feature name="Accelerometer">
+        <param name="ios-package" value="CDVAccelerometer" />
+    </feature>
 </widget>
