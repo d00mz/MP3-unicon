@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>howler.js example</title>
+</head>
+<body>
+  <button id="btn">Play</button>
+  <script src="http://www.javascriptoo.com/application/html/js/goldfire/howler.js/howler.min.js"></script>
+  <script>
+      var pong = new Howl({urls: ['http://www.javascriptoo.com/application/html/pong.wav']})
+      var test = setInterval( function(){pong.play();},2000);
+      document.getElementById('btn').onclick=function(){pong.play()}
+  </script>
+</body>
+</html>
+

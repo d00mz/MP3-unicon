@@ -97,7 +97,7 @@ $(document).on('click', '.sound-3', function(){
 });
 
 
-
+alert(typeof navigator.accelerometer);
 
 // ACCELEROMETER --------------------------------
 

@@ -194,6 +194,28 @@ button:hover { box-shadow: inset 0 2px 1px rgba(0,0,0,0.2);}
 
 .hide { display: none; }
 
+
+.loader { 
+    height: 7px; 
+    background: rgba(0,0,0,0.1);
+    padding: 1px;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+    .loader .inner {
+        width: 0;
+        height: 5px;
+        background: rgb(28, 184, 65);   
+        -webkit-transition: width 9.134125s ease-in-out;
+        -moz-transition: width 9.134125s ease-in-out;
+        -o-transition: width 9.134125s ease-in-out;
+        transition: width 9.134125s ease-in-out;
+    }
+
+    .loader.start .inner { width: 100%;}
+
 @media only screen and (max-width: 900px) {
     .col6, .col7, .col8, .col9, .col10, .col11 {
         width: 96%;
