@@ -31,23 +31,23 @@
         <div class="innerWrap">
             <div class="col12">
                 <div class="buffer">
-                    <button class="bufferResources bg-green">Start Buffer</button>
+                    <button class="bufferResources bg-green">Timer Starten</button>
                 </div>
-				<div class="playback hide">
-					<button class="play" data-id="0">Sound 1</button>
-					<button class="play" data-id="1">Sound 2</button>
-					<button class="play" data-id="2">Sound 3</button>
-				</div>
             </div>
-            <div class="col12" id="map">
+            <div class="fill loader"><div class="inner"></div></div>
+            <div class="col12 audiosprite">
+                <audio src="sounds/guitar_sprite.wav" controls></audio>
+                <audio src="sounds/drum_sprite.wav" controls></audio>
+                <audio src="sounds/bass_sprite.wav" controls></audio>
             </div>
-            <div class="col12">
-				<button class="updatePos">Update Position</button>
+            <div class="shakeCounter col12">
+                <h2 class="shake">Shakes: <span>0</span></h2>
+                <h2 class="interval">Shakes pro Intervall:<span></span></h2>
             </div>
         </div>
         <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
         <script type="text/javascript" src="js/plugins.js"></script>
+        <script type="text/javascript" src="js/bufferloader.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
     </body>
 </html>

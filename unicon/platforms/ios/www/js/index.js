@@ -6,7 +6,28 @@ var app = {
 		window.AudioContext = window.AudioContext || window.webkitAudioContext;
 		context = new AudioContext();
 
-		this.getLocation(this.generateMap);
+		console.log(context);
+
+        myShakeEvent.start();
+        window.addEventListener('shake', this.shakeHandler, false);
+
+        /*try{
+            var $audio = $('audio');
+            var mediaController = new MediaController();
+
+            $audio[0].controller = mediaController;
+
+            alert(mediaController);
+            alert($audio[0].controller);
+
+            $audio[0].controller.play();
+
+            for(key in $audio[0].controller){
+                $('body').append('<strong>'+key  + '</strong> type: ' + typeof $audio[0].controller[key] + '<br>');
+            }
+        } catch (e){
+            alert(e);
+        }*/
 
     },
     // Bind Event Listeners
@@ -15,9 +36,9 @@ var app = {
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
+        $('audio').on('click',this.bufferResources);
         $('.bufferResources').on('click',this.bufferResources);
         $('.play').on('click',this.playback);
-        $('.updatePos').on('click',this.updateMarker);
     },
     // deviceready Event Handler
     //
@@ -35,76 +56,137 @@ var app = {
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
 
-        console.log('Received Event: ' + id);
     },
     // Buffer soundfiles
     bufferResources: function(event){
 
 		bufferLoader = new BufferLoader(context, [
-			'sounds/01.wav',
-			'sounds/02.wav',
-			'sounds/03.wav',
+			'sounds/guitar_sprite.wav',
 		], app.bufferFinish);
 
-		bufferLoader.load();
+        bufferLoader.load();
+        console.log(bufferLoader);
+
     },
     bufferFinish: function(bufferList){	
-    	for(var i = 0; i<bufferList.length; i++){
+		console.log('finished Buffering');
+        alert('setting Timer');
+        $('.loader').addClass('start');
+
+    	/*for(var i = 0; i<bufferList.length; i++){
 			sources[i] = context.createBufferSource();
 			sources[i].buffer = bufferList[i];
 			sources[i].connect(context.destination);
-    	}
+			console.log(bufferList[0]);
+			myShakeInterval = parseInt(spriteSettings.duration);
+			//sources[i] = bufferList[i];
+    	}*/
 
-		console.log('finished Buffering');
-		$('.buffer').slideUp();
-		$('.playback').slideDown().removeClass('hide');
+		console.log('timer: ' + spriteSettings.duration);
+
+		//app.shakeIntervalHandler();
+        clearInterval(myShakeTimer);
+    	myShakeTimer = setInterval(function(){ console.log('interval'); app.shakeIntervalHandler(); }, spriteSettings.duration*1000);
     },
     playback: function(event){
+
     	var soundId = $(this).data('id');
-    	sources[soundId].start(0);
+    	//sources[soundId].start(0);
+    	//
+    	var startTime = context.currentTime;
+    	app.playSound(bufferLoader.bufferList[soundId], startTime);
+        console.log(bufferLoader.bufferList[soundId]);
     },
+    shakeHandler: function(){
+        shakeCounter += 1;
+        $('.shakeCounter h2.shake span').html(shakeCounter);
+    },
+    shakeIntervalHandler: function(){
+    	console.log('shakeIntervalHandler');
+        $('.shakeCounter h2.interval span').html(shakeCounter);
 
-    // Geolocation
-    getLocation: function(callback) {
-		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(callback);
+		var id = '';
+        if(shakeCounter <= 3){
+        	id = 0;
+        } else if(shakeCounter > 3 && shakeCounter <= 6){
+        	id = 1;
+        } else {
+        	id = 2;
+        }
+        console.log('shakes during interval: ' + shakeCounter);
+
+		console.log('starting sound: ' + id + '('+id * spriteSettings.duration+')');
+
+
+        shakeCounter = 0;
+        $('.shakeCounter h2.shake span').html(shakeCounter);
+
+        // Audio element with audio sprite
+        var startTime = id * spriteSettings.duration;
+        $('audio:eq(0)')[0].currentTime = startTime;
+        $('audio:eq(0)')[0].play();
+
+        id = Math.floor(Math.random() * 2) + 1;
+        var startTime = id * spriteSettings.duration;
+        $('audio:eq(1)')[0].currentTime = startTime;
+        $('audio:eq(1)')[0].play();
+
+
+        id = Math.floor(Math.random() * 2) + 1;
+        var startTime = id * spriteSettings.duration;
+        $('audio:eq(2)')[0].currentTime = startTime;
+        $('audio:eq(2)')[0].play();
+
+        // without audio element
+        /*var startTime = context.currentTime - ( id * spriteSettings.duration);
+    	app.playSound(bufferLoader.bufferList[id], startTime);*/
+    },
+	playSound: function(buffer, time) {
+		console.log(buffer);
+		console.log(time);
+
+
+		if(typeof playing.guitar != 'undefined') {
+			console.log(playing);
+			playing.guitar.stop();
 		}
-	},
-	generateMap: function(position){
-		var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);  
 
-		// Calling the constructor, thereby initializing the map  
-		var map = new google.maps.Map(document.getElementById('map'), {  
-			zoom: 15,
-			center: latlng,
-			mapTypeId: google.maps.MapTypeId.ROADMAP
-		});  
-						
-		marker = new google.maps.Marker({
-			position: latlng, 
-			map: map
-		});
+		var source = context.createBufferSource();
+		source.buffer = buffer;
+		source.connect(context.destination);
+		source.start(time);
 
-	},
-    // Geolocation
-	setMarker: function(position){
-		console.log('setMarker');
-		console.log(position.coords.latitude + ' , ' +  position.coords.longitude);
-		var newPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-		marker.setPosition(newPosition);
-	},
-    updateMarker: function() {
-		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(app.setMarker);
-		}
+		playing.guitar = source;
 	}
 
 };
 
+
+//create a new instance of shake.js.
+var myShakeEvent = new Shake({
+    threshold: 1 // optional shake strength threshold
+});
+
+var spriteSettings = {
+    duration: 9.134125,
+    amount: 3
+};
+
+
+var myShakeTimer,
+    myShakeInterval;
+var shakeCounter = 0;
+
+
+// Global Vars
+var context,
+	bufferLoader;
+
+var sources = new Array();
+var playing = {};
+
 // Init App
 app.initialize();
 
-// Global Vars
-var context;
-var bufferLoader;
-var sources = new Array();
+
+
