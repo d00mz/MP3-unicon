@@ -11,24 +11,6 @@ var app = {
         myShakeEvent.start();
         window.addEventListener('shake', this.shakeHandler, false);
 
-        /*try{
-            var $audio = $('audio');
-            var mediaController = new MediaController();
-
-            $audio[0].controller = mediaController;
-
-            alert(mediaController);
-            alert($audio[0].controller);
-
-            $audio[0].controller.play();
-
-            for(key in $audio[0].controller){
-                $('body').append('<strong>'+key  + '</strong> type: ' + typeof $audio[0].controller[key] + '<br>');
-            }
-        } catch (e){
-            alert(e);
-        }*/
-
     },
     // Bind Event Listeners
     //
