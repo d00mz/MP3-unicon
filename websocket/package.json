@@ -1,0 +1,9 @@
+{
+  "name": "unicon-websocket",
+  "version": "0.0.1",
+  "description": "unicon websocket server",
+  "dependencies": {
+    "express": "^4.10.2",
+    "socket.io": "^1.3.2"
+  }
+}

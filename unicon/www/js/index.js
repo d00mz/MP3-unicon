@@ -217,7 +217,7 @@ app.initialize();
 
 
 /* -------------- WEBSOCKET ------------------ */
-/*var socket = new io.connect('http://kaz.kochab.uberspace.de/MP3-Socket/:64182'); 
+var socket = new io.connect('http://kaz.kochab.uberspace.de:64182'); 
 
 // Add a connect listener
 socket.on('connect',function() {
@@ -250,7 +250,7 @@ function sendMessageToServer(msg) {
 	socket.emit('new message', {
 		message: msg + 'second'
 	});
-};*/
+};
 
 
 
@@ -258,8 +258,8 @@ function sendMessageToServer(msg) {
 /* ------------------ GEOLOCATION ----------------- */
 function onGeoSuccess(position) {
 
-	jam.instruments[0].geo[0] = positon.coords.latitude;
-	jam.instruments[0].geo[1] = positon.coords.longitude;
+	jam.instruments[0].geo[0] = position.coords.latitude;
+	jam.instruments[0].geo[1] = position.coords.longitude;
 
 	alert(jam.instruments[0].geo);
 }
@@ -279,6 +279,10 @@ function onGeoError(error) {
           'Heading: '           + position.coords.heading           + '\n' +
           'Speed: '             + position.coords.speed             + '\n' +
           'Timestamp: '         + position.timestamp                + '\n');
+
+
+    jam.instruments[0].geo[0] = positon.coords.latitude;
+    jam.instruments[0].geo[1] = positon.coords.longitude;
 };
 
 // onError Callback receives a PositionError object
