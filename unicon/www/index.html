@@ -12,18 +12,19 @@
 	</head>
 	<body>
 		<div class="innerWrap">
-
 		</div>
 		<script type="text/javascript" src="cordova.js"></script>
 		<script type="text/javascript" src="http://kaz.kochab.uberspace.de/MP3-unicon/unicon/www/js/plugins.js"></script>
 		<script type="text/javascript">
 		$(document).ready(function(){
 			$('.innerWrap').load( "http://kaz.kochab.uberspace.de/MP3-unicon/unicon/www/player.html", function(e) {
+				console.log(e);
 				console.log('content loaded');
 			});
 		});
 		</script>
 		<script type="text/javascript" src="http://kaz.kochab.uberspace.de/MP3-unicon/unicon/www/js/bufferloader.js"></script>
+		<script type="text/javascript" src="http://kaz.kochab.uberspace.de/MP3-unicon/unicon/www/js/socket.io.js"></script>
 		<script type="text/javascript" src="http://kaz.kochab.uberspace.de/MP3-unicon/unicon/www/js/index.js"></script>
 	</body>
 </html>
