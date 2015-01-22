@@ -1,0 +1,27 @@
+<ion-view view-title="Browse">
+  <ion-content>
+
+	<ion-slide-box on-slide-changed="slideHasChanged($index)">
+	<ion-slide ng-repeat="genre in genres">
+		<div class="genreTitle">
+			<h2 class="caption">{{genre.title}}</h2>
+			<img src="img/{{genre.image}}" alt="{{genre.title}}">
+		</div>
+		<div class="list">
+				<div ng-repeat="jamGroup in genre.jams">
+					<div class="item item-divider">
+						{{jamGroup.divider}}
+					</div> 
+					<div ng-repeat="jamItem in jamGroup.list">
+					<div class="item">
+						{{jamItem.name}}
+					</div> 
+				</div> 
+				</div> 
+		</div>
+
+	</ion-slide>
+	</ion-slide-box>
+
+  </ion-content>
+</ion-view>
