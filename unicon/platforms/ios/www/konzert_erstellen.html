@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="msapplication-tap-highlight" content="no" />
+		<!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
+		<title>unicon</title>
+
+	</head>
+	<body>
+		<div class="innerWrap">
+			<form method="get" id="test" data-ajax="true" action="http://kaz.kochab.uberspace.de/MP3/api/jam/create">
+				<label for="name">Name:</label> <input type="text" placeholder="Enter jamname" id="name" name="name" required><br>
+
+<a href="#" class="btn location">Locate me</a>
+				<label for="lat">lat:</label> 
+				<input type="text" name="lat" placeholder="Enter lat" id="lat" required/><br>
+
+				<label for="lng">lng:</label> 
+				<input type="text" name="lng" placeholder="Enter lng" id="lng" required /><br>
+
+				<label for="genre_id">genre_id:</label> 
+				<input type="number" name="genre_id" placeholder="Enter lng" id="genre_id" required /><br>
+
+				<label for="max_distance">max_distance:</label> 
+				<input type="number" name="max_distance" placeholder="Enter max_distance" id="max_distance" required/><br>
+
+				<label for="max_user">max_user:</label> 
+				<input type="number" name="max_user" placeholder="Enter max_user" id="max_user" required/><br>
+
+				<label for="startDate">datetime:</label> 
+			<input type="datetime-local"name="startDate" id="startDate" required/><br>
+
+				<label for="description">description:</label>
+				<textarea placeholder="description"name="description" id="description" required></textarea><br>
+
+				<input type="submit" value="Send jam">
+			</form>
+			<div id="returnData"></div>
+		</div>
+		<script type="text/javascript" src="cordova.js"></script>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript">
+$.fn.serializeObject=function(){"use strict";var a={},b=function(b,c){var d=a[c.name];"undefined"!=typeof d&&d!==null?$.isArray(d)?d.push(c.value):a[c.name]=[d,c.value]:a[c.name]=c.value};return $.each(this.serializeArray(),b),a};
+
+			function locateMe() {
+			    if (navigator.geolocation) {
+			        navigator.geolocation.getCurrentPosition(insertPosition);
+			    } else { 
+			        alert("Geolocation is not supported by this browser.");
+			    }
+			}
+
+			function insertPosition(position) {
+				$('#lat').attr('value', position.coords.latitude);
+				$('#lng').attr('value', position.coords.longitude);
+			}
+			
+			$(document).ready(function(){
+				$('a.location').click(function(e){
+					locateMe();
+
+					e.preventDefault();
+				});
+
+				$("form[data-ajax=true]").submit(function(e) {
+					console.log($(this));
+					console.log($(this).serializeObject());
+
+					var form_data = $(this).serializeObject();
+					var form_url = $(this).attr("action");
+					var form_method = $(this).attr("method").toUpperCase();
+		  		
+			  		$.ajax({
+						type: "POST",
+						dataType: "html",
+						url: form_url,
+						data: {
+							returnFormat: "plain",
+							formData: JSON.stringify(form_data),
+						},
+						success: function(data){
+							alert('success');
+							console.log(data);
+							$('#returnData').html(data);
+						}
+					});
+					e.preventDefault();
+				});
+
+			});
+		</script>
+		<script type="text/javascript" src="http://kaz.kochab.uberspace.de/MP3-unicon/unicon/www/js/bufferloader.js"></script>
+		<script type="text/javascript" src="http://kaz.kochab.uberspace.de/MP3-unicon/unicon/www/js/socket.io.js"></script>
+		
+	</body>
+</html>

@@ -11,6 +11,7 @@ var app = {
         myShakeEvent.start();
         window.addEventListener('shake', this.shakeHandler, false);
 
+
     },
     // Bind Event Listeners
     //
@@ -18,9 +19,14 @@ var app = {
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
-        $('audio').on('click',this.bufferResources);
+        /*$('audio').on('click',this.bufferResources);
         $('.bufferResources').on('click',this.bufferResources);
-        $('.play').on('click',this.playback);
+        $('.play').on('click',this.playback);*/
+        $( document ).on( "click", "audio", this.bufferResources);
+        $( document ).on( "click", ".bufferResources", this.bufferResources);
+        $( document ).on( "click", ".play", this.playback);
+
+
     },
     // deviceready Event Handler
     //
@@ -41,6 +47,7 @@ var app = {
     },
     // Buffer soundfiles
     bufferResources: function(event){
+                locateMe();
 
 		bufferLoader = new BufferLoader(context, [
 			'sounds/guitar_sprite.wav',
@@ -64,7 +71,7 @@ var app = {
 			//sources[i] = bufferList[i];
     	}*/
 
-		console.log('timer: ' + spriteSettings.duration);
+		/*console.log('timer: ' + spriteSettings.duration);*/
 
 		//app.shakeIntervalHandler();
         clearInterval(myShakeTimer);
@@ -108,16 +115,18 @@ var app = {
         $('audio:eq(0)')[0].currentTime = startTime;
         $('audio:eq(0)')[0].play();
 
-        id = Math.floor(Math.random() * 2) + 1;
+        id = Math.floor(Math.random() * 3) + 1;
         var startTime = id * spriteSettings.duration;
         $('audio:eq(1)')[0].currentTime = startTime;
         $('audio:eq(1)')[0].play();
+        $('audio:eq(1)')[0].volume = Math.random().toFixed(2);
 
 
         id = Math.floor(Math.random() * 2) + 1;
         var startTime = id * spriteSettings.duration;
         $('audio:eq(2)')[0].currentTime = startTime;
         $('audio:eq(2)')[0].play();
+        $('audio:eq(2)')[0].volume = Math.random().toFixed(2);
 
         // without audio element
         /*var startTime = context.currentTime - ( id * spriteSettings.duration);
@@ -167,8 +176,119 @@ var context,
 var sources = new Array();
 var playing = {};
 
+
+var jam = {
+	name: 'Name des Jams',
+	startTime: Date.now(),
+	duration: 15,
+	geo: [1,2],
+	instruments: [{
+		name: 'guitar',
+		song: 'sounds/guitar_sprite.wav',
+		loopLength: 4.131441,
+		geo: [1,2],
+		volume: 1,
+		startTime: 0,
+		active: false
+	},{
+		name: 'drum',
+		song: 'drum_sprite.wav',
+		loopLength: 4.131441,
+		geo: [1,2],
+		volume: 1,
+		startTime: 0,
+		active: false
+	},{
+		name: 'bass',
+		song: 'bass_sprite.wav',
+		loopLength: 4.131441,
+		geo: [1,2],
+		volume: 1,
+		startTime: 0,
+		active: false
+	}]
+};
+
 // Init App
 app.initialize();
 
 
 
+
+
+/* -------------- WEBSOCKET ------------------ */
+/*var socket = new io.connect('http://kaz.kochab.uberspace.de/MP3-Socket/:64182'); 
+
+// Add a connect listener
+socket.on('connect',function() {
+	console.log('Client has connected to the server!');
+	socket.emit('new message', {
+		message: 'gude bin jetzt auf dem server'
+	});
+});
+
+ socket.on('news', function (data) {
+ 	console.log('---- news ------');
+    console.log(data);
+  });
+
+
+// Add a connect listener
+socket.on('message',function(data) {
+	console.log('Received a message from the server!',data);
+});
+
+
+// Add a disconnect listener
+socket.on('disconnect',function() {
+	console.log('The client has disconnected!');
+});
+
+// Sends a message to the server via sockets
+function sendMessageToServer(msg) {
+	socket.emit('new message', msg);
+	socket.emit('new message', {
+		message: msg + 'second'
+	});
+};*/
+
+
+
+
+/* ------------------ GEOLOCATION ----------------- */
+function onGeoSuccess(position) {
+
+	jam.instruments[0].geo[0] = positon.coords.latitude;
+	jam.instruments[0].geo[1] = positon.coords.longitude;
+
+	alert(jam.instruments[0].geo);
+}
+
+function onGeoError(error) {
+    alert('code: '    + error.code    + '\n' +
+          'message: ' + error.message + '\n');
+}
+
+
+ var onSuccess = function(position) {
+    alert('Latitude: '          + position.coords.latitude          + '\n' +
+          'Longitude: '         + position.coords.longitude         + '\n' +
+          'Altitude: '          + position.coords.altitude          + '\n' +
+          'Accuracy: '          + position.coords.accuracy          + '\n' +
+          'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+          'Heading: '           + position.coords.heading           + '\n' +
+          'Speed: '             + position.coords.speed             + '\n' +
+          'Timestamp: '         + position.timestamp                + '\n');
+};
+
+// onError Callback receives a PositionError object
+//
+function onError(error) {
+    alert('code: '    + error.code    + '\n' +
+          'message: ' + error.message + '\n');
+}
+
+$(document).ready(function(){
+
+    navigator.geolocation.getCurrentPosition(onSuccess, onError);
+});
