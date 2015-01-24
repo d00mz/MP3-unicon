@@ -2,31 +2,54 @@
   <ion-content>
 
   <ion-slide-box>
-  
     <ion-slide class="create">
         <label for="name">Titel eingeben</label> 
-        <input type="text" name="name" id="name" maxlength="12"/>
+        <input type="text" name="name" id="name" maxlength="12" ng-model="jamName"/>
     </ion-slide>
+
 
     <ion-slide class="create">
         <label for="description">Beschreibung:</label> 
-        <textarea type="text" name="description" rows="3" cols="3" id="description" maxlength="30" />
+        <textarea type="text" name="description" rows="3" cols="3" id="description" maxlength="30" ng-model="jamDescription"/>
         </textarea>
     </ion-slide>
 
+
     <ion-slide class="create">
-        <label for="startDate">Datum/Uhrzeit:</label> 
-        <input type="datetime-local"name="startDate" id="startDate" />
-    </ion-slide>  
+        <label for="genre">Genre:</label> 
+    </ion-slide>
+
+
+    <ion-slide class="create">
+        <label for="membersLength">Anzahl/Dauer:</label> 
+        <input type="text" name="membersLength" id="memberLength" ng-model="jamMemberLength"/>
+    </ion-slide>
+
 
     <ion-slide class="create">
         <label for="place">Ort:</label> 
-        <input type="text"name="place" id="place" />  
+        <input type="text"name="place" id="place" ng-model="jamPlace"/>  
           <div id="map-canvas">
 
           </div>
-  </ion-slide>
+    </ion-slide>
 
+    <ion-slide class="create">
+      <label for="startDate">Datum/Uhrzeit:</label> 
+        <!-- <input type="datetime-local" name="startDate" id="startDate" ng-model="jamStartDate" /> -->
+        <input type="datetime-local" name="startDate" id="startDate" ng-model="jamStartDate" />
+    </ion-slide>  
+    
+
+    <ion-slide class="create">
+          <h1>Overview</h1>
+          <h2>{{jamName}}</h2>
+          <h2>{{jamDescription}}</h2>
+          <h2>{{jamStartDate}}</h2>
+          <h2>{{jamPlace}}</h2>
+          <h2>{{jamMemberLength}}</h2>
+
+    </ion-slide>
   </ion-slide-box>
 
   </ion-content>
