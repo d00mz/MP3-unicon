@@ -12,11 +12,11 @@
 					<div class="item item-divider">
 						{{jamGroup.divider}}
 					</div> 
-					<div ng-repeat="jamItem in jamGroup.list">
-					<div class="item">
-						{{jamItem.name}}
+					<div ng-repeat="jamItem in jamGroup.list" href="#/app/browse/{{jamItem.id}}">
+						<div class="item">
+							{{jamItem.name}}
+						</div> 
 					</div> 
-				</div> 
 				</div> 
 		</div>
 
