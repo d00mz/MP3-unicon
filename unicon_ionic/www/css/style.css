@@ -275,7 +275,6 @@ button:hover { box-shadow: inset 0 2px 1px rgba(0,0,0,0.2);}
     outline:none;
  }
 
- 
 
 #jamDetailList h1{
     font-family: 'Permanent Marker', cursive;
@@ -297,9 +296,10 @@ button:hover { box-shadow: inset 0 2px 1px rgba(0,0,0,0.2);}
 
  #jamDetailName {
     position:absolute;
-    top: -260px;
+  /*  top: -260px;*/
+    top:40px;
     z-index: 10;
-    left: -110px; 
+    left: -60px; 
 }
 
 /*FIRST ROW*/
@@ -307,7 +307,7 @@ button:hover { box-shadow: inset 0 2px 1px rgba(0,0,0,0.2);}
 #jamDetailDescription{
     position:absolute;
     top: -90px;
-    left: -110px;
+    left: -60px;
     width: 340px;
 }
 
@@ -317,13 +317,13 @@ button:hover { box-shadow: inset 0 2px 1px rgba(0,0,0,0.2);}
     position: absolute;
     top:0px;
     font-size:50px;
-    left: -110px; 
+    left: -60px; 
 }
 
 #jamDetailStartDate{
     position:absolute;
     top: 10px;
-    left: -50px;
+    left: 0px;
 }
 
 /*THIRD ROW*/
@@ -332,28 +332,28 @@ button:hover { box-shadow: inset 0 2px 1px rgba(0,0,0,0.2);}
     position: absolute;
     top:70px;
     font-size:40px;
-    left: -110px; 
+    left: -60px; 
 }
 
 #jamDetailLength{
     position: absolute;
     top:75px;
     font-size:40px;
-    left: -50px; 
+    left: 0px; 
 }
 
 #jamDetailList, .icon-user{
     position: absolute;
     top:65px;
     font-size:50px;
-    left: 100px; 
+    left: 150px; 
 }
 
 #jamDetailMember{
     position: absolute;
     top:75px;
     font-size:40px;
-    left: 160px; 
+    left: 220px; 
 }
 
 /*FOURTH ROW*/

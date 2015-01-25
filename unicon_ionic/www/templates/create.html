@@ -21,18 +21,17 @@
 
 
     <ion-slide class="create">
-<<<<<<< Updated upstream
-        <label for="membersLength">Anzahl/Dauer:</label> 
-        <input type="text" name="membersLength" id="memberLength" ng-model="jam.max_user"/>
-=======
+
         <label for="members">Anzahl Jamer:</label> 
-        <input type="text" name="members" id="member" ng-model="jamMember"/>
->>>>>>> Stashed changes
+        <input type="text" name="members" id="member" ng-model="jam.max_user"/>
+
     </ion-slide>
 
     <ion-slide class="create">
+
         <label for="length">Dauer:</label> 
-        <input type="text" name="length" id="length" ng-model="jamLength"/>
+        <input type="text" name="length" id="length" ng-model="jam.length"/>
+    
     </ion-slide>
 
 
@@ -45,37 +44,37 @@
     </ion-slide> -->
 
     <ion-slide class="create">
+
       <label for="startDate">Datum/Uhrzeit:</label> 
-        <!-- <input type="datetime-local" name="startDate" id="startDate" ng-model="jamStartDate" /> -->
-<<<<<<< Updated upstream
-        <input type="datetime-local" name="startDate" id="startDate" ng-model="jam.startDate" />
-=======
-        <input type="text" name="startDate" id="startDate" ng-model="jamStartDate" />
->>>>>>> Stashed changes
+
+        <!-- <input type="datetime-local" name="startDate" id="startDate" ng-model="jam.startDate" /> -->
+        <input type="text" name="startDate" id="startDate" ng-model="jam.startDate" />
+
     </ion-slide>  
     
 
     <ion-slide class="create">
-<<<<<<< Updated upstream
-          <h1>Overview</h1>
+
+<!--           <h1>Overview</h1>
           <h2>{{jam.name}}</h2>
           <h2>{{jam.description}}</h2>
           <h2>{{jam.startDate}}</h2>
           <h2>{{jam.place}}</h2>
-          <h2>{{jam.max_user}}</h2>
-=======
+          <h2>{{jam.max_user}}</h2> -->
 
-    <img src="img/genreDetailansicht.png" class="genreImages">
+
+      <img src="img/genreDetailansicht.png" class="genreImages">
+
         <div id="jamDetailList">
 
-          <h1 id="jamDetailName">{{jamName}}</h1>
-          <h2 id="jamDetailDescription">{{jamDescription}}</h2>
+          <h1 id="jamDetailName">{{jam.name}}</h1>
+          <h2 id="jamDetailDescription">{{jam.description}}</h2>
           <span class="icon-calendar"></span>
-          <h2 id="jamDetailStartDate">{{jamStartDate}}</h2>
+          <h2 id="jamDetailStartDate">{{jam.startDate}}</h2>
           <span class="icon-clock"></span>
-          <h2 id="jamDetailLength">{{jamLength}}</h2>
+          <h2 id="jamDetailLength">{{jam.length}}</h2>
           <span class="icon-user"></span>
-          <h2 id="jamDetailMember">{{jamMember}}</h2>
+          <h2 id="jamDetailMember">{{jam.max_user}}</h2>
             <!-- <div id="placeField">
               <span class="icon-pin"></span>
               <h2 id="jamDetailPlace">{{jamPlace}}</h2>
@@ -84,7 +83,7 @@
 
       </div>
 
->>>>>>> Stashed changes
+
 
     </ion-slide>
   </ion-slide-box>
