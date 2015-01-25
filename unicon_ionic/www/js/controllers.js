@@ -129,4 +129,10 @@ angular.module('starter.controllers', [])
 
 
 .controller('CreateCtrl', function($scope, $stateParams) {
+	$scope.master = {};
+
+      $scope.update = function(jam) {
+        $scope.master = angular.copy(jam);
+      };
+
 });

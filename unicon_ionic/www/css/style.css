@@ -64,7 +64,7 @@ body {
 }
 
 /* ----- cols & rows & spaces ----- */
-.innerWrap {
+/*.innerWrap {
     position:relative;
     margin: 0px auto;
     max-width: 1300px;
@@ -111,7 +111,7 @@ body {
 
 .fill { width: 100%; -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
-    box-sizing: border-box;}
+    box-sizing: border-box;}*/
 
 
 /* ----- Fonts ----- */
@@ -248,7 +248,7 @@ button:hover { box-shadow: inset 0 2px 1px rgba(0,0,0,0.2);}
     border-bottom: 2px solid #e16453;
     background:transparent;
     color: #ffffff;
-    width:225px;
+    width:95%;
     height:50px;
  }
 
@@ -266,7 +266,7 @@ button:hover { box-shadow: inset 0 2px 1px rgba(0,0,0,0.2);}
     border-bottom: 2px solid #e16453;
     background:transparent;
     color: #ffffff;
-    width:225px;
+    width:95%;
     height:120px;
     line-height: 40px;
  }

@@ -4,13 +4,13 @@
   <ion-slide-box>
     <ion-slide class="create">
         <label for="name">Titel eingeben</label> 
-        <input type="text" name="name" id="name" maxlength="12" ng-model="jamName"/>
+        <input type="text" name="name" id="name" maxlength="12" ng-model="jam.name"/>
     </ion-slide>
 
 
     <ion-slide class="create">
         <label for="description">Beschreibung:</label> 
-        <textarea type="text" name="description" rows="3" cols="3" id="description" maxlength="30" ng-model="jamDescription"/>
+        <textarea type="text" name="description" rows="3" cols="3" id="description" maxlength="120" ng-model="jam.description"/>
         </textarea>
     </ion-slide>
 
@@ -22,13 +22,13 @@
 
     <ion-slide class="create">
         <label for="membersLength">Anzahl/Dauer:</label> 
-        <input type="text" name="membersLength" id="memberLength" ng-model="jamMemberLength"/>
+        <input type="text" name="membersLength" id="memberLength" ng-model="jam.max_user"/>
     </ion-slide>
 
 
     <ion-slide class="create">
         <label for="place">Ort:</label> 
-        <input type="text"name="place" id="place" ng-model="jamPlace"/>  
+        <input type="text"name="place" id="place" ng-model="jam.place"/>  
           <div id="map-canvas">
 
           </div>
@@ -37,17 +37,17 @@
     <ion-slide class="create">
       <label for="startDate">Datum/Uhrzeit:</label> 
         <!-- <input type="datetime-local" name="startDate" id="startDate" ng-model="jamStartDate" /> -->
-        <input type="datetime-local" name="startDate" id="startDate" ng-model="jamStartDate" />
+        <input type="datetime-local" name="startDate" id="startDate" ng-model="jam.startDate" />
     </ion-slide>  
     
 
     <ion-slide class="create">
           <h1>Overview</h1>
-          <h2>{{jamName}}</h2>
-          <h2>{{jamDescription}}</h2>
-          <h2>{{jamStartDate}}</h2>
-          <h2>{{jamPlace}}</h2>
-          <h2>{{jamMemberLength}}</h2>
+          <h2>{{jam.name}}</h2>
+          <h2>{{jam.description}}</h2>
+          <h2>{{jam.startDate}}</h2>
+          <h2>{{jam.place}}</h2>
+          <h2>{{jam.max_user}}</h2>
 
     </ion-slide>
   </ion-slide-box>
