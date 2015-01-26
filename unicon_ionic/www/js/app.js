@@ -26,14 +26,14 @@ angular.module('starter', ['ionic', 'starter.controllers']).run(function($ionicP
 	.state('app', {
 		url: "/app",
 		abstract: true,
-		templateUrl: "templates/menu.html",
+		templateUrl: "http://kaz.kochab.uberspace.de/MP3-unicon/unicon_ionic/www/templates/menu.html",
 		controller: 'AppCtrl'
 	})
 
 	.state('app.profil', {
 		url: "/app",
 		abstract: true,
-		templateUrl: "templates/profil.html",
+		templateUrl: "http://kaz.kochab.uberspace.de/MP3-unicon/unicon_ionic/www/templates/profil.html",
 		controller: 'AppCtrl'
 	})
 
@@ -41,7 +41,7 @@ angular.module('starter', ['ionic', 'starter.controllers']).run(function($ionicP
 		url: "/browse",
 		views: {
 			'menuContent': {
-				templateUrl: "templates/browse.html",
+				templateUrl: "http://kaz.kochab.uberspace.de/MP3-unicon/unicon_ionic/www/templates/browse.html",
 				controller: 'BrowseCtrl'
 			}
 		}
@@ -51,7 +51,7 @@ angular.module('starter', ['ionic', 'starter.controllers']).run(function($ionicP
 		url: "/browse/:jamId",
 		views: {
 			'menuContent': {
-				templateUrl: "templates/detail.html",
+				templateUrl: "http://kaz.kochab.uberspace.de/MP3-unicon/unicon_ionic/www/templates/detail.html",
 				controller: 'JamdetailCtrl'
 			}
 		}
@@ -61,7 +61,7 @@ angular.module('starter', ['ionic', 'starter.controllers']).run(function($ionicP
 		url: "/create",
 		views: {
 			'menuContent': {
-			  templateUrl: "templates/create.html",
+			  templateUrl: "http://kaz.kochab.uberspace.de/MP3-unicon/unicon_ionic/www/templates/create.html",
 			  controller: 'CreateCtrl'
 			}
 		}
