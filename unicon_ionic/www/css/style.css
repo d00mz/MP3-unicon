@@ -182,7 +182,9 @@ header::after {
 
 }
 
-#map { height: 300px;}
+#map123 { height: 300px;
+        width:100%;
+        }
 
 audio { clear: left; display: block; margin: 20px 0; }
 

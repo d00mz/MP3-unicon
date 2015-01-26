@@ -1,6 +1,6 @@
 <ion-view view-title="create">
 	<ion-content>
-	<ion-slide-box>
+	<ion-slide-box on-slide-changed="slideHasChanged($index)">
 	  <ion-slide class="create">
 	      <label for="name">Titel eingeben</label> 
 	      <input type="text" name="name" id="name" maxlength="12" ng-model="jam.name"/>
@@ -49,9 +49,7 @@
 	  <ion-slide class="create">
 	      <label for="place">Ort:</label> 
 	      <input type="text"name="place" id="place" ng-model="jam.place"/>  
-	        <div id="map-canvas">
-
-	        </div>
+	        <div id="map123" data-tap-disabled="true" on-finish-render="initialize()"></div>
 	  </ion-slide>
 
 	  <ion-slide class="create">
