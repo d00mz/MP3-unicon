@@ -1,7 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $http, $rootScope) {
-
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $http, Auth) {
 	$scope.loginData = {};
 	$scope.userData = {};
 	$scope.modalTemplate = 'http://kaz.kochab.uberspace.de/MP3-unicon/unicon_ionic/www/templates/login.html';
@@ -291,7 +290,7 @@ $scope.map = false;
         });
 
         $scope.map = map;
-        
+
 		console.log('scope map: ' + typeof $scope.map);
      }
 		
