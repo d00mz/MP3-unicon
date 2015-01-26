@@ -4,7 +4,7 @@ angular.module('starter.controllers', [])
   // Form data for the login modal
   $scope.loginData = {};
 
-  $ionicModal.fromTemplateUrl('templates/login.html', {
+  $ionicModal.fromTemplateUrl('http://kaz.kochab.uberspace.de/MP3-unicon/unicon_ionic/www/templates/login.html', {
     scope: $scope
   }).then(function(modal) {
     $scope.modal = modal;
@@ -239,7 +239,7 @@ $scope.map = false;
         });
 
         $scope.map = map;
-        
+
 		console.log('scope map: ' + typeof $scope.map);
      }
 		
