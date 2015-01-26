@@ -1,27 +1,14 @@
-<ion-view view-title="Browse">
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">Benutzerprofil</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeLogin()">Close</button>
+    </div>
+  </ion-header-bar>
   <ion-content>
-
-	<ion-slide-box on-slide-changed="slideHasChanged($index)">
-	<ion-slide ng-repeat="genre in genres">
-		<div class="genreTitle">
-			<h2 class="caption">{{genre.title}}</h2>
-			<img src="img/{{genre.image}}" alt="{{genre.title}}">
-		</div>
-		<div class="list">
-				<div ng-repeat="jamGroup in genre.jams">
-					<div class="item item-divider">
-						{{jamGroup.divider}}
-					</div> 
-					<div ng-repeat="jamItem in jamGroup.list" href="#/app/browse/{{jamItem.id}}">
-						<div class="item">
-							{{jamItem.name}}
-						</div> 
-					</div> 
-				</div> 
-		</div>
-
-	</ion-slide>
-	</ion-slide-box>
-
+    <h1>{{userData.fullname}}</h1>
+    <p><strong>E-Mail: </strong>{{userData.email}}<br>
+    <strong>User ID: </strong>{{userData.id}}<br>
+	<strong>MODX Token: </strong> {{userData.token}}</p>
   </ion-content>
-</ion-view>
+</ion-modal-view>

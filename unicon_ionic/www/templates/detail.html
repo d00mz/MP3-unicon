@@ -2,10 +2,11 @@
   <ion-content>
 	<div ng-repeat="detail in details">
 		<h1>{{detail.name}}</h1>
+		<p>{{detail.description}}</p>
     </div>
   </ion-content> 
-	<ion-footer-bar align-title="left" class="bar-assertive">
-		<button class="button" ng-click="doSomething()">An Jam Teilnehmen</button>
+	<ion-footer-bar class="bar-assertive">
+		<button class="button button-block" ng-click="show()">An Jam Teilnehmen</button>
 	</ion-footer-bar>
 
 </ion-view>

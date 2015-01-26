@@ -1,0 +1,33 @@
+<ion-modal-view>
+	<ion-header-bar class="bar-assertive">
+		<h1 class="title">Jam Beitreten</h1>
+		<div class="buttons">
+		<button class="button button-clear" ng-click="close()">Close</button>
+		</div>
+	</ion-header-bar>
+	<ion-content>
+		<h2>Ai gude du willst also mitmachen.. Was willst du denn f&uuml;r ein Instrument spielen?</h2>
+		<form ng-submit="jamBeitreten()" class="list">
+			<div ng-repeat="detail in details">
+				<h1>{{detail.name}}</h1>
+				<p>{{detail.id}}</p>
+				
+					
+				<div class="item item-divider">Verf&uuml;gbare Instrumente</div>
+				<ion-radio ng-repeat="instrument in isAvailable(detail.instruments)" ng-model="formData.instrument_id" value="{{instrument.id}}" >
+					{{instrument.instrumentname}}
+				</ion-radio>
+
+				<div class="item item-divider">Bereits vergebene Instrumente</div>
+				<div class="item" ng-repeat="instrument in isNotAvailable(detail.instruments)">
+					{{instrument.instrumentname}}
+				</div>
+			</div>
+				
+				</div>
+				<button class="button button-block button-assertive" type="submit">Lets start</button>
+			</div>
+		</form>
+
+	</ion-content>
+</ion-modal-view>

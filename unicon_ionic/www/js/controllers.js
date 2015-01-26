@@ -1,28 +1,39 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $http, Auth) {
-  // Form data for the login modal
-  $scope.loginData = {};
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $http, $rootScope) {
 
-  $ionicModal.fromTemplateUrl('templates/login.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
+	$scope.loginData = {};
+	$scope.userData = {};
+	$scope.modalTemplate = 'http://kaz.kochab.uberspace.de/MP3-unicon/unicon_ionic/www/templates/login.html';
+	$scope.modal = {};
 
-  $scope.guuude = function(){
-		alert('guden');
+	// Triggered in the login modal to close it
+	$scope.closeLogin = function() {
+		$scope.modal.hide();
 	};
 
-  // Triggered in the login modal to close it
-  $scope.closeLogin = function() {
-    $scope.modal.hide();
-  };
+	// Open the login modal
+	$scope.login = function() {
+		console.log(JSON.parse(localStorage.getItem('userData')));
+		console.log(typeof JSON.parse(localStorage.getItem('userData')));
 
-  // Open the login modal
-  $scope.login = function() {
-    $scope.modal.show();
-  };
+	  	if(JSON.parse(localStorage.getItem('userData')) != null){
+	  		console.log('Template -> Profil | userdaten Abrufen');
+	  		$scope.modalTemplate = 'http://kaz.kochab.uberspace.de/MP3-unicon/unicon_ionic/www/templates/profil.html';
+	  		$scope.userData = JSON.parse(localStorage.getItem('userData'));;
+	  		console.log($scope.userData);
+	  	} else {
+	  		console.log('Template -> login');
+	  		$scope.modalTemplate = 'http://kaz.kochab.uberspace.de/MP3-unicon/unicon_ionic/www/templates/login.html';
+	    }
+
+		$ionicModal.fromTemplateUrl($scope.modalTemplate, {
+			scope: $scope
+		}).then(function(modal) {
+			$scope.modal = modal;
+			$scope.modal.show();
+		});
+	};
 
   // Perform the login action when the user submits the login form
 	$scope.doLogin = function() {
@@ -34,17 +45,36 @@ angular.module('starter.controllers', [])
 		//   $scope.closeLogin();
 		// }, 1000);
 
-		console.log('starting auth');
-		console.log(Auth.login($scope.loginData.username,$scope.loginData.password));
-		//console.log(Auth.currentUser());
+		var form_data= [{"name":"username","value":$scope.loginData.username},{"name":"password","value":$scope.loginData.password},{"name":"returnUrl","value":"/MP3/"},{"name":"service","value":"login"}];
+    	$.ajax({
+			type: "POST",
+			dataType: "html",
+            cache: false,
+			url: '/MP3/api/user/ajaxlogin/',
+			data: form_data,
+			success: function(data){
+				console.log(data);
+					console.log(typeof data);
+				if(typeof data == 'string' && data == ''){
+					localStorage.removeItem('userData');
+					console.log('userdaten werden aus localstorage gelöscht');
+				} else {
+					try {
+						var jsonData = JSON.parse(data);
+						localStorage.setItem('userData',data);
+					} catch(e){
+						alert('Es gab ein Fehler beim Anmelden');
+						console.log(e);
+					}
+					
+		    		console.log('login success');
 
-		$timeout(function() {
-			console.log('timer login: ' + typeof Auth.currentUser());
-			console.log(Auth.currentUser());
-			$scope.closeLogin();
-		}, 2000);
-
-
+		    		$scope.$apply(function(){
+		    			$scope.closeLogin();
+		    		});
+				}
+			}
+		});
 		
 	};
 })
@@ -122,34 +152,89 @@ angular.module('starter.controllers', [])
 	};
 })
 
-.controller('JamdetailCtrl', function($scope, $stateParams, $http, $ionicLoading, Auth) {
+.controller('JamdetailCtrl', function($scope, $stateParams, $http, $ionicModal) {
 	console.log($stateParams);
+
+	// VARIABLEN DEKLARATION
+	$scope.formData = {};
 	$scope.details = {};
-	$scope.userGeo = [];
+	$scope.userData = JSON.parse(localStorage.getItem('userData'));
 
-	navigator.geolocation.getCurrentPosition(function(position){
-		$scope.$apply(function(){
-			Auth.setGeo([position.coords.latitude,position.coords.longitude]);
-	    	console.log('geolocation detected');
-	    	console.log($scope.userGeo);
-	    	console.log(Auth.currentUser());
-		});
-	});
-
+	// DETAILS AJAX
 	$http.get('http://kaz.kochab.uberspace.de/MP3/api/jam/getdetails?id=' + $stateParams.jamId).then(function(result) {
 		console.log(result.data);
 		$scope.details = result.data;
 	});
 
-	$scope.show = function() {
-		$ionicLoading.show({
-			template: 'Loading...'
-		});
-	};
-	$scope.hide = function(){
-		$ionicLoading.hide();
+	$ionicModal.fromTemplateUrl('http://kaz.kochab.uberspace.de/MP3-unicon/unicon_ionic/www/templates/detail_join.html', {
+		scope: $scope
+	}).then(function(modal) {
+		$scope.modal = modal;
+	});
+
+
+	$scope.jamBeitreten = function(){
+		console.log('----- jam beitreten ----------');
+		if($scope.userData === null){
+			$scope.userData = JSON.parse(localStorage.getItem('userData'));
+		}
+
+		if($scope.formData['instrument_id'] === undefined || $scope.userData === null){
+			alert('Bitte wähle ein Instrument aus und logge dich ein, damit wir fortfahren können');
+		} else {
+			$http.get('http://kaz.kochab.uberspace.de/MP3/api/jam/join?jam_id='+$stateParams.jamId+'&user_id='+$scope.userData.id+'&instrument_id='+$scope.formData.instrument_id)
+			.then(function(result) {
+				console.log(result);
+				alert(result.data);
+			});
+		}
 	};
 
+	// Funktion filtert Instrumente und gibt nur freie Instrumente zurück
+	$scope.isAvailable = function(instruments){
+		var result = [];
+
+		angular.forEach(instruments, function(instrument, key) {
+			if(instrument.user_id == '0'){
+				result.push(instrument);
+			}
+		});
+
+		return result;
+	};
+
+	$scope.isNotAvailable = function(instruments){
+		var result = [];
+
+		angular.forEach(instruments, function(instrument, key) {
+			if(instrument.user_id != '0'){
+				result.push(instrument);
+			}
+		});
+
+		return result;
+	};
+
+
+
+
+
+
+
+	navigator.geolocation.getCurrentPosition(function(position){
+		$scope.$apply(function(){
+			console.log($scope.userData);
+			$scope.userData.geo = [position.coords.latitude,position.coords.longitude];
+			console.log($scope.userData);
+			localStorage.setItem('userData',JSON.stringify($scope.userData));
+	    	console.log('geolocation detected');
+		});
+	});
+
+	$scope.show = function() { $scope.modal.show(); };
+	$scope.close = function(){ $scope.modal.hide(); };
+
+	// Distance Calculation
 	$scope.distance = function(lat, lon){
 		var radlat1 = Math.PI * lat/180
 		var radlat2 = Math.PI * $scope.userGeo[0]/180
@@ -164,44 +249,11 @@ angular.module('starter.controllers', [])
 		dist = dist * 1.609344;
 		return dist.toFixed(2);
 	}
-
-	$scope.tests = [{
-		id: 1,
-		name: 'Mein Jam',
-		description: 'ai gude das wird en subber jam werden',
-		lat: 9.235146511,
-		lng: 52.13546351,
-		genre_id: 1,
-		max_distance: 100,
-		duration: 15,
-		max_user: 4,
-		startDate: "2015-01-23 15:10:00",
-		instruments: [
-			{
-				id: 1, // genre_instruments Instrumenten ID
-				user_id: 2, // jam_users
-				name: 'Gitarre',
-				source: 'guitar_sprite.wav'
-			},
-			{
-				id: 2, // genre_instruments Instrumenten ID
-				user_id: 0, // jam_users
-				name: 'Drum',// genre_instruments
-				source: 'drum_sprite.wav'// genre_instruments
-			},
-			{
-				id: 3, // genre_instruments Instrumenten ID
-				user_id: 0, // jam_users
-				name: 'Bass',// genre_instruments
-				source: 'bass_sprite.wav'// genre_instruments
-			}
-		]
-	}];
 })
 
 
 
-.controller('CreateCtrl', function($scope, $stateParams, $http, Auth, $compile, $ionicLoading) {
+.controller('CreateCtrl', function($scope, $stateParams, $http, $compile, $ionicLoading) {
 $scope.map = false;
 
 	$scope.slideHasChanged = function($index){

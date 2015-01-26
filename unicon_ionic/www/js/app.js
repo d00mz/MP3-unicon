@@ -81,24 +81,27 @@ angular.module('starter', ['ionic', 'starter.controllers']).run(function($ionicP
 	};
 }])
 
-.factory( 'Auth', function($http, $ionicModal) {
-  	var currentUser = {};
+.factory( 'Auth', function($http, $ionicModal, $rootScope) {
 
 	$http.get('http://kaz.kochab.uberspace.de/MP3/api/user/getdata')
 	.then(function(result) {
 
 		if(typeof result.data == 'string' && result.data == ''){
 			localStorage.removeItem('userData');
-			//console.log('userdaten werden aus localstorage gelöscht');
+			console.log('AUTH: userdaten werden aus localstorage gelöscht');
 		} else {
 			localStorage.setItem('userData',JSON.stringify(result.data));
-    		currentUser = result.data; 
-			//console.log('userdaten werden in den localstorage geschrieben');
-			//console.log(result.data);
+    		$rootScope.currentUser = result.data; 
+			console.log('AUTH: userdaten werden in den localstorage geschrieben');
 		}
+
+		console.log($rootScope.currentUser);
 	});
 
   return {
+    check: function() {
+    	
+ 	},
     login: function(username, password) {
     	console.log('looooogin');
     	var form_data= [{"name":"username","value":username},{"name":"password","value":password},{"name":"returnUrl","value":"/MP3/"},{"name":"service","value":"login"}];
@@ -111,16 +114,15 @@ angular.module('starter', ['ionic', 'starter.controllers']).run(function($ionicP
 			success: function(data){
 				if(typeof data == 'string' && data == ''){
 					localStorage.removeItem('userData');
-					//console.log('userdaten werden aus localstorage gelöscht');
+					console.log('userdaten werden aus localstorage gelöscht');
 				} else {
 					localStorage.setItem('userData',JSON.stringify(result.data));
-		    		
-		    		currentUser = result.data; 
+		    		$rootScope.$apply(function(){
+		    			$rootScope.currentUser = result.data; 
+		    		});
 				}
 			}
 		});
-		this.recheck();
-		
 		
     },
     logout: function() {
@@ -137,26 +139,20 @@ angular.module('starter', ['ionic', 'starter.controllers']).run(function($ionicP
     	}
 
 	},
-    setUser: function(data) { 
-    	console.log('setUser');
-    	console.log(JSON.stringify(data));
-    	localStorage.setItem('userData',JSON.stringify(data));
-    	currentUser = data; 
-    },
     setGeo: function(data) { 
     	console.log('---- setting geodata');
     	console.log(data);
-    	console.log(currentUser);
+    	console.log($rootScope.currentUser);
     	console.log('//-- setting geodata');
-    	currentUser.lat = data[0];
-    	currentUser.lat = data[1];
-    	localStorage.setItem('userData',JSON.stringify(currentUser));
+    	$rootScope.currentUser.lat = data[0];
+    	$rootScope.currentUser.lng = data[1];
+    	localStorage.setItem('userData',JSON.stringify($rootScope.currentUser));
     },
     recheck: function() {
     	currentUser = JSON.parse(localStorage.getItem('userData'));
  	},
-    currentUser: function() { return JSON.parse(localStorage.getItem('userData')); },
-    currentUserData: function(element) { return JSON.parse(localStorage.getItem('userData'))[element]; }
+    currentUser: function() { return $rootScope.currentUser; },
+    currentUserData: function(element) { return $rootScope.currentUser[element]; }
   };
 });
 
