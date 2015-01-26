@@ -1,15 +1,18 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $http, Auth) {
   // Form data for the login modal
   $scope.loginData = {};
 
-  // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {
     scope: $scope
   }).then(function(modal) {
     $scope.modal = modal;
   });
+
+  $scope.guuude = function(){
+		alert('guden');
+	};
 
   // Triggered in the login modal to close it
   $scope.closeLogin = function() {
@@ -22,15 +25,28 @@ angular.module('starter.controllers', [])
   };
 
   // Perform the login action when the user submits the login form
-  $scope.doLogin = function() {
-    console.log('Doing login', $scope.loginData);
+	$scope.doLogin = function() {
+		console.log('Doing login', $scope.loginData);
 
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
-    $timeout(function() {
-      $scope.closeLogin();
-    }, 1000);
-  };
+		// Simulate a login delay. Remove this and replace with your login
+		// code if using a login system
+		// $timeout(function() {
+		//   $scope.closeLogin();
+		// }, 1000);
+
+		console.log('starting auth');
+		console.log(Auth.login($scope.loginData.username,$scope.loginData.password));
+		//console.log(Auth.currentUser());
+
+		$timeout(function() {
+			console.log('timer login: ' + typeof Auth.currentUser());
+			console.log(Auth.currentUser());
+			$scope.closeLogin();
+		}, 2000);
+
+
+		
+	};
 })
 
 .controller('BrowseCtrl', function($scope) {
@@ -74,7 +90,7 @@ angular.module('starter.controllers', [])
 			]
 		},
 		{ 
-			title: 'Deep House', 
+			title: 'Deep House',
 			id: 2, 
 			image: 'house.jpg',
 			jams: [
@@ -99,23 +115,6 @@ angular.module('starter.controllers', [])
 	];
 
 
-	/*$scope.initCarousel = function(){
-		console.log('guuuden');
-		var owl = $("#owl-demo");
-
-		owl.owlCarousel({
-
-		navigation : false,
-		pagination: false,
-		slideSpeed : 300,
-		paginationSpeed : 400,
-		singleItem:true,
-		rewindSpeed: 300,
-		addClassActive: true,
-		autoHeight: true,
-		});
-	};*/
-
 
 	$scope.slideHasChanged = function($index){
 		console.log($index);
@@ -123,16 +122,99 @@ angular.module('starter.controllers', [])
 	};
 })
 
-.controller('PlaylistCtrl', function($scope, $stateParams) {
+.controller('JamdetailCtrl', function($scope, $stateParams, $http, $ionicLoading, Auth) {
+	console.log($stateParams);
+	$scope.details = {};
+	$scope.userGeo = [];
+
+	navigator.geolocation.getCurrentPosition(function(position){
+		$scope.$apply(function(){
+			Auth.setGeo([position.coords.latitude,position.coords.longitude]);
+	    	console.log('geolocation detected');
+	    	console.log($scope.userGeo);
+	    	console.log(Auth.currentUser());
+		});
+	});
+
+	$http.get('http://kaz.kochab.uberspace.de/MP3/api/jam/getdetails?id=' + $stateParams.jamId).then(function(result) {
+		console.log(result.data);
+		$scope.details = result.data;
+	});
+
+	$scope.show = function() {
+		$ionicLoading.show({
+			template: 'Loading...'
+		});
+	};
+	$scope.hide = function(){
+		$ionicLoading.hide();
+	};
+
+	$scope.distance = function(lat, lon){
+		var radlat1 = Math.PI * lat/180
+		var radlat2 = Math.PI * $scope.userGeo[0]/180
+		var radlon1 = Math.PI * $scope.userGeo[1]/180
+		var radlon2 = Math.PI * lon/180
+		var theta = lon1-lon2
+		var radtheta = Math.PI * theta/180
+		var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+		dist = Math.acos(dist)
+		dist = dist * 180/Math.PI
+		dist = dist * 60 * 1.1515
+		dist = dist * 1.609344;
+		return dist.toFixed(2);
+	}
+
+	$scope.tests = [{
+		id: 1,
+		name: 'Mein Jam',
+		description: 'ai gude das wird en subber jam werden',
+		lat: 9.235146511,
+		lng: 52.13546351,
+		genre_id: 1,
+		max_distance: 100,
+		duration: 15,
+		max_user: 4,
+		startDate: "2015-01-23 15:10:00",
+		instruments: [
+			{
+				id: 1, // genre_instruments Instrumenten ID
+				user_id: 2, // jam_users
+				name: 'Gitarre',
+				source: 'guitar_sprite.wav'
+			},
+			{
+				id: 2, // genre_instruments Instrumenten ID
+				user_id: 0, // jam_users
+				name: 'Drum',// genre_instruments
+				source: 'drum_sprite.wav'// genre_instruments
+			},
+			{
+				id: 3, // genre_instruments Instrumenten ID
+				user_id: 0, // jam_users
+				name: 'Bass',// genre_instruments
+				source: 'bass_sprite.wav'// genre_instruments
+			}
+		]
+	}];
 })
 
 
 
-.controller('CreateCtrl', function($scope, $stateParams) {
-	$scope.master = {};
+.controller('CreateCtrl', function($scope, $stateParams, $http, Auth) {
+	$scope.master = {}; 
+	//$scope.genres = dataService.getData();
+	$scope.genres = [];
+	//$scope.documents = [];
+	$http.get('http://kaz.kochab.uberspace.de/MP3/api/jam/getgenre')
+	  .then(function(result) {
+	  	console.log(result);
+	    $scope.genres = result.data;
+	});
+	
 
-      $scope.update = function(jam) {
-        $scope.master = angular.copy(jam);
-      };
+	$scope.update = function(jam) {
+		$scope.master = angular.copy(jam);
+	};
 
 });

@@ -1,56 +1,65 @@
 <ion-view view-title="create">
-  <ion-content>
+<ion-content>
 
-  <ion-slide-box>
-    <ion-slide class="create">
-        <label for="name">Titel eingeben</label> 
-        <input type="text" name="name" id="name" maxlength="12" ng-model="jam.name"/>
-    </ion-slide>
-
-
-    <ion-slide class="create">
-        <label for="description">Beschreibung:</label> 
-        <textarea type="text" name="description" rows="3" cols="3" id="description" maxlength="120" ng-model="jam.description"/>
-        </textarea>
-    </ion-slide>
+<ion-slide-box>
+  <ion-slide class="create">
+      <label for="name">Titel eingeben</label> 
+      <input type="text" name="name" id="name" maxlength="12" ng-model="jam.name"/>
+  </ion-slide>
 
 
-    <ion-slide class="create">
-        <label for="genre">Genre:</label> 
-    </ion-slide>
+  <ion-slide class="create">
+      <label for="description">Beschreibung:</label> 
+      <textarea type="text" name="description" rows="3" cols="3" id="description" maxlength="120" ng-model="jam.description"/>
+      </textarea>
+  </ion-slide>
 
 
-    <ion-slide class="create">
-        <label for="membersLength">Anzahl/Dauer:</label> 
-        <input type="text" name="membersLength" id="memberLength" ng-model="jam.max_user"/>
-    </ion-slide>
+  <ion-slide class="create">
+      <label for="genre">Genre:</label> 
+      <div class="list">
+				<label class="item item-radio nomarg" ng-repeat="genre in genres">
+					<input type="radio" name="genre_id" ng-model="jam.genre_id" value="{{genre.id}}">
+						<div class="item-content" style="background: url(http://kaz.kochab.uberspace.de/MP3/images/{{genre.image}}) left top no-repeat;">
+							{{genre.name}}
+						</div>
+					<i class="radio-icon ion-checkmark"></i>
+				</label>
+			</div>
+  </ion-slide>
 
 
-    <ion-slide class="create">
-        <label for="place">Ort:</label> 
-        <input type="text"name="place" id="place" ng-model="jam.place"/>  
-          <div id="map-canvas">
+  <ion-slide class="create">
+      <label for="membersLength">Anzahl/Dauer:</label> 
+      <input type="text" name="membersLength" id="memberLength" ng-model="jam.max_user"/>
+  </ion-slide>
 
-          </div>
-    </ion-slide>
 
-    <ion-slide class="create">
-      <label for="startDate">Datum/Uhrzeit:</label> 
-        <!-- <input type="datetime-local" name="startDate" id="startDate" ng-model="jamStartDate" /> -->
-        <input type="datetime-local" name="startDate" id="startDate" ng-model="jam.startDate" />
-    </ion-slide>  
-    
+  <ion-slide class="create">
+      <label for="place">Ort:</label> 
+      <input type="text"name="place" id="place" ng-model="jam.place"/>  
+        <div id="map-canvas">
 
-    <ion-slide class="create">
-          <h1>Overview</h1>
-          <h2>{{jam.name}}</h2>
-          <h2>{{jam.description}}</h2>
-          <h2>{{jam.startDate}}</h2>
-          <h2>{{jam.place}}</h2>
-          <h2>{{jam.max_user}}</h2>
+        </div>
+  </ion-slide>
 
-    </ion-slide>
-  </ion-slide-box>
+  <ion-slide class="create">
+    <label for="startDate">Datum/Uhrzeit:</label> 
+      <!-- <input type="datetime-local" name="startDate" id="startDate" ng-model="jamStartDate" /> -->
+      <input type="datetime-local" name="startDate" id="startDate" ng-model="jam.startDate" />
+  </ion-slide>  
+  
 
-  </ion-content>
+  <ion-slide class="create">
+        <h1>Overview</h1>
+        <h2>{{jam.name}}</h2>
+        <h2>{{jam.description}}</h2>
+        <h2>{{jam.startDate}}</h2>
+        <h2>{{jam.place}}</h2>
+        <h2>{{jam.max_user}}</h2>
+
+  </ion-slide>
+</ion-slide-box>
+
+</ion-content>
 </ion-view>

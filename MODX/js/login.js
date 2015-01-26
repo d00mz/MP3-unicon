@@ -17,7 +17,13 @@ $(document).ready(function(){
 			url: '/MP3/api/user/ajaxlogin/',
 			data: form_data,
 			success: function(data){
-				console.log($.parseJSON(data);
+				console.log(typeof data);
+				try {
+					console.log(typeof $.parseJSON(data));
+					console.log($.parseJSON(data));
+				} catch (e){
+					console.log('User bereits eingeloggt');
+				}
 			}
 		});
 		e.preventDefault();
