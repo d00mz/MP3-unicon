@@ -1,8 +1,8 @@
 <ion-view view-title="create">
   <ion-content>
 
-  <ion-slide-box>
-    <ion-slide class="create">
+ <ion-slide-box>
+    <!-- <ion-slide class="create">
         <label for="name">Titel eingeben</label> 
         <input type="text" name="name" id="name" maxlength="12" ng-model="jam.name"/>
     </ion-slide>
@@ -12,15 +12,36 @@
         <label for="description">Beschreibung:</label> 
         <textarea type="text" name="description" rows="3" cols="3" id="description" maxlength="120" ng-model="jam.description"/>
         </textarea>
+    </ion-slide> --> 
+
+
+    <ion-slide class="create">
+        <label for="genre">Genre:</label> 
+
+        <button class="create" name="genre1" type="button" value="genre1">
+          <!-- <img src="img/genre1.png" width="375px" > -->
+
+        </button>
+
+        <button class="create" name="genre2" type="button" value="genre2">
+          <img src="img/genre1.png" width="375px" >
+
+        </button>
+
+        <button class="create" name="genre3" type="button" value="genre3">
+          <img src="img/genre1.png" width="375px" >
+
+        </button>
+
+        <button class="create" name="genre4" type="button" value="genre4">
+          <img src="img/genre1.png" width="375px" >
+
+        </button>
+
     </ion-slide>
 
 
 <!--     <ion-slide class="create">
-        <label for="genre">Genre:</label> 
-    </ion-slide> -->
-
-
-    <ion-slide class="create">
 
         <label for="members">Anzahl Jamer:</label> 
         <input type="text" name="members" id="member" ng-model="jam.max_user"/>
@@ -32,15 +53,19 @@
         <label for="length">Dauer:</label> 
         <input type="text" name="length" id="length" ng-model="jam.length"/>
     
-    </ion-slide>
+    </ion-slide> -->
 
 
- <!--    <ion-slide class="create">
+  <!--   <ion-slide class="create">
         <label for="place">Ort:</label> 
         <input type="text"name="place" id="place" ng-model="jam.place"/>  
-          <div id="map-canvas">
+
+            <div id="map" style="width:300px; height:300px">
+  
 
           </div>
+
+
     </ion-slide> -->
 
     <ion-slide class="create">
@@ -53,14 +78,14 @@
     </ion-slide>  
     
 
-    <ion-slide class="create">
+  <ion-slide class="create">
 
-<!--           <h1>Overview</h1>
+ <!--          <h1>Overview</h1>
           <h2>{{jam.name}}</h2>
           <h2>{{jam.description}}</h2>
           <h2>{{jam.startDate}}</h2>
           <h2>{{jam.place}}</h2>
-          <h2>{{jam.max_user}}</h2> -->
+          <h2>{{jam.max_user}}</h2>  -->
 
 
       <img src="img/genreDetailansicht.png" class="genreImages">
@@ -75,18 +100,17 @@
           <h2 id="jamDetailLength">{{jam.length}}</h2>
           <span class="icon-user"></span>
           <h2 id="jamDetailMember">{{jam.max_user}}</h2>
-            <!-- <div id="placeField">
+            <div id="placeField">
               <span class="icon-pin"></span>
               <h2 id="jamDetailPlace">{{jamPlace}}</h2>
               <h2 id="jamDetailPlace">Darmstadt</h2>
-            </div> -->
+            </div>
 
       </div>
 
-
-
     </ion-slide>
-  </ion-slide-box>
+ 
+ </ion-slide-box>
 
   </ion-content>
 </ion-view> -->

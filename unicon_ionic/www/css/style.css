@@ -147,16 +147,7 @@ header::after {
     width: 99%;
 }
 
-button {
-    color: white;
-    border-radius: 4px;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-    border: none;
-    line-height: 30px;
-    padding: 5px 20px;
-    font-weight: bold;
-    background:rgb(28, 65, 184);
-}
+
 
 .bg-green {
     background: rgb(28, 184, 65); /* this is a green */
@@ -223,8 +214,27 @@ button:hover { box-shadow: inset 0 2px 1px rgba(0,0,0,0.2);}
 
 
 .create{
-	width:300px;
+	/*width:375px;*/
 	height: 100vh;
+    width:100vw;
+}
+
+.create button{
+    position:normal;
+    font-size: 30px;
+    color:red;
+    width:100%;
+    height:98px;
+    border-top:2px solid #e16453;
+    border-bottom:2px solid #e16453;
+    padding:0;
+    outline:none;
+    background: url(../img/genre1.png) no-repeat;
+}
+
+.create button:active{
+    background:#2e2e2e;
+    opacity:0.0;
 }
 
 .create label { display: block;
@@ -248,7 +258,7 @@ button:hover { box-shadow: inset 0 2px 1px rgba(0,0,0,0.2);}
     border-bottom: 2px solid #e16453;
     background:transparent;
     color: #ffffff;
-    width:95%;
+    width:300px;
     height:50px;
  }
 
@@ -275,6 +285,10 @@ button:hover { box-shadow: inset 0 2px 1px rgba(0,0,0,0.2);}
     outline:none;
  }
 
+#jamDetailList {
+    position:absolute;
+    top:200px;
+}
 
 #jamDetailList h1{
     font-family: 'Permanent Marker', cursive;
