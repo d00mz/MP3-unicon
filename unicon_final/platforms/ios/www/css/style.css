@@ -23,39 +23,39 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-.icon-bass:before {
+.icon-uniE600:before {
 	content: "\e600";
 }
 
-.icon-guitar:before {
+.icon-uniE601:before {
 	content: "\65";
 }
 
-.icon-calendar:before {
+.icon-uniE602:before {
 	content: "\63";
 }
 
-.icon-clock:before {
+.icon-uniE603:before {
 	content: "\e603";
 }
 
-.icon-drums:before {
+.icon-uniE604:before {
 	content: "\64";
 }
 
-.icon-back:before {
+.icon-uniE605:before {
 	content: "\3c";
 }
 
-.icon-magnifier:before {
+.icon-uniE606:before {
 	content: "\73";
 }
 
-.icon-keyboard:before {
+.icon-uniE607:before {
 	content: "\70";
 }
 
-.icon-user:before {
+.icon-uniE609:before {
 	content: "\e609";
 }
 

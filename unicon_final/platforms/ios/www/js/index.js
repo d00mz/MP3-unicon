@@ -61,19 +61,6 @@ var app = {
 		console.log('finished Buffering');
         alert('setting Timer');
         $('.loader').addClass('start');
-
-    	/*for(var i = 0; i<bufferList.length; i++){
-			sources[i] = context.createBufferSource();
-			sources[i].buffer = bufferList[i];
-			sources[i].connect(context.destination);
-			console.log(bufferList[0]);
-			myShakeInterval = parseInt(spriteSettings.duration);
-			//sources[i] = bufferList[i];
-    	}*/
-
-		/*console.log('timer: ' + spriteSettings.duration);*/
-
-		//app.shakeIntervalHandler();
         clearInterval(myShakeTimer);
     	myShakeTimer = setInterval(function(){ console.log('interval'); app.shakeIntervalHandler(); }, spriteSettings.duration*1000);
     },
@@ -217,7 +204,7 @@ app.initialize();
 
 
 /* -------------- WEBSOCKET ------------------ */
-/*var socket = new io.connect('http://kaz.kochab.uberspace.de/MP3-Socket/:64182'); 
+/*var socket = new io.connect('http://kaz.kochab.uberspace.de:64182'); 
 
 // Add a connect listener
 socket.on('connect',function() {
@@ -258,8 +245,8 @@ function sendMessageToServer(msg) {
 /* ------------------ GEOLOCATION ----------------- */
 function onGeoSuccess(position) {
 
-	jam.instruments[0].geo[0] = positon.coords.latitude;
-	jam.instruments[0].geo[1] = positon.coords.longitude;
+	jam.instruments[0].geo[0] = position.coords.latitude;
+	jam.instruments[0].geo[1] = position.coords.longitude;
 
 	alert(jam.instruments[0].geo);
 }
@@ -279,6 +266,10 @@ function onGeoError(error) {
           'Heading: '           + position.coords.heading           + '\n' +
           'Speed: '             + position.coords.speed             + '\n' +
           'Timestamp: '         + position.timestamp                + '\n');
+
+
+    jam.instruments[0].geo[0] = position.coords.latitude;
+    jam.instruments[0].geo[1] = position.coords.longitude;
 };
 
 // onError Callback receives a PositionError object
@@ -290,5 +281,5 @@ function onError(error) {
 
 $(document).ready(function(){
 
-    navigator.geolocation.getCurrentPosition(onSuccess, onError);
+   // navigator.geolocation.getCurrentPosition(onSuccess, onError);
 });
