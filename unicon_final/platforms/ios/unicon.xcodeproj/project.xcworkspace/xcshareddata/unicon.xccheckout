@@ -5,7 +5,7 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>114AAEA4-AAEE-4DE2-9664-79399BC96994</string>
+	<string>E47CBAA9-B68A-4380-8928-9B90582B4128</string>
 	<key>IDESourceControlProjectName</key>
 	<string>unicon</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
@@ -14,7 +14,7 @@
 		<string>https://github.com/d00mz/MP3-unicon.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>unicon/platforms/ios/unicon.xcodeproj</string>
+	<string>unicon_final/platforms/ios/unicon.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>515165A2C84D5C6A92660F00B570F018329CC4B3</key>

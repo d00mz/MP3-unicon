@@ -11,6 +11,8 @@
         <meta name="apple-mobile-web-app-title" content="unicon">
 <link href='http://fonts.googleapis.com/css?family=Rancho' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Gudea:400,700' rel='stylesheet' type='text/css'>
+
+<link href='http://fonts.googleapis.com/css?family=Overlock|Permanent+Marker' rel='stylesheet' type='text/css'>
 		
 		<link rel="stylesheet" type="text/css" href="css/index.css" />
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
@@ -19,53 +21,102 @@
 	<body ng-controller="CreateCtrl">
 		<div class="innerWrap">
 			<form method="get" data-ajax="true" action="http://kaz.kochab.uberspace.de/MP3/api/jam/create">
+				<a href="index.html">Back</a>
+			
 			<div id="createForm">
-				<div class="item">
-				<label for="name">Name:</label>
-				<input type="text" placeholder="Enter jamname" id="name" name="name" ng-model="jam.name" >
-				</div>
 
-				<div class="item">
-				<label for="description">description:</label>
-				<textarea placeholder="description"name="description" id="description" ng-model="jam.description" ></textarea>
-				</div>
+			<!-- 		<div class="item">
+						<div id="createJam">
+							<label for="name">Titel eingeben:</label>
+							<input type="text"  id="name" name="name" ng-model="jam.name" >
+						</div>		
+					</div>
+					
 
-				<div class="item">
-					<label for="genre">Genre:</label> 
-					<input type="hidden" name="genre_id" ng-model="jam.genre_id">
-					<!-- <button class="item item-radio nomarg" ng-repeat="genre in genres" data-id="{{genre.id}}">
-						<div class="item-content" style="background: url(http://kaz.kochab.uberspace.de/MP3/images/{{genre.image}}) left top no-repeat;">
-							{{genre.name}}
+					<div class="item">
+						<div id="createJam">
+							<label for="description">Beschreibung:</label>
+							<textarea name="description" id="description" rows="3" cols="3" ng-model="jam.description" ></textarea>
 						</div>
-					</button> -->
-				</div>
-
-				<div class="item">
-				<label for="lat">lat:</label> 
-				<input type="text" name="lat" placeholder="Enter lat" id="lat" value="49.877553" ng-model="jam.lat" />
-				<input type="text" name="lng" placeholder="Enter lng" id="lng" value="8.652589" ng-model="jam.lng"  />
-				<div id="map"></div>
-				</div>
+					</div> -->
 
 
-				<div class="item">
-					<label for="max_distance">max_distance:</label> 
-					<input type="number" name="max_distance" placeholder="Enter max_distance" id="max_distance" ng-model="jam.max_distance" /><br>
-				</div>
+					<!--<div class="item">
+						<div id="createJam">
+							<label for="genre">Genre:</label> 
+							<input type="hidden" name="genre_id" ng-model="jam.genre_id"> -->
+							
 
-				<div class="item">
-				<label for="max_user">max_user:</label> 
-				<input type="number" name="max_user" placeholder="Enter max_user" id="max_user"/><br>
-				</div>
+							<!-- <button class="item item-radio nomarg" ng-repeat="genre in genres" data-id="{{genre.id}}">
+								<div class="item-content" style="background: url(http://kaz.kochab.uberspace.de/MP3/images/{{genre.image}}) left top no-repeat;">
+									{{genre.name}}
+								</div>
+							</button> 
+							-->
 
-				<div class="item">
-				<label for="startDate">datetime:</label> 
-				<input type="datetime-local" name="startDate" id="startDate" ng-model="jam.startDate"/>
-				</div>
+					<!--	</div>
+					</div> -->
 
-				<div class="item overview">
-				<button ng-click="update()">update</button>
-				</div>
+					<!-- <div class="item">
+						<div id="createJam">
+							<label for="lat">lat:</label> 
+							<input type="text" name="lat" placeholder="Enter lat" id="lat" value="49.877553" ng-model="jam.lat" />
+							<input type="text" name="lng" placeholder="Enter lng" id="lng" value="8.652589" ng-model="jam.lng"  />
+							<div id="map"></div>
+						</div>
+					</div>
+
+
+					<div class="item">
+						<div id="createJam">
+							<label for="max_user">Anzahl Jamer:</label> 
+							<input type="number" name="max_user"  id="max_user"/><br>
+						</div>
+					</div>
+
+					<div class="item">
+						<div id="createJam">
+							<label for="max_length">Dauer:</label> 
+							<input type="number" name="max_length"  id="max_length"/><br>
+						</div>
+					</div>
+
+					<div class="item">
+						<div id="createJam">
+							<label for="startDate">Zeitpunkt:</label> 
+							<input type="datetime-local" name="startDate" id="startDate" ng-model="jam.startDate"/>
+						</div>
+					</div> -->
+
+					<div class="item">
+						<div id="createJam">
+							<img class="genreImage"src="img/genreDetailansicht.png">
+							<h1>Ruvens Jam</h1>
+							<h2>afihjepfjwa pfjawpifjpwiefjpow afjpfjpwejf wjf wiefjwefjwoi fjwoif jwfijoi</h2>
+							<span class="icon-calendar"></span>
+							<h2>18. Januar 20:00 Uhr</h2>
+							<span class="icon-clock"></span>
+							<h2>15 Min.</h2>
+							<span class="icon-user"></span>
+							<h2>3 Spieler</h2>
+							<span class="icon-location"></span>
+							<h2>Darmstadt: 1km</h2>
+							<h2>Genre: Rock</h2>
+							<span class="icon-drums"></span>
+							<span class="icon-guitar"></span>
+							<span class="icon-bass"></span>
+							<span class="icon-keyboard"></span>
+
+
+
+
+						</div>
+					</div>
+
+					<!-- <div class="item overview">
+					<button ng-click="update()">update</button>
+					</div> -->
+
 			</div>
 				<!-- <input type="submit" value="Send jam"> -->
 			</form>
@@ -145,6 +196,7 @@ $.fn.serializeObject=function(){"use strict";var a={},b=function(b,c){var d=a[c.
 
 				google.maps.event.addListener(marker, 'dragstart', function(marker){
 					console.log('dragStart');
+					
 				});
 
 				google.maps.event.addListener(marker, 'dragend', function(marker){
@@ -196,7 +248,7 @@ $.fn.serializeObject=function(){"use strict";var a={},b=function(b,c){var d=a[c.
 					navigation : true,
 					navigationText: ['<','>'],
 					pagination: false,
-					slideSpeed : 300,
+					slideSpeed : 0,
 					paginationSpeed : 400,
 					singleItem:true,
 					rewindSpeed: 300,
