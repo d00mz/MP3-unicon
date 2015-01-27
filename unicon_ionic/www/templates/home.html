@@ -1,0 +1,20 @@
+<ion-view view-title="Meine Jams" drag-content="false">
+  <ion-content>
+  <h1>Gude das gibt die Übersicht</h1>
+      <ion-list>
+        <ion-item nav-clear menu-close ng-click="login()">
+          Profil
+        </ion-item>
+        <ion-item nav-clear menu-close href="#/app/create" ng-click="CreateCtrl.getGenres()">
+          Erstellen
+        </ion-item>
+        <ion-item nav-clear menu-close href="#/app/browse">
+          Entdecken
+        </ion-item>
+        <ion-item nav-clear menu-close href="#/app/myjams" ng-controller="MyJamCtrl as temp">
+          Meine Jams
+          <span class="badge badge-assertive">{{amount}}</span>
+        </ion-item>
+      </ion-list>
+  </ion-content>
+</ion-view>

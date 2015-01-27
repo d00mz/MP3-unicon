@@ -8,14 +8,16 @@
         <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
         </button>
       </ion-nav-buttons>
+      <ion-nav-buttons side="right" ng-controller="HomeCtrl">
+        <button class="button button-icon button-clear ion-navicon" ng-click="goHome()">
+        </button>
+      </ion-nav-buttons>
     </ion-nav-bar>
     <ion-nav-view name="menuContent"></ion-nav-view>
   </ion-side-menu-content>
 
   <ion-side-menu side="left" drag-content="false">
-    <ion-header-bar class="bar-stable">
-      <h1 class="title">unicon</h1>
-    </ion-header-bar>
+    
     <ion-content>
       <ion-list>
         <ion-item nav-clear menu-close ng-click="login()">
@@ -27,8 +29,12 @@
         <ion-item nav-clear menu-close href="#/app/browse">
           Entdecken
         </ion-item>
-        <ion-item nav-clear menu-close href="#/app/myjam">
-          Teilnehmen
+        <ion-item nav-clear menu-close href="#/app/myjams" ng-controller="MyJamCtrl as temp">
+          Meine Jams
+          <span class="badge badge-assertive">{{amount}}</span>
+        </ion-item>
+        <ion-item nav-clear menu-close href="#/app/">
+          Home
         </ion-item>
       </ion-list>
     </ion-content>

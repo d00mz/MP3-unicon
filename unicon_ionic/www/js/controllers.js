@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $http, Auth) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $http) {
 	$scope.loginData = {};
 	$scope.userData = {};
 	$scope.modalTemplate = 'http://kaz.kochab.uberspace.de/MP3-unicon/unicon_ionic/www/templates/login.html';
@@ -38,12 +38,6 @@ angular.module('starter.controllers', [])
 	$scope.doLogin = function() {
 		console.log('Doing login', $scope.loginData);
 
-		// Simulate a login delay. Remove this and replace with your login
-		// code if using a login system
-		// $timeout(function() {
-		//   $scope.closeLogin();
-		// }, 1000);
-
 		var form_data= [{"name":"username","value":$scope.loginData.username},{"name":"password","value":$scope.loginData.password},{"name":"returnUrl","value":"/MP3/"},{"name":"service","value":"login"}];
     	$.ajax({
 			type: "POST",
@@ -52,6 +46,7 @@ angular.module('starter.controllers', [])
 			url: '/MP3/api/user/ajaxlogin/',
 			data: form_data,
 			success: function(data){
+				alert(data);
 				console.log(data);
 					console.log(typeof data);
 				if(typeof data == 'string' && data == ''){
@@ -72,10 +67,34 @@ angular.module('starter.controllers', [])
 		    			$scope.closeLogin();
 		    		});
 				}
+			},
+			error: function(e){
+          		alert('Unable to get location: ' + e.message);
 			}
 		});
-		
 	};
+
+	$scope.logout = function() {
+		$http.get('http://kaz.kochab.uberspace.de/MP3/api/user/ajaxlogin?service=logout')
+		.then(function(result) {
+			console.log(result);
+			localStorage.removeItem('userData');
+			$scope.userData = {};
+			$scope.closeLogin();
+			$scope.login();
+		});
+	}
+})
+
+
+.controller('HomeCtrl', function($scope, $stateParams, $http, $ionicModal, $location, $state) {
+	$scope.amount = 3;
+
+ $scope.goHome = function() {
+ 	console.log('ab nachhause');
+      /* $location.path('/tab/newpost'); */   /* this variant doesnt work */
+      $state.go("/home"); 
+    };
 })
 
 .controller('BrowseCtrl', function($scope) {
@@ -251,6 +270,10 @@ angular.module('starter.controllers', [])
 })
 
 
+.controller('MyJamCtrl', function($scope, $stateParams, $http, $ionicModal) {
+	$scope.amount = 3;
+
+})
 
 .controller('CreateCtrl', function($scope, $stateParams, $http, $compile, $ionicLoading) {
 $scope.map = false;
@@ -258,7 +281,7 @@ $scope.map = false;
 	$scope.slideHasChanged = function($index){
 		console.log($index);
 		console.log('scope map: ' + typeof $scope.map);
-		if($index == 4 && typeof $scope.map == 'boolean'){
+		if($index == 1 && typeof $scope.map == 'boolean'){
 		console.log('initialize');
 		console.log($("#map123"));
         var myLatlng = new google.maps.LatLng(43.07493,-89.381388);

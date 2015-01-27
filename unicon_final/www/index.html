@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html ng-app="unicon">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="msapplication-tap-highlight" content="no" />
+		<title>unicon</title>
+		<!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-title" content="unicon">
+<link href='http://fonts.googleapis.com/css?family=Rancho' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Gudea:400,700' rel='stylesheet' type='text/css'>
+
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<title>unicon</title>
+
+	</head>
+	<body ng-controller="AppCtrl">
+		<div class="innerWrap">
+			<div id="logo"></div>
+			<nav id="navMain">
+				<ul>
+					<li><a href="konzert_erstellen.html"><span class="icon-uniE604"></span>Erstellen</a></li>
+					<li><a href="browse.html"><span class="icon-uniE606"></span>Entdecken</a></li>
+					<li><a href="#" class="profil" ng-click="login()"><span class="icon-uniE609"></span>Profil</a></li>
+					<li><a href="myjams.html"><span class="icon-uniE602"></span>Meine Jams</a></li>
+				</ul>
+			</nav>
+		</div>
+
+		<div class="overlay overlay-login">
+			<button type="button" class="overlay-close" ng-click="close()">Close</button>
+			<form method="post" class="loginForm" ng-submit="doLogin()">
+				<label class="loginUsernameLabel">Benutzername</label>
+				<input type="text" name="username" class="loginUsername" placeholder="Benutzername" ng-model="loginData.username">
+
+				<label class="loginPasswordLabel">Passwort</label>
+				<input type="password" name="password" class="loginPassword" placeholder="Passwort" ng-model="loginData.password">
+				<input type="hidden" value="/MP3/" name="returnUrl" class="returnUrl">
+				<input type="hidden" value="login" name="service" class="loginLoginValue">
+				<input type="submit" value="Login" name="Login">
+			</form>
+		</div>
+
+
+
+		<script type="text/javascript" src="cordova.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
+
+
+		<script type="text/javascript" src="http://kaz.kochab.uberspace.de/MP3-unicon/unicon/www/js/plugins.js"></script>
+		<!---<script type="text/javascript" src="http://kaz.kochab.uberspace.de/MP3-unicon/unicon/www/js/bufferloader.js"></script>
+		<script type="text/javascript" src="http://kaz.kochab.uberspace.de/MP3-unicon/unicon/www/js/socket.io.js"></script>
+		<script type="text/javascript" src="js/services.js"></script>
+-->
+
+
+
+        <script src="js/angularjs-geolocation.min.js" type="text/javascript"></script>
+		<script type="text/javascript" src="js/controller_app.js"></script>
+		<script type="text/javascript" src="js/index.js"></script>
+	</body>
+</html>

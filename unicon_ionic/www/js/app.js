@@ -37,6 +37,17 @@ angular.module('starter', ['ionic', 'starter.controllers']).run(function($ionicP
 		controller: 'AppCtrl'
 	})
 
+	.state('app.home', {
+		url: "/",
+		views: {
+			'menuContent': {
+				templateUrl: "http://kaz.kochab.uberspace.de/MP3-unicon/unicon_ionic/www/templates/home.html",
+				controller: 'HomeCtrl'
+			}
+		}
+	})
+
+
 	.state('app.browse', {
 		url: "/browse",
 		views: {
@@ -57,6 +68,16 @@ angular.module('starter', ['ionic', 'starter.controllers']).run(function($ionicP
 		}
 	})
 
+	.state('app.myjams', {
+		url: "/myjams",
+		views: {
+			'menuContent': {
+				templateUrl: "http://kaz.kochab.uberspace.de/MP3-unicon/unicon_ionic/www/templates/myjams.html",
+				controller: 'MyJamCtrl'
+			}
+		}
+	})
+
 	.state('app.create', {
 		url: "/create",
 		views: {
@@ -67,7 +88,7 @@ angular.module('starter', ['ionic', 'starter.controllers']).run(function($ionicP
 		}
 	});
 	// if none of the above states are matched, use this as the fallback
-	$urlRouterProvider.otherwise('/app/browse');
+	$urlRouterProvider.otherwise('/app/');
 })
 
 .directive('onFinishRender',['$timeout', function ($timeout) {
@@ -79,82 +100,7 @@ angular.module('starter', ['ionic', 'starter.controllers']).run(function($ionicP
 			}
 		}
 	};
-}])
-
-.factory( 'Auth', function($http, $ionicModal, $rootScope) {
-
-	$http.get('http://kaz.kochab.uberspace.de/MP3/api/user/getdata')
-	.then(function(result) {
-
-		if(typeof result.data == 'string' && result.data == ''){
-			localStorage.removeItem('userData');
-			console.log('AUTH: userdaten werden aus localstorage gelöscht');
-		} else {
-			localStorage.setItem('userData',JSON.stringify(result.data));
-    		$rootScope.currentUser = result.data; 
-			console.log('AUTH: userdaten werden in den localstorage geschrieben');
-		}
-
-		console.log($rootScope.currentUser);
-	});
-
-  return {
-    check: function() {
-    	
- 	},
-    login: function(username, password) {
-    	console.log('looooogin');
-    	var form_data= [{"name":"username","value":username},{"name":"password","value":password},{"name":"returnUrl","value":"/MP3/"},{"name":"service","value":"login"}];
-    	$.ajax({
-			type: "POST",
-			dataType: "html",
-            cache: false,
-			url: '/MP3/api/user/ajaxlogin/',
-			data: form_data,
-			success: function(data){
-				if(typeof data == 'string' && data == ''){
-					localStorage.removeItem('userData');
-					console.log('userdaten werden aus localstorage gelöscht');
-				} else {
-					localStorage.setItem('userData',JSON.stringify(result.data));
-		    		$rootScope.$apply(function(){
-		    			$rootScope.currentUser = result.data; 
-		    		});
-				}
-			}
-		});
-		
-    },
-    logout: function() {
-    	$http.get('http://kaz.kochab.uberspace.de/MP3/api/user/ajaxlogin?service=logout')
-		.then(function(result) {
-			console.log(result);
-		});
-    },
-    isLoggedIn: function() { 
-    	if(typeof currentUser == 'undefined') { 
-    		return false 
-    	} else { 
-    		true 
-    	}
-
-	},
-    setGeo: function(data) { 
-    	console.log('---- setting geodata');
-    	console.log(data);
-    	console.log($rootScope.currentUser);
-    	console.log('//-- setting geodata');
-    	$rootScope.currentUser.lat = data[0];
-    	$rootScope.currentUser.lng = data[1];
-    	localStorage.setItem('userData',JSON.stringify($rootScope.currentUser));
-    },
-    recheck: function() {
-    	currentUser = JSON.parse(localStorage.getItem('userData'));
- 	},
-    currentUser: function() { return $rootScope.currentUser; },
-    currentUserData: function(element) { return $rootScope.currentUser[element]; }
-  };
-});
+}]);
 
 /*function distance(lat1, lon1, lat2, lon2, unit) {
 	var radlat1 = Math.PI * lat1/180
