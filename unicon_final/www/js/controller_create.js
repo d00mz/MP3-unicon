@@ -10,6 +10,11 @@ app.controller('CreateCtrl', function($scope, $http, geolocation) {
       $scope.genres = result.data;
   });
 
+  $scope.jam = {};
+  $scope.instruments = {};
+
+
+
 	/*$scope.slideHasChanged = function($index){
 		console.log($index);
 		console.log('scope map: ' + typeof $scope.map);
@@ -72,6 +77,14 @@ app.controller('CreateCtrl', function($scope, $http, geolocation) {
       $scope.clickTest = function() {
         alert('Example of infowindow with ng-click')
       };
+
+      $scope.updateScope = function(id){
+        $('#genre_id').attr('value', id);
+        $http.get('http://kaz.kochab.uberspace.de/MP3/api/jam/getinstrument?id='+id).then(function(result) {
+            console.log(result);
+            $scope.instruments = result.data;
+        });
+      }
 
 
 
