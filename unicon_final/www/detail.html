@@ -27,21 +27,37 @@
 		</div>
 		</header>
 		<div class="innerWrap" ng-repeat="detail in details">
-		<div class="coverPic">
-			<h2 class="caption">{{detail.name}}</h2>
-			<img src="img/{{detail.image}}" alt="{{detail.name}}">
+			<div class="coverPic">
+				<h2 class="caption">{{detail.name}}</h2>
+				<img src="img/{{detail.image}}" alt="{{detail.name}}">
+			</div>
+			<div class="list-item">
+				<p>{{detail.description}}</p>
+				<div><span class="icon">c</span>{{detail.startDate}}</div>
+				<div class="col2 no-marg"><span class="icon">t</span>{{detail.duration}}</div><div class="col2 no-marg"><span class="icon">u</span>{{detail.max_user}} Musiker</div>
+			</div>
+			<div class="list-item">
+				<span class="item">l</span> Darmstadt {{detail.distance}} km
+			</div>
+			<div class="list-item">
+			{{detail.instruments}}
+			</div>
+			
 		</div>
-		<div class="list-item">
-			<p>{{detail.description}}</p>
-			<div><span class="icon">c</span>{{detail.startDate}}</div>
-			<div class="col2 no-marg"><span class="icon">t</span>{{detail.duration}}</div><div class="col2 no-marg"><span class="icon">u</span>{{detail.max_user}} Musiker</div>
-		</div>
-		<div class="list-item">
-			<span class="item">l</span> Darmstadt {{detail.distance}} km
-		</div>
-		<div class="list-item">
-		</div>
-	
+		<div class="overlay overlay-login" ng-repeat="detail in details">
+			<button type="button" class="overlay-close" ng-click="close()">Close</button>
+			<form method="post" class="joinForm" >
+				<div class="item item-divider">Verf&uuml;gbare Instrumente</div>
+				<div ng-repeat="instrument in isAvailable(detail.instruments)" value="{{instrument.id}}" >
+					{{instrument.instrumentname}}
+				</div>
+
+				<div class="item item-divider">Bereits vergebene Instrumente</div>
+				<div class="item" ng-repeat="instrument in isNotAvailable(detail.instruments)">
+					{{instrument.instrumentname}}
+				</div>
+				<input type="submit" value="Login" name="Login">
+			</form>
 		</div>
 		<footer>
 		<button class="bg-red" ng-click="show()">An Jam Teilnehmen</button>

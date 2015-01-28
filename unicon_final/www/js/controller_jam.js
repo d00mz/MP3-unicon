@@ -14,7 +14,7 @@ app.controller('JamCtrl', function($scope, $http, geolocation, $window) {
 
 	var search = $window.location.search.substring(1);
 	$scope.params = JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
-	alert(search + ' | ' + $scope.params.id);
+	//alert(search + ' | ' + $scope.params.id);
 
 	// DETAILS AJAX
 	$http.get('http://kaz.kochab.uberspace.de/MP3/api/jam/getdetails?id=' + $scope.params.id).then(function(result) {
@@ -43,8 +43,11 @@ app.controller('JamCtrl', function($scope, $http, geolocation, $window) {
 	// Funktion filtert Instrumente und gibt nur freie Instrumente zurück
 	$scope.isAvailable = function(instruments){
 		var result = [];
+console.log('available');
+		console.log(instruments);
 
 		angular.forEach(instruments, function(instrument, key) {
+		console.log(instrument);
 			if(instrument.user_id == '0'){
 				result.push(instrument);
 			}
@@ -56,7 +59,10 @@ app.controller('JamCtrl', function($scope, $http, geolocation, $window) {
 	$scope.isNotAvailable = function(instruments){
 		var result = [];
 
+console.log('not available');
+		console.log(instruments);
 		angular.forEach(instruments, function(instrument, key) {
+		console.log(instrument);
 			if(instrument.user_id != '0'){
 				result.push(instrument);
 			}
@@ -66,12 +72,18 @@ app.controller('JamCtrl', function($scope, $http, geolocation, $window) {
 	};
 
 
+	$scope.show = function (){
+	  	$('body').addClass('showOverlay');
+
+	};
+
+	$scope.close = function (){
+	  	$('body').removeClass('showOverlay');
+	};
 
 
 
-
-
-/*	navigator.geolocation.getCurrentPosition(function(position){
+	/*navigator.geolocation.getCurrentPosition(function(position){
 		$scope.$apply(function(){
 			$scope.userData.geo = [position.coords.latitude,position.coords.longitude];
 			localStorage.setItem('userData',JSON.stringify($scope.userData));
