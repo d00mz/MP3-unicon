@@ -14,7 +14,7 @@ app.controller('JamCtrl', function($scope, $http, geolocation, $window) {
 
 	var search = $window.location.search.substring(1);
 	$scope.params = JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
-	alert(search + ' | ' $scope.params.id);
+	alert(search + ' | ' + $scope.params.id);
 
 	// DETAILS AJAX
 	$http.get('http://kaz.kochab.uberspace.de/MP3/api/jam/getdetails?id=' + $scope.params.id).then(function(result) {

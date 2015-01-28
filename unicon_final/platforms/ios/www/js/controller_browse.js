@@ -1,10 +1,16 @@
 'use strict';
 var app = angular.module('unicon', ['geolocation']);
 
-app.controller('BrowseCtrl', function($scope, $http, geolocation) {
+app.controller('BrowseCtrl', function($scope, $http, geolocation, $window) {
+	try {
+		$scope.userData = JSON.parse(localStorage.getItem('userData'));
+	} catch(e) {
+		$scope.userData = {};
+	}
+
 	$scope.genres = [
 		{ 
-			title: 'Rock', 
+			title: 'Reggae', 
 			id: 1, 
 			image: 'reggae.jpg',
 			jams: [
@@ -66,11 +72,83 @@ app.controller('BrowseCtrl', function($scope, $http, geolocation) {
 		}
 	];
 
-
-
-	$scope.slideHasChanged = function($index){
-		console.log($index);
-		
+	$scope.detailView = function(id){
+		alert('du willst also die Detailansicht von dem Konzert mit der ID '+ id);
 	};
 
+	$scope.calcDistance = function(list){
+		var result = [];
+		angular.forEach(list, function(item, key) {
+			try {
+				item.distance = $scope.distance(item.lat,item.lng);
+			} catch(e){
+				item.distance = '-'
+			}
+			result.push(item);
+		});
+
+		return result;
+	};
+
+	$scope.distance = function(lat, lon){
+		var radlat1 = Math.PI * lat/180
+		var radlat2 = Math.PI * $scope.userData.geo[0]/180
+		var radlon1 = Math.PI * lon/180
+		var radlon2 = Math.PI * $scope.userData.geo[1]/180
+		var theta = lon1-lon2
+		var radtheta = Math.PI * theta/180
+		var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+		dist = Math.acos(dist)
+		dist = dist * 180/Math.PI
+		dist = dist * 60 * 1.1515
+		dist = dist * 1.609344;
+		return dist.toFixed(2);
+	}
+
+
+	$scope.initCarousel = function(){
+		owl = $("#browseCarousel");
+
+		owl.owlCarousel({
+
+			navigation : false,
+			pagination: false,
+			slideSpeed : 300,
+			paginationSpeed : 400,
+			singleItem:true,
+			rewindSpeed: 300,
+			addClassActive: true,
+			autoHeight : true,
+			transitionStyle : "fadeUp"
+		});
+
+		var myShakeEvent = new Shake({
+			threshold:100000,
+    		timeout: 1000
+		});
+        myShakeEvent.start();
+        //window.addEventListener('shake', sliderNext, false);
+
+        function sliderNext(){
+        	owl.trigger('owl.next');
+        }
+
+		$(document).on('click', 'button.list-item',function(e){
+			var id = $(this).data('id');
+			$scope.$apply(function(){
+				$scope.detailView(id);
+			});
+		});
+	};
+
+	navigator.geolocation.getCurrentPosition(function(position){
+		$scope.$apply(function(){
+			if($scope.userData === null) $scope.userData = {};
+			$scope.userData.geo = [position.coords.latitude,position.coords.longitude];
+		});
+	});
+
+
 });
+
+var owl;

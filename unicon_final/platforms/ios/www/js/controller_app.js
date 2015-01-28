@@ -7,7 +7,12 @@ app.controller('AppCtrl', function($scope, $http, geolocation, $window) {
 	  	console.log(result);
 	   return result.data;
 	});*/
-	$scope.userData = JSON.parse(localStorage.getItem('userData'));
+	try {
+		$scope.userData = JSON.parse(localStorage.getItem('userData'));
+	} catch(e) {
+		$scope.userData = {};
+	}
+
 
 
 	$scope.login = function (){
@@ -75,9 +80,12 @@ app.controller('AppCtrl', function($scope, $http, geolocation, $window) {
 		.then(function(result) {
 			console.log(result);
 			localStorage.removeItem('userData');
-			/*$scope.userData = {};
-			$scope.closeLogin();
-			$scope.login();*/
+
+			$('.logout').text('Erfolgreich ausgeloggt')
+			setTimeout(function(){
+				$('.logout').attr('href', 'index.html').click();
+    		},4000);
+
 		});
 	}
 
