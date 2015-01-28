@@ -43,25 +43,25 @@
 			{{detail.instruments}}
 			</div>
 			
+			<button class="bg-red" ng-click="show()">An Jam Teilnehmen</button>
 		</div>
-		<div class="overlay overlay-login" ng-repeat="detail in details">
+		<div class="overlay overlay-fullscreen" ng-repeat="detail in details">
 			<button type="button" class="overlay-close" ng-click="close()">Close</button>
-			<form method="post" class="joinForm" >
+			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
+			<form method="post" class="joinForm" ng-submit="jamBeitreten()">
 				<div class="item item-divider">Verf&uuml;gbare Instrumente</div>
-				<div ng-repeat="instrument in isAvailable(detail.instruments)" value="{{instrument.id}}" >
+				<label ng-repeat="instrument in isAvailable(detail.instruments)" value="{{instrument.id}}" for="{{instrument.icon}}" class="icon-{{instrument.icon}}">
+				<input type="radio" id="{{instrument.icon}}" value="{{instrument.id}}" name="instrument" ng-model="formData.instrument_id">
 					{{instrument.instrumentname}}
-				</div>
+				</label>
 
 				<div class="item item-divider">Bereits vergebene Instrumente</div>
 				<div class="item" ng-repeat="instrument in isNotAvailable(detail.instruments)">
 					{{instrument.instrumentname}}
 				</div>
-				<input type="submit" value="Login" name="Login">
+				<input type="submit" value="beitreten" name="Jam beitreten">
 			</form>
 		</div>
-		<footer>
-		<button class="bg-red" ng-click="show()">An Jam Teilnehmen</button>
-		</footer>
 
 		<script type="text/javascript" src="cordova.js"></script>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>

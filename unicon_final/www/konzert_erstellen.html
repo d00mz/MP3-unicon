@@ -53,18 +53,28 @@
 							<input type="hidden" name="genre_id" ng-model="jam.genre_id"> 
 							
 
-							 <button class="item item-radio nomarg" ng-repeat="genre in genres" data-id="{{genre.id}}">
+							 <a class="item item-radio nomarg" ng-repeat="genre in genres" data-id="{{genre.id}}" ng-click="updateGenre(genre.id)">
 								<div class="item-content" style="background: url(http://kaz.kochab.uberspace.de/MP3/images/{{genre.image}}) left top no-repeat;">
 									{{genre.name}}
 								</div>
+							</a> 
+
+					</div> 
+
+					<div class="item">
+						
+							<label for="instrument">Instrument:</label> 
+							<input type="hidden" name="instrument_id" ng-model="jam.instrument_id"> 
+
+							 <button class="item item-radio nomarg" ng-repeat="instrument in instruments" data-id="{{instrument.id}}" ng-click="updateInstrument(instrument.id)">
+								<div class="item-content" style="background: url(http://kaz.kochab.uberspace.de/MP3/images/{{instrument.image}}) left top no-repeat;">
+									{{instrument.instrumentname}}
+								</div>
 							</button> 
 							
-
-							KÄSE
-							WURST
-
-					
 					</div> 
+
+
 
 					<div class="item">
 						<div id="createJam">
@@ -229,7 +239,7 @@ $.fn.serializeObject=function(){"use strict";var a={},b=function(b,c){var d=a[c.
 			$(document).ready(function(){
 				navigator.geolocation.getCurrentPosition(onSuccess, onError);
 
-				$("form[data-ajax=true]").submit(function(e) {
+				/*$("form[data-ajax=true]").submit(function(e) {
 					console.log($(this));
 					console.log($(this).serializeObject());
 
@@ -252,7 +262,7 @@ $.fn.serializeObject=function(){"use strict";var a={},b=function(b,c){var d=a[c.
 						}
 					});
 					e.preventDefault();
-				});
+				});*/
 
 				owl = $("#createForm");
 	 

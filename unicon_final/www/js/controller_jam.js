@@ -24,6 +24,7 @@ app.controller('JamCtrl', function($scope, $http, geolocation, $window) {
 
 
 	$scope.jamBeitreten = function(){
+		console.log($scope.formData);
 		console.log('----- jam beitreten ----------');
 		if($scope.userData === null){
 			$scope.userData = JSON.parse(localStorage.getItem('userData'));
@@ -32,10 +33,20 @@ app.controller('JamCtrl', function($scope, $http, geolocation, $window) {
 		if($scope.formData['instrument_id'] === undefined || $scope.userData === null){
 			alert('Bitte wähle ein Instrument aus und logge dich ein, damit wir fortfahren können');
 		} else {
-			$http.get('http://kaz.kochab.uberspace.de/MP3/api/jam/join?jam_id='+$stateParams.jamId+'&user_id='+$scope.userData.id+'&instrument_id='+$scope.formData.instrument_id)
+			$http.get('http://kaz.kochab.uberspace.de/MP3/api/jam/join?jam_id='+$scope.params.id+'&user_id='+$scope.userData.id+'&instrument_id='+$scope.formData.instrument_id)
 			.then(function(result) {
-				console.log(result);
-				alert(result.data);
+				
+				if(typeof result.data['success'] != 'undefined'){
+					for(var i = 0; i < $scope.details[0].instruments.length; i++){
+						if($scope.details[0].instruments[i].id == $scope.formData.instrument_id){
+							$scope.details[0].instruments[i].id = $scope.userData.id;
+						}
+					}
+						alert(result.data['success']);
+						$scope.close();
+				} else {
+						alert(result.data['error']);
+				}
 			});
 		}
 	};
@@ -43,11 +54,9 @@ app.controller('JamCtrl', function($scope, $http, geolocation, $window) {
 	// Funktion filtert Instrumente und gibt nur freie Instrumente zurück
 	$scope.isAvailable = function(instruments){
 		var result = [];
-console.log('available');
-		console.log(instruments);
 
 		angular.forEach(instruments, function(instrument, key) {
-		console.log(instrument);
+		
 			if(instrument.user_id == '0'){
 				result.push(instrument);
 			}
@@ -59,26 +68,22 @@ console.log('available');
 	$scope.isNotAvailable = function(instruments){
 		var result = [];
 
-console.log('not available');
-		console.log(instruments);
 		angular.forEach(instruments, function(instrument, key) {
-		console.log(instrument);
 			if(instrument.user_id != '0'){
 				result.push(instrument);
 			}
 		});
-
 		return result;
 	};
 
 
 	$scope.show = function (){
-	  	$('body').addClass('showOverlay');
+	  	$('body').addClass('showOverlay hideInnerWrap');
 
 	};
 
 	$scope.close = function (){
-	  	$('body').removeClass('showOverlay');
+	  	$('body').removeClass('showOverlay hideInnerWrap');
 	};
 
 

@@ -55,7 +55,7 @@ body {
 /* ----- cols & rows & spaces ----- */
 
 .innerWrap > * { font-size: 16px; }
-.col1, .col2, .col3, .col4, .col5, .col6, .col7, .col8, .col9, .col10, .col11, .col12 {
+.col1, .col2, .col3, .col4 {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -95,8 +95,17 @@ body {
     padding: 0;
     font-size: 0;
     overflow-x: hidden;
-    -webkit-transition: -webkit-transform 0.5s;
-    transition: transform 0.5s; 
+    transition: opacity .3s ease, transform .3s ease;
+    -webkit-transition: opacity .3s ease, -webkit-transform .3s ease;
+    opacity: 1;
+    transform: translate3D(0,0,0);
+    -webkit-transform: translate3D(0,0,0);
+}
+
+.hideInnerWrap .innerWrap {
+    opacity: 0;
+    transform: translate3D(-100%,0,0);
+    -webkit-transform: translate3D(-100%,0,0);
 }
 
 /* ----- Fonts ----- */
@@ -219,7 +228,25 @@ body {
     -webkit-transform: translate3D(100%,0,0);
 }
 
-.showOverlay .overlay-login {
+.overlay-fullscreen {
+    box-sizing: border-box;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 3;
+    padding: 0 5%;
+    backface-visibility: hidden;
+    max-height: 100vh;
+    overflow-y: scroll;
+    transition: opacity .3s ease, transform .3s ease;
+    -webkit-transition: opacity .3s ease, -webkit-transform .3s ease;
+    opacity: 0;
+    transform: translate3D(100%,0,0);
+    -webkit-transform: translate3D(100%,0,0);
+}
+
+.showOverlay .overlay-login, .showOverlay .overlay-fullscreen {
     opacity: 1;
     transform: translate3D(0,0,0);
     -webkit-transform: translate3D(0,0,0);

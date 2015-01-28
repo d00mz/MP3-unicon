@@ -3,6 +3,7 @@ var app = angular.module('unicon', ['geolocation']);
 
 app.controller('AppCtrl', function($scope, $http, geolocation, $window) {
 	$scope.loginData = {};
+	$scope.myJams = '';
 	/*$scope.userData = $http.get('http://kaz.kochab.uberspace.de/MP3/api/user/getdata').then(function(result) {
 	  	console.log(result);
 	   return result.data;
@@ -12,6 +13,8 @@ app.controller('AppCtrl', function($scope, $http, geolocation, $window) {
 	} catch(e) {
 		$scope.userData = {};
 	}
+
+	console.log($scope.userData);
 
 
 
