@@ -185,6 +185,8 @@ body {
         -webkit-transition: all 0.3s ease;
         transition: all 0.3s ease;
         margin-bottom: 1em;
+        opacity: 1;
+        position: relative;
     }
 
     #navMain ul li a {
@@ -196,8 +198,6 @@ body {
     }
 
         #navMain ul li a span { padding-right: 20px; font-size: 1.5em; }
-
-
 
 /* ----- LOGIN ----- */
 .overlay-login {
