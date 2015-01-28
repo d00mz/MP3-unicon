@@ -7,6 +7,10 @@ html, body, ul, li, hr, h6, h5, h4, h3, h2, h1, form, table, tr, td, img, p, fig
     -webkit-touch-callout: none;
 }
 
+
+
+
+
 ul {
     list-style: none;
 }
@@ -301,7 +305,9 @@ body {
 
 
 
-#map { height: 300px;}
+#map { height: 300px;
+        width:100%;
+        }
 
 audio { clear: left; display: block; margin: 20px 0; }
 

@@ -63,7 +63,7 @@
 					<!--	</div>
 					</div> -->
 
-					<!-- <div class="item">
+					<div class="item">
 						<div id="createJam">
 							<label for="lat">lat:</label> 
 							<input type="text" name="lat" placeholder="Enter lat" id="lat" value="49.877553" ng-model="jam.lat" />
@@ -73,7 +73,7 @@
 					</div>
 
 
-					<div class="item">
+					<!--<div class="item">
 						<div id="createJam">
 							<label for="max_user">Anzahl Jamer:</label> 
 							<input type="number" name="max_user"  id="max_user"/><br>
@@ -142,13 +142,16 @@
 
         <script src="js/angularjs-geolocation.min.js" type="text/javascript"></script>
 		<script type="text/javascript" src="js/controller_create.js"></script>
-		<!---<script type="text/javascript" src="js/index.js"></script>-->
+		<!-- <script type="text/javascript" src="js/index.js"></script>  -->
 
 
 
 
-		<script type="text/javascript" src="js/index.js"></script>
+	<!--	<script type="text/javascript" src="js/index.js"></script> -->
+
+		<script type="text/javascript" src="js/jquerymobile.js"></script>
 		<script type="text/javascript">
+		
 $.fn.serializeObject=function(){"use strict";var a={},b=function(b,c){var d=a[c.name];"undefined"!=typeof d&&d!==null?$.isArray(d)?d.push(c.value):a[c.name]=[d,c.value]:a[c.name]=c.value};return $.each(this.serializeArray(),b),a};
 
 			var onSuccess = function(position) {
@@ -189,7 +192,7 @@ $.fn.serializeObject=function(){"use strict";var a={},b=function(b,c){var d=a[c.
 					zoomControl: true,
 					scaleControl: true,
 					mapTypeId: google.maps.MapTypeId.ROADMAP
-				}  
+				}
 
 				var map = new google.maps.Map(document.getElementById('map'),mapOptions);
 
@@ -254,18 +257,36 @@ $.fn.serializeObject=function(){"use strict";var a={},b=function(b,c){var d=a[c.
 					navigation : true,
 					navigationText: ['<','>'],
 					pagination: false,
-					slideSpeed : 0,
+					slideSpeed : 300,
 					paginationSpeed : 400,
 					singleItem:true,
 					rewindSpeed: 300,
 					addClassActive: true,
 					autoHeight : false,
+					mouseDrag: false,
+					touchDrag: false,
 					afterMove: function(e){
 						console.log(e);
 						
 						console.log(owl.data('owlCarousel').currentItem);
 					}		
 				});
+
+				owl.on("swiperight",function(event){
+			      var $e = $(event.target);
+				  if($e.attr('id') != 'map' && $e.parents('#map').length == 0){
+				    owl.data("owlCarousel").prev();
+				  }
+      			});
+
+      			owl.on("swipeleft",function(event){
+			      var $e = $(event.target);
+			      if($e.attr('id') != 'map' && $e.parents('#map').length == 0){
+				    owl.data("owlCarousel").next();
+				  }
+      			});
+
+      			
 
 			});
 		</script>
