@@ -84,6 +84,7 @@ app.controller('CreateCtrl', function($scope, $http, geolocation) {
         $http.get('http://kaz.kochab.uberspace.de/MP3/api/jam/getinstruments?id='+id).then(function(result) {
             $scope.instruments = result.data;
             console.log($scope.instruments);
+
         });
       }
 

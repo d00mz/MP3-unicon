@@ -52,7 +52,6 @@
 							<label for="genre">Genre:</label> 
 							<input type="hidden" name="genre_id" ng-model="jam.genre_id"> 
 							
-
 							 <a class="item item-radio nomarg" ng-repeat="genre in genres" data-id="{{genre.id}}" ng-click="updateGenre(genre.id)">
 								<div class="item-content" style="background: url(http://kaz.kochab.uberspace.de/MP3/images/{{genre.image}}) left top no-repeat;">
 									{{genre.name}}
@@ -71,9 +70,7 @@
 									{{instrument.instrumentname}}
 								</div>
 							</button> 
-							
 					</div> 
-
 
 
 					<div class="item">
