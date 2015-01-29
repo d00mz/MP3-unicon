@@ -37,7 +37,7 @@
 				<div class="col2 no-marg"><span class="icon">t</span>{{detail.duration}}</div><div class="col2 no-marg"><span class="icon">u</span>{{detail.max_user}} Musiker</div>
 			</div>
 			<div class="list-item">
-				<span class="item">l</span> Darmstadt {{detail.distance}} km
+				<span class="item">l</span> Distanz zum Jam {{detail.distance}}
 			</div>
 			<div class="list-item">
 			{{detail.instruments}}
@@ -47,7 +47,7 @@
 		</div>
 		<div class="overlay overlay-fullscreen" ng-repeat="detail in details">
 			<button type="button" class="overlay-close" ng-click="close()">Close</button>
-			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
+			<p>{{infotext}}</p>
 			<form method="post" class="joinForm" ng-submit="jamBeitreten()">
 				<div class="item item-divider">Verf&uuml;gbare Instrumente</div>
 				<label ng-repeat="instrument in isAvailable(detail.instruments)" value="{{instrument.id}}" for="{{instrument.icon}}" class="icon-{{instrument.icon}}">
@@ -78,6 +78,6 @@
         <script src="js/angularjs-geolocation.min.js" type="text/javascript"></script>
 		<script type="text/javascript" src="js/controller_jam.js"></script>
 		<script type="text/javascript" src="js/directives.js"></script>
-		<script type="text/javascript" src="js/index.js"></script>
+		<script type="text/javascript" src="js/services.js"></script>
 	</body>
 </html>

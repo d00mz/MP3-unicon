@@ -14,10 +14,11 @@
 
 		<link rel="stylesheet" type="text/css" href="css/index.css" />
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/plugins.css" />
 		<title>unicon</title>
 
 	</head>
-	<body ng-controller="AppCtrl">
+	<body ng-controller="MyjamCtrl">
 		<header>
 		<div class="innerWrap">
 		<div class="col4">
@@ -26,12 +27,20 @@
 		</div>
 		</header>
 		<div class="innerWrap">
-			<div class="col12">
-				<h1>{{userData.fullname}}</h1>
-				<p><strong>E-Mail: </strong>{{userData.email}}<br>
-				<strong>User ID: </strong>{{userData.id}}<br>
-				<strong>MODX Token: </strong> {{userData.token}}</p>
-				<a class="button logout" ng-click="logout()">Ausloggen</a>
+			<div class="coverPic">
+				<h2 class="caption">{{jams.name}}</h2>
+				<img src="img/{{jams.image}}" alt="{{jams.name}}">
+			</div>
+			<div class="list">
+				<div ng-repeat="jamGroup in jams">
+					<div class="item-divider">
+						{{jamGroup.divider}}
+					</div> 											
+					<a class="list-item" ng-repeat="jamItem in calcDistance(jamGroup.list)" href="detail.html?id={{jamItem.id}}">
+						<span class="title">{{jamItem.name}}</span>
+						<span class="col2 no-marg"><span class="icon green">c</span>{{jamItem.duration}}</span><span class="col2 no-marg"><span class="icon green">l</span>{{jamItem.distance}}</span>
+					</a> 
+				</div> 
 			</div>
 		</div>
 
@@ -43,12 +52,14 @@
 		<script type="text/javascript" src="http://kaz.kochab.uberspace.de/MP3-unicon/unicon/www/js/plugins.js"></script>
 		<!---<script type="text/javascript" src="http://kaz.kochab.uberspace.de/MP3-unicon/unicon/www/js/bufferloader.js"></script>
 		<script type="text/javascript" src="http://kaz.kochab.uberspace.de/MP3-unicon/unicon/www/js/socket.io.js"></script>
+		<script type="text/javascript" src="js/index.js"></script>
 -->
 
 
 
         <script src="js/angularjs-geolocation.min.js" type="text/javascript"></script>
-		<script type="text/javascript" src="js/controller_app.js"></script>
+		<script type="text/javascript" src="js/controller_myjams.js"></script>
+		<script type="text/javascript" src="js/directives.js"></script>
 		<script type="text/javascript" src="js/services.js"></script>
 	</body>
 </html>

@@ -1,12 +1,7 @@
 'use strict';
 var app = angular.module('unicon', ['geolocation']);
 
-app.controller('BrowseCtrl', function($scope, $http, geolocation, $window) {
-	try {
-		$scope.userData = JSON.parse(localStorage.getItem('userData'));
-	} catch(e) {
-		$scope.userData = {};
-	}
+app.controller('BrowseCtrl', function($scope, $http, geolocation, $window, Auth) {
 
 	$scope.genres = {};
 
@@ -85,33 +80,29 @@ app.controller('BrowseCtrl', function($scope, $http, geolocation, $window) {
 
 	$scope.calcDistance = function(list){
 		var result = [];
-		console.log(list);
 		angular.forEach(list, function(item, key) {
-			try {
-				item.distance = $scope.distance(item.lat,item.lng);
-			} catch(e){
-				item.distance = '-'
-			}
+			var uGeo =Auth.getData('geo');
+			item.distance = $scope.distance(item.lat,item.lng,uGeo[0],uGeo[1]) + ' km';
 			result.push(item);
 		});
 
 		return result;
 	};
 
-	$scope.distance = function(lat, lon){
-		var radlat1 = Math.PI * lat/180
-		var radlat2 = Math.PI * $scope.userData.geo[0]/180
-		var radlon1 = Math.PI * lon/180
-		var radlon2 = Math.PI * $scope.userData.geo[1]/180
-		var theta = lon1-lon2
-		var radtheta = Math.PI * theta/180
-		var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-		dist = Math.acos(dist)
-		dist = dist * 180/Math.PI
-		dist = dist * 60 * 1.1515
-		dist = dist * 1.609344;
-		return dist.toFixed(2);
-	}
+	$scope.distance = function(lat1, lon1, lat2, lon2, unit) {
+	    var radlat1 = Math.PI * lat1/180;
+	    var radlat2 = Math.PI * lat2/180;
+	    var radlon1 = Math.PI * lon1/180;
+	    var radlon2 = Math.PI * lon2/180;
+	    var theta = lon1-lon2;
+	    var radtheta = Math.PI * theta/180;
+	    var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+	    dist = Math.acos(dist);
+	    dist = dist * 180/Math.PI;
+	    dist = dist * 60 * 1.1515;
+	    dist = dist * 1.609344;
+	    return dist.toFixed(2);
+	};
 
 
 	$scope.initCarousel = function(){
@@ -148,13 +139,6 @@ app.controller('BrowseCtrl', function($scope, $http, geolocation, $window) {
 			});
 		});
 	};
-
-	navigator.geolocation.getCurrentPosition(function(position){
-		$scope.$apply(function(){
-			if($scope.userData === null) $scope.userData = {};
-			$scope.userData.geo = [position.coords.latitude,position.coords.longitude];
-		});
-	});
 
 
 });

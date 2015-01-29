@@ -1,38 +1,27 @@
 'use strict';
 var app = angular.module('unicon', ['geolocation']);
 
-app.controller('AppCtrl', function($scope, $http, geolocation, $window) {
+app.controller('AppCtrl', function($scope, $http, geolocation, $location, Auth) {
 	$scope.loginData = {};
 	$scope.myJams = '';
-	/*$scope.userData = $http.get('http://kaz.kochab.uberspace.de/MP3/api/user/getdata').then(function(result) {
-	  	console.log(result);
-	   return result.data;
-	});*/
-	try {
-		$scope.userData = JSON.parse(localStorage.getItem('userData'));
-	} catch(e) {
-		$scope.userData = {};
-	}
 
-	console.log($scope.userData);
-	console.log($scope.userData.length);
-	if(typeof $scope.userData['id'] != 'undefined'){
-		$http.get('http://kaz.kochab.uberspace.de/MP3/api/user/getmyjamcount?id='+$scope.userData["id"]).then(function(result) {
+
+	if(typeof Auth.getUser()['id'] != 'undefined'){
+		$http.get('http://kaz.kochab.uberspace.de/MP3/api/user/getmyjamcount?id='+Auth.getData("id")).then(function(result) {
 		  	console.log(result);
 		   $scope.myJams = result.data;
 		});
 	}
 
 
-
 	$scope.login = function (){
 		console.log(JSON.parse(localStorage.getItem('userData')));
-		if(JSON.parse(localStorage.getItem('userData')) == null){
+		if(Auth.isLoggedIn()){
 			console.log('login');
 	  		$('body').addClass('showOverlay').addClass('hideNavigation');
 	  	} else {
 	  		console.log('redirect');
-	  		window.navigator.href = 'profil.html';
+	  		//$location.path('profil.html');
 	  		$('#navMain .profil').attr('href', 'profil.html').click();
 	    }
 
@@ -60,11 +49,14 @@ app.controller('AppCtrl', function($scope, $http, geolocation, $window) {
 					console.log('userdaten werden aus localstorage gelöscht');
 				} else {
 					try {
-						var jsonData = JSON.parse(data);
+						console.log('auth gibts net');
+							Auth.setUser(data);
+
+						/*var jsonData = JSON.parse(data);
 						localStorage.setItem('userData',data);
 						$scope.$apply(function(){
 	    					$scope.userData = jsonData;
-	    				});
+	    				});*/
 					} catch(e){
 						alert('Es gab ein Fehler beim Anmelden');
 						console.log(e);
@@ -86,7 +78,7 @@ app.controller('AppCtrl', function($scope, $http, geolocation, $window) {
 	};
 
 	$scope.logout = function() {
-		$http.get('http://kaz.kochab.uberspace.de/MP3/api/user/ajaxlogin?service=logout')
+		/*$http.get('http://kaz.kochab.uberspace.de/MP3/api/user/ajaxlogin?service=logout')
 		.then(function(result) {
 			console.log(result);
 			localStorage.removeItem('userData');
@@ -96,9 +88,11 @@ app.controller('AppCtrl', function($scope, $http, geolocation, $window) {
 				$('.logout').attr('href', 'index.html').click();
     		},4000);
 
-		});
+		});*/
+		Auth.logout();
 	}
 
 });
+
 
 
