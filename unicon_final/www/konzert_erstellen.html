@@ -12,7 +12,9 @@
 <link href='http://fonts.googleapis.com/css?family=Rancho' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Gudea:400,700' rel='stylesheet' type='text/css'>
 
-<link href='http://fonts.googleapis.com/css?family=Overlock|Permanent+Marker' rel='stylesheet' type='text/css'>
+<!-- <link href='http://fonts.googleapis.com/css?family=Overlock|Permanent+Marker' rel='stylesheet' type='text/css'> -->
+
+<link href='http://fonts.googleapis.com/css?family=Permanent+Marker|Open+Sans' rel='stylesheet' type='text/css'>
 		
 		<link rel="stylesheet" type="text/css" href="css/index.css" />
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
@@ -22,134 +24,131 @@
 		<header>
 		  <div class="innerWrap">
 		  <div class="col4">
-		  <a href="index.html" class="icon">m</a>
+		  <a href="index.html" class="icon-x"></a>
 		  </div>
 		  </div>
 		  </header>
 		<div class="innerWrap">
-			<form method="get" data-ajax="true" action="http://kaz.kochab.uberspace.de/MP3/api/jam/create">
+			<form method="get" data-ajax="true" ng-submit="formSubmit()">
 			
 			<div id="createForm">
-
-			<!-- 		<div class="item">
-
-							<label for="name">Titel eingeben:</label>
-							<input type="text"  id="name" name="name" ng-model="jam.name" >
-	
-					</div>
+				<div class="item">
+					<label for="name">Titel eingeben:</label>
+					<input type="text"  id="name" name="name" ng-model="jam.name" >
+				</div>
 					
 
-					<div class="item">
-
-							<label for="description">Beschreibung:</label>
-							<textarea name="description" id="description" rows="3" cols="3" ng-model="jam.description" >
-					</div> -->
-
-
-					<div class="item">
-						
-							<label for="genre">Genre:</label> 
-							<input type="hidden" name="genre_id" ng-model="jam.genre_id"> 
-							
-							 <a class="item item-radio nomarg" ng-repeat="genre in genres" data-id="{{genre.id}}" ng-click="updateGenre(genre.id)">
-								<div class="item-content" style="background: url(http://kaz.kochab.uberspace.de/MP3/images/{{genre.image}}) left top no-repeat;">
-									{{genre.name}}
-								</div>
-							</a> 
-
-					</div> 
-
-					<div class="item">
-						
-							<label for="instrument">Instrument:</label> 
-							<input type="hidden" name="instrument_id" ng-model="jam.instrument_id"> 
-
-							 <button class="item item-radio nomarg" ng-repeat="instrument in instruments" data-id="{{instrument.id}}" ng-click="updateInstrument(instrument.id)">
-								<div class="item-content" style="background: url(http://kaz.kochab.uberspace.de/MP3/images/{{instrument.image}}) left top no-repeat;">
-									{{instrument.instrumentname}}
-								</div>
-							</button> 
-					</div> 
+				<div class="item">
+					<label for="description">Beschreibung:</label>
+					<textarea name="description" id="description" rows="3" cols="3" ng-model="jam.description"></textarea>
+				</div> 
 
 
-					<div class="item">
+				<div class="item">
+					<label for="genre">Genre:</label> 
+					<input type="hidden" name="genre_id" id="genre_id" ng-model="jam.genre_id"> 
+					<a class="item item-radio nomarg" ng-repeat="genre in genres" data-id="{{genre.id}}" ng-click="updateGenre(genre.id)">
+						<div class="item-content" style="background: url(images/{{genre.image}}) left top no-repeat;">
+							{{genre.name}}
+						</div>
+					</a> 
+				</div> 
 
-							<label for="lat">lat:</label> 
-							<input type="text" name="lat" placeholder="Enter lat" id="lat" value="49.877553" ng-model="jam.lat" />
-							<input type="text" name="lng" placeholder="Enter lng" id="lng" value="8.652589" ng-model="jam.lng"  />
-							<div id="map"></div>
+				<div class="item instrumentSelection">
+					<label for="instrument">Instrument:</label> 
+					<label ng-repeat="instrument in instruments" value="{{instrument.id}}" for="{{instrument.icon}}" class="icon-{{instrument.icon}}">
+						<input type="radio" id="{{instrument.icon}}" value="{{instrument.id}}" name="instrument_id" ng-model="user.instrument_id">
+						{{instrument.instrumentname}}
+					</label>
+				</div> 
 
+
+				<div class="item no-pad">
+					<div class="col4">
+						<label for="lat">Ort makieren:</label> 
+						<input type="hidden" name="lat" id="lat" ng-model="jam.lat" />
+						<input type="hidden" name="lng" id="lng" ng-model="jam.lng"  />
 					</div>
+					<div id="map"></div>
+				</div>
 
 
-					<!--<div class="item">
-
-							<label for="max_user">Anzahl Jamer:</label> 
-							<input type="number" name="max_user"  id="max_user"/><br>
-
+				<div class="item">
+					<div id="anzahl">
+						<label for="max_length">Dauer</label>
+						<input type="range" min="5" max="30" id="max_length" onchange="outputUpdate(value)" ng-model="jam.max_length" name="max_length">
+						<output for="max_length" id="max_length">{{jam.max_length}}</output>
+						<script type="text/javascript">
+							function outputUpdate(vol) {
+								document.querySelector('#max_length').value = vol;
+							}
+						</script>
 					</div>
+				</div>
 
-					<div class="item">
+				
 
-							<label for="max_length">Dauer:</label> 
-							<input type="number" name="max_length"  id="max_length"/><br>
+				<!-- <div class="item">
+					<label for="max_length">Dauer:</label> 
+					<input type="number" name="max_length"  id="max_length" ng-model="jam.max_length" /><br>
+				</div> -->
 
-					</div>
+				<div class="item">
+					<label for="startDate">Zeitpunkt:</label> 
+					<input type="datetime-local" name="startDate" id="startDate" ng-model="jam.startDate"/>
+				</div> 
 
-					<div class="item">
-
-							<label for="startDate">Zeitpunkt:</label> 
-							<input type="datetime-local" name="startDate" id="startDate" ng-model="jam.startDate"/>
-
-					</div> -->
-
-					<div class="item">
-
+				<div class="item no-pad detailView">
+					<div class="coverPic">
+						<h2 class="caption">{{jam.name}}</h2>
 						<img class="genreImage"src="img/genreDetailansicht.png">
-						
-						<div id="firstRow">
-							<h1>Ruvens Jam</h1>
-						</div>
-
-						<div id="secondRow">
-							<h2>afihjepfjwa pfjawpifjpwiefjpow afjpfjpwejf wjf wiefjwefjwoi fjwoif jwfijoi</h2>
-						</div>	
-
-						<div id="thirdRow">
-							<span class="icon-calendar"></span>
-							<h2>18. Januar 20:00 Uhr</h2>
-						</div>
-
-						<div id="fourthRow">
-							<span class="icon-clock"></span>
-							<h2>15 Min.</h2>
-							<span class="icon-user"></span>
-							<h2>3 Spieler</h2>
-						</div>
-								
-						<div id="fifthRow">
-							<span class="icon-location"></span>
-							<h2>Darmstadt: 1km</h2>
-						</div>
-
-						<div id="sixthRow">
-							<h2>Genre: Rock</h2>
-							<span class="icon-drums"></span>
-							<span class="icon-guitar"></span>
-							<span class="icon-bass"></span>
-							<span class="icon-keyboard"></span>
-						</div>
-						
+					</div>	
+					<div class="list-item">
+						<p>{{jam.description}}</p>
 					</div>
+					<div class="list-item">
+						<div><span class="icon-calendar"></span>{{jam.startDate}}</div>
+						<div class="col2 no-marg"><span class="icon-clock"></span>{{jam.max_length}} Minuten</div><div class="col2 no-marg">
+						<!-- <span class="icon-user"></span>4 Musiker</div> -->
+					</div>
+						
+					<div class="list-item">
+
+					<!--<h2>afihjepfjwa pfjawpifjpwiefjpow afjpfjpwejf wjf wiefjwefjwoi fjwoif jwfijoi</h2>
+					 <div id="thirdRow">
+						<span class="icon-calendar"></span>
+						<h2>18. Januar 20:00 Uhr</h2>
+					</div>
+
+					<div id="fourthRow">
+						<span class="icon-clock"></span>
+						<h2>15 Min.</h2>
+						<span class="icon-user"></span>
+						<h2>3 Spieler</h2></br>
+					</div>
+								
+					<div id="fifthRow">
+						<span class="icon-location"></span>
+						<h2>Darmstadt: 1km</h2>
+					</div> -->
+
+				<!-- 	<div id="sixthRow"> -->
+						<h2>Genre: Rock</h2>
+						<span class="icon-drums"></span>
+						<span class="icon-guitar"></span>
+						<span class="icon-bass"></span>
+						<span class="icon-syntie"></span>
+					</div>
+					<input type="submit" value="Send jam">
+
+				</div>
 
 					<!-- <div class="item overview">
 					<button ng-click="update()">update</button>
 					</div> -->
-
 			</div>
-				<!-- <input type="submit" value="Send jam"> -->
+				
 			</form>
-			<div id="returnData"></div>
 		</div>
 		
 
@@ -158,161 +157,17 @@
 
 		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 		<script type="text/javascript" src="http://kaz.kochab.uberspace.de/MP3-unicon/unicon/www/js/plugins.js"></script>
-		<!---<script type="text/javascript" src="http://kaz.kochab.uberspace.de/MP3-unicon/unicon/www/js/bufferloader.js"></script>
-		<script type="text/javascript" src="http://kaz.kochab.uberspace.de/MP3-unicon/unicon/www/js/socket.io.js"></script>
-		<script type="text/javascript" src="js/services.js"></script>
--->
-
+		<script type="text/javascript" src="js/jquerymobile.js"></script>
         <script src="js/angularjs-geolocation.min.js" type="text/javascript"></script>
 		<script type="text/javascript" src="js/controller_create.js"></script>
-		<!-- <script type="text/javascript" src="js/index.js"></script>  -->
+		<script type="text/javascript" src="js/services.js"></script>
 
 
-
-
-	<!--	<script type="text/javascript" src="js/index.js"></script> -->
-
-		<script type="text/javascript" src="js/jquerymobile.js"></script>
 		<script type="text/javascript">
 		
 $.fn.serializeObject=function(){"use strict";var a={},b=function(b,c){var d=a[c.name];"undefined"!=typeof d&&d!==null?$.isArray(d)?d.push(c.value):a[c.name]=[d,c.value]:a[c.name]=c.value};return $.each(this.serializeArray(),b),a};
 
-			var onSuccess = function(position) {
-				console.log(position);
-				$('#lat').attr('value', position.coords.latitude);
-				$('#lng').attr('value', position.coords.longitude);
-				initialize();
-			};
-
-			// onError Callback receives a PositionError object
-			//
-			function onError(error) {
-			alert('code: '    + error.code    + '\n' +
-			'message: ' + error.message + '\n');
-			}
-
-
-			function reinitSlider(dragOption){
-				var slide = owl.data('owlCarousel').currentItem;
-				owl.data('owlCarousel').reinit({touchDrag: dragOption, mouseDrag: dragOption});
-				owl.data('owlCarousel').goTo(slide);
-			}
-
-			function initialize() {
-				var $latitude = $('#lat');
-				var $longitude = $('#lng');
-				var latitude = $latitude.val();
-				var longitude = $longitude.val();
-				console.log(latitude, longitude);
-				var zoom = 14;
-
-				var LatLng = new google.maps.LatLng(latitude, longitude);
-
-				var mapOptions = {
-					zoom: zoom,
-					center: LatLng,
-					panControl: false,
-					zoomControl: true,
-					scaleControl: true,
-					mapTypeId: google.maps.MapTypeId.ROADMAP
-				}
-
-				var map = new google.maps.Map(document.getElementById('map'),mapOptions);
-
-				var marker = new google.maps.Marker({
-					position: LatLng,
-					map: map,
-					title: 'Drag Me!',
-					draggable: true
-				});
-
-				google.maps.event.addListener(marker, 'dragstart', function(marker){
-					console.log('dragStart');
-					
-				});
-
-				google.maps.event.addListener(marker, 'dragend', function(marker){
-					console.log('dragend');
-				var latLng = marker.latLng;
-					$latitude.value = latLng.lat();
-					$longitude.value = latLng.lng();
-				});
-
-			}
-			initialize();
-
-
-
-
-			var owl;
-
-			$(document).ready(function(){
-				navigator.geolocation.getCurrentPosition(onSuccess, onError);
-
-				/*$("form[data-ajax=true]").submit(function(e) {
-					console.log($(this));
-					console.log($(this).serializeObject());
-
-					var form_data = $(this).serializeObject();
-					var form_url = $(this).attr("action");
-					var form_method = $(this).attr("method").toUpperCase();
-		  		
-			  		$.ajax({
-						type: "POST",
-						dataType: "html",
-						url: form_url,
-						data: {
-							returnFormat: "plain",
-							formData: JSON.stringify(form_data),
-						},
-						success: function(data){
-							alert('success');
-							console.log(data);
-							$('#returnData').html(data);
-						}
-					});
-					e.preventDefault();
-				});*/
-
-				owl = $("#createForm");
-	 
-				owl.owlCarousel({
-					navigation : true,
-					navigationText: ['<','>'],
-					pagination: false,
-					slideSpeed : 300,
-					paginationSpeed : 400,
-					singleItem:true,
-					rewindSpeed: 300,
-					addClassActive: true,
-					autoHeight : false,
-					mouseDrag: false,
-					touchDrag: false,
-					afterMove: function(e){
-						console.log(e);
-						
-						console.log(owl.data('owlCarousel').currentItem);
-					}		
-				});
-
-				owl.on("swiperight",function(event){
-			      var $e = $(event.target);
-				  if($e.attr('id') != 'map' && $e.parents('#map').length == 0){
-				    owl.data("owlCarousel").prev();
-				  }
-      			});
-
-      			owl.on("swipeleft",function(event){
-			      var $e = $(event.target);
-			      if($e.attr('id') != 'map' && $e.parents('#map').length == 0){
-				    owl.data("owlCarousel").next();
-				  }
-      			});
-
-      			
-
-			});
-		</script>
+			</script>
 		
 	</body>
 </html>

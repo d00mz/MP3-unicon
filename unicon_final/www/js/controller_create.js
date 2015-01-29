@@ -1,105 +1,167 @@
 'use strict';
 var app = angular.module('unicon', ['geolocation']);
 
-app.controller('CreateCtrl', function($scope, $http, geolocation) {
+app.controller('CreateCtrl', function($scope, $http, geolocation, Auth) {
 	$scope.map = false;
-  $scope.master = {}; 
-  $scope.jam = {}; 
-  $scope.genres = $http.get('http://kaz.kochab.uberspace.de/MP3/api/jam/getgenre').then(function(result) {
-      console.log(result);
-      $scope.genres = result.data;
-  });
+	$scope.master = {}; 
+	$scope.jam = {}; 
+	$scope.user = {}; 
+	$scope.genres = $http.get('http://kaz.kochab.uberspace.de/MP3/api/jam/getgenre').then(function(result) {
+		console.log(result);
+		$scope.genres = result.data;
+	});
 
-  $scope.jam = {};
-  $scope.instruments = {};
+	$scope.instruments = {};
 
-
-
-	/*$scope.slideHasChanged = function($index){
-		console.log($index);
-		console.log('scope map: ' + typeof $scope.map);
-		if($index == 1 && typeof $scope.map == 'boolean'){
-		console.log('initialize');
-		console.log($("#map123"));
-        var myLatlng = new google.maps.LatLng(43.07493,-89.381388);
-        
-        var mapOptions = {
-          center: myLatlng,
-          zoom: 16,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var map = new google.maps.Map(document.getElementById("map123"),
-            mapOptions);
-        
-        //Marker + infowindow + angularjs compiled ng-click
-        var contentString = "<div><a ng-click='clickTest()'>Click me!</a></div>";
-        var compiled = $compile(contentString)($scope);
-
-        var infowindow = new google.maps.InfoWindow({
-          content: compiled[0]
-        });
-
-        var marker = new google.maps.Marker({
-          position: myLatlng,
-          map: map,
-          title: 'Konzert'
-        });
-
-        google.maps.event.addListener(marker, 'click', function() {
-          infowindow.open(map,marker);
-        });
-
-        $scope.map = map;
-
-		console.log('scope map: ' + typeof $scope.map);
-     }
-		
+	$scope.clickTest = function() {
+		alert('Example of infowindow with ng-click')
 	};
 
-      $scope.centerOnMe = function() {
-        if(!$scope.map) {
-          return;
-        }
+	$scope.updateGenre = function(id){
+		$('#genre_id').attr('value', id);
+		$http.get('http://kaz.kochab.uberspace.de/MP3/api/jam/getinstruments?id='+id).then(function(result) {
+			$scope.instruments = result.data;
+			console.log($scope.instruments);
+		});
+	};
 
-        $scope.loading = $ionicLoading.show({
-          content: 'Getting current location...',
-          showBackdrop: false
-        });
-
-        navigator.geolocation.getCurrentPosition(function(pos) {
-          $scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
-          $scope.loading.hide();
-        }, function(error) {
-          alert('Unable to get location: ' + error.message);
-        });
-      };*/
-      
-      $scope.clickTest = function() {
-        alert('Example of infowindow with ng-click')
-      };
-
-      $scope.updateGenre = function(id){
-        alert(id);
-        $('#genre_id').attr('value', id);
-        $http.get('http://kaz.kochab.uberspace.de/MP3/api/jam/getinstruments?id='+id).then(function(result) {
-            $scope.instruments = result.data;
-            console.log($scope.instruments);
-
-        });
-      }
-
-
-
-	
 
 	$scope.update = function(jam) {
 		$scope.master = angular.copy(jam);
-    alert($scope.master);
+		alert($scope.master);
 	};
 
 
+	$scope.formSubmit = function(){
+		var formData = $("form").serializeObject();
+		console.log(formData);
+		var form = {
+			jam: {},
+			jam_user: {
+				user_id: Auth.getData('id')
+			}
+		};
+
+		for(var key in formData){
+			if(key == 'genre_id'){
+				form.jam[key] = formData[key];
+				form.jam_user[key] = formData[key];
+			} else if (key == 'instrument_id'){
+				form.jam_user[key] = formData[key];
+			} else {
+				form.jam[key] = formData[key];
+			}
+		}
+		console.log(form);
+
+
+  		$.ajax({
+			type: "POST",
+			dataType: "html",
+			url: 'http://kaz.kochab.uberspace.de/MP3/api/jam/create',
+			data: {
+				returnFormat: "plain",
+				formData: JSON.stringify(form.jam),
+			},
+			success: function(data){
+				console.log(data);
+			}
+		});
+	};
+
+	$scope.initMap = function(){
+		var $latitude = $('#lat');
+		var $longitude = $('#lng');
+		var uGeo = Auth.getData('geo');
+
+		console.log(Auth.getUser());
+		console.log('user geo');
+		console.log(uGeo);
+
+		console.log(uGeo[0], uGeo[1]);
+		var zoom = 14;
+
+		var LatLng = new google.maps.LatLng(uGeo[0], uGeo[1]);
+
+		var mapOptions = {
+			zoom: zoom,
+			center: LatLng,
+			panControl: false,
+			zoomControl: false,
+			scaleControl: false,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		}
+
+		var map = new google.maps.Map(document.getElementById('map'),mapOptions);
+
+		var marker = new google.maps.Marker({
+			position: LatLng,
+			map: map,
+			title: 'Drag Me!',
+			draggable: true
+		});
+
+		google.maps.event.addListener(marker, 'dragend', function(marker){
+			var latLng = marker.latLng;
+				$latitude.value = latLng.lat();
+				$longitude.value = latLng.lng();
+			$('#lat').attr('value',latLng.lat());
+			$('#lng').attr('value',latLng.lng());
+			$scope.$apply(function(){
+				$scope.jam.lat = latLng.lat();
+				$scope.jam.lng = latLng.lng();
+			});
+		});
+
+	};
+
+
+	$scope.initMap();
+
 });
 
+var owl;
+
 $(document).on("click",".overview button",function() {
-    console.log($(this).parents('form').serializeArray());
+	console.log($(this).parents('form').serializeArray());
+});
+
+$(document).ready(function(){
+	owl = $("#createForm");
+
+	owl.owlCarousel({
+		navigation : false,
+		navigationText: ['<','>'],
+		pagination: false,
+		slideSpeed : 300,
+		paginationSpeed : 400,
+		singleItem:true,
+		rewindSpeed: 300,
+		addClassActive: true,
+		autoHeight : false,
+		mouseDrag: false,
+		touchDrag: false,
+		afterMove: function(e){
+			console.log(e);
+			
+			console.log(owl.data('owlCarousel').currentItem);
+		}		
+	});
+
+	owl.on("swiperight",function(event){
+		var $e = $(event.target);
+		if($e.attr('id') != 'map' && $e.parents('#map').length == 0 && $e.attr('id') != 'max_length'){
+			owl.data("owlCarousel").prev();
+		}
+	});
+
+	owl.on("swipeleft",function(event){
+		var $e = $(event.target);
+		if($e.attr('id') != 'map' && $e.parents('#map').length == 0 && $e.attr('id') != 'max_length'){
+			owl.data("owlCarousel").next();
+		}
+	});
+
+		
+
 });

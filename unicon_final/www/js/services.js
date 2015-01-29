@@ -10,8 +10,15 @@ app.factory('Auth', function($rootScope,geolocation,$http){
 
 	navigator.geolocation.getCurrentPosition(function(position){
 		$rootScope.$apply(function(){
-			$rootScope.userData.geo = [position.coords.latitude,position.coords.longitude];
-			console.log($rootScope.userData.geo);
+			console.log($rootScope.userData);
+			var geoObj = {
+				geo: [position.coords.latitude,position.coords.longitude]
+			};
+
+			$rootScope.userData = angular.extend($rootScope.userData, geoObj);
+			
+			console.log('set geo');
+			console.log($rootScope.userData);
 			localStorage.setItem('userData', JSON.stringify($rootScope.userData));
 		});
 	});
@@ -19,7 +26,10 @@ app.factory('Auth', function($rootScope,geolocation,$http){
 
 	return{
 		setUser : function(aUser){
-			angular.extend($rootScope.userData, JSON.parse(aUser));
+			console.log($rootScope.userData);
+			console.log(aUser);
+			$rootScope.userData = angular.extend($rootScope.userData, JSON.parse(aUser));
+			console.log($rootScope.userData);
 			localStorage.setItem('userData', JSON.stringify($rootScope.userData));
 		},
 		isLoggedIn : function(){

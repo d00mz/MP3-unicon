@@ -74,6 +74,7 @@ body {
 
 .pad { padding: 15px; }
     .pad-top { padding-top: 10px !important;}
+.no-pad { padding: 0 !important;}
 
 .marg-top {margin-top: 50px;}
 .marg-bottom {margin-bottom: 30px;}
@@ -109,11 +110,18 @@ body {
 }
 
 /* ----- Fonts ----- */
-h1, h2, h3 {
-    font-family: 'Rancho', cursive;
+h1{
+   font-size: 2em;
+    font-family: 'Permanent Marker', cursive; 
+}
+
+
+h3 {
+    font-family: 'Open Sans', sans-serif;
     font-size: 2em;
 }
 h2 {
+    font-family: 'Open Sans', sans-serif;
     text-transform: uppercase;
     font-size: 1.8em;
 }
@@ -315,28 +323,6 @@ body {
 	}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#map { height: 300px;
-        width:100%;
-        }
-
 audio { clear: left; display: block; margin: 20px 0; }
 
 button:hover { box-shadow: inset 0 2px 1px rgba(0,0,0,0.2);}
@@ -374,6 +360,10 @@ button:hover { box-shadow: inset 0 2px 1px rgba(0,0,0,0.2);}
     width: 100%; 
     padding: 0 5%;
 }
+
+    #createForm .item.no-pad {
+        padding: 0;
+    }
 
 
 
@@ -427,57 +417,116 @@ input, select, textarea {
     outline:none;
  }
 
- #map-canvas {
-        width: 100%;
-        height: 300px;
-        margin-top: 50px;
-      }
 
+#map{ 
+    height: 490px;
+    width:100%;
+    left: 0px;
+}
+ 
 
 
 /* ----- JAM ERSTELLEN ----- */
+#createForm .overview .icon-calendar {
+    color: #1da671;
 
-
-#createJam label{
-    margin-top: 100px;
-    margin-bottom: 50px;
-    font-family: 'Permanent Marker', cursive;
-        font-size: 35px;
-        color:#ffffff;
 }
 
-#createJam input{
-    width:250px;
-    display:block;
-    font-family: 'Overlock', cursive;
+#thirdRow .icon-calendar{
+    float:left;
+    font-size: 35px;
+    margin-top: -5px;
+    margin-right: 15px;
+    color: #1da671;
+}
+
+#fourthRow{
+    margin-top: 40px;
+    font-size: 0.7em;
+}
+
+#fourthRow h2{
+    width: 100px;
+    float: left;
+}
+
+#fourthRow .icon-clock{
+    float:left;
     font-size: 30px;
+    margin-top: -2px;
+    margin-right: 15px;
+    color: #1da671;
 }
 
-#createJam textarea{
-    width:250px;
-    display:block;
-    font-family: 'Overlock', cursive;
+#fourthRow .icon-user{
+
     font-size: 30px;
+    margin-top: -2px;
+    margin-right: 10px;
+    float: left;
+    color: #1da671;
 }
 
-#createJam h1{
-    
-    font-family: 'Permanent Marker', cursive;
-    font-size: 45px;
-}
-
-#createJam h2{
-    
-    font-family: 'Overlock', cursive;
-    font-size: 20px;
-}
-
-.genreImage {
+#fifthRow{
     position:absolute;
-    top:0;
-    left:0;
-    z-index: -1;
-    width:375px;
-    margin-left: 0px;
+    margin-top: 40px;
+    border-top: 2px solid;
+    border-bottom: 2px solid;
+    color: #e16453;
+    font-size: 0.7em;
+    padding: 30px 5%;
+    width: 375px;
+    left:0px;
 }
 
+#fifthRow .icon-location{
+    float:left;
+    font-size: 35px;
+    margin-top: -5px;
+    margin-right: 15px;
+    color: #1da671;
+}
+
+#sixthRow{
+    margin-top: 160px;
+    font-size: 0.7em;
+}
+
+#sixthRow .icon-drums{
+    margin-right:15px;
+    font-size: 35px;
+}
+
+#sixthRow .icon-guitar{
+    margin-right:15px;
+    font-size: 35px;
+}
+
+#sixthRow .icon-bass{
+    margin-right:15px;
+    font-size: 35px;
+}
+
+#sixthRow .icon-syntie{
+    margin-right:15px;
+    font-size: 35px;
+}
+
+.icon-x{
+    float:right;
+    font-size: 40px;
+    margin-top: 10px;
+}
+
+
+
+
+
+#createForm .item label{margin-top: 100px;
+                        font-family: 'Permanent Marker', cursive;
+                        font-size: 2.2em; }
+
+#createForm .item input, select, textarea {
+                                            font-family: 'Open Sans', sans-serif;
+                                            font-size: 2em;
+                                            }

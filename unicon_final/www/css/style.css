@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'icomoon';
-	src:url('fonts/icomoon.eot?-1blj93');
-	src:url('fonts/icomoon.eot?#iefix-1blj93') format('embedded-opentype'),
-		url('fonts/icomoon.woff?-1blj93') format('woff'),
-		url('fonts/icomoon.ttf?-1blj93') format('truetype'),
-		url('fonts/icomoon.svg?-1blj93#icomoon') format('svg');
+	src:url('fonts/icomoon.eot?-x7bthj');
+	src:url('fonts/icomoon.eot?#iefix-x7bthj') format('embedded-opentype'),
+		url('fonts/icomoon.woff?-x7bthj') format('woff'),
+		url('fonts/icomoon.ttf?-x7bthj') format('truetype'),
+		url('fonts/icomoon.svg?-x7bthj#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -23,6 +23,18 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+.icon-back:before {
+	content: "\e601";
+}
+
+.icon-x:before {
+	content: "\e602";
+}
+
+.icon-bass:before {
+	content: "\e600";
+}
+
 .icon-guitar:before {
 	content: "\65";
 }
@@ -37,10 +49,6 @@
 
 .icon-drums:before {
 	content: "\64";
-}
-
-.icon-arrow_back:before {
-	content: "\3c";
 }
 
 .icon-magnifier:before {

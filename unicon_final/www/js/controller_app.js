@@ -5,12 +5,17 @@ app.controller('AppCtrl', function($scope, $http, geolocation, $location, Auth) 
 	$scope.loginData = {};
 	$scope.myJams = '';
 
+	$scope.createLink = 'konzert_erstellen.html';
+
 
 	if(typeof Auth.getUser()['id'] != 'undefined'){
 		$http.get('http://kaz.kochab.uberspace.de/MP3/api/user/getmyjamcount?id='+Auth.getData("id")).then(function(result) {
 		  	console.log(result);
 		   $scope.myJams = result.data;
 		});
+		$scope.createLink = 'konzert_erstellen.html';
+	} else {
+		$scope.createLink = '#';
 	}
 
 
@@ -50,24 +55,20 @@ app.controller('AppCtrl', function($scope, $http, geolocation, $location, Auth) 
 				} else {
 					try {
 						console.log('auth gibts net');
-							Auth.setUser(data);
-
-						/*var jsonData = JSON.parse(data);
-						localStorage.setItem('userData',data);
-						$scope.$apply(function(){
-	    					$scope.userData = jsonData;
-	    				});*/
+						Auth.setUser(data);
+	    				$('form').slideUp().after('<h1>Sie haben sich erfolgreich eingeloggt!</h1>');
+			    		setTimeout(function(){
+		    				$scope.$apply(function(){
+		    					$scope.close();
+		    					$scope.createLink = 'konzert_erstellen.html';
+		    				});
+			    		},4000);
 					} catch(e){
 						alert('Es gab ein Fehler beim Anmelden');
 						console.log(e);
 					}
 					
-		    		$('form').slideUp().after('<h1>Sie haben sich erfolgreich eingeloggt!</h1>');
-		    		setTimeout(function(){
-	    				$scope.$apply(function(){
-	    					$scope.close();
-	    				});
-		    		},4000);
+
 
 				}
 			},
