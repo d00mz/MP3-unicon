@@ -280,6 +280,7 @@ body {
 
 	.coverPic img {
 		width: 100%;
+        display: block;
 	}
 
 /* ----- LISTS ----- */
@@ -298,7 +299,7 @@ body {
 	display: block;
 	text-align: left;
 	padding: 5px 5%;
-	width: 100%;
+	width: 90%;
 	border-bottom: 2px solid #ae4d40;
 }
 

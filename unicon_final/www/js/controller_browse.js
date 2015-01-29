@@ -8,7 +8,14 @@ app.controller('BrowseCtrl', function($scope, $http, geolocation, $window) {
 		$scope.userData = {};
 	}
 
-	$scope.genres = [
+	$scope.genres = {};
+
+	$http.get('http://kaz.kochab.uberspace.de/MP3/api/jam/getlist').then(function(result) {
+		console.log(result.data);
+		$scope.genres = result.data;
+	});
+
+	/*$scope.genres = [
 		{ 
 			title: 'Reggae', 
 			id: 1, 
@@ -70,7 +77,7 @@ app.controller('BrowseCtrl', function($scope, $http, geolocation, $window) {
 				}
 			]
 		}
-	];
+	];*/
 
 	$scope.detailView = function(id){
 		alert('du willst also die Detailansicht von dem Konzert mit der ID '+ id);
@@ -78,6 +85,7 @@ app.controller('BrowseCtrl', function($scope, $http, geolocation, $window) {
 
 	$scope.calcDistance = function(list){
 		var result = [];
+		console.log(list);
 		angular.forEach(list, function(item, key) {
 			try {
 				item.distance = $scope.distance(item.lat,item.lng);

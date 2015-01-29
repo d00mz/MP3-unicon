@@ -15,6 +15,13 @@ app.controller('AppCtrl', function($scope, $http, geolocation, $window) {
 	}
 
 	console.log($scope.userData);
+	console.log($scope.userData.length);
+	if(typeof $scope.userData['id'] != 'undefined'){
+		$http.get('http://kaz.kochab.uberspace.de/MP3/api/user/getmyjamcount?id='+$scope.userData["id"]).then(function(result) {
+		  	console.log(result);
+		   $scope.myJams = result.data;
+		});
+	}
 
 
 

@@ -30,14 +30,14 @@
 		<div id="browseCarousel">
 			<div class="item" ng-repeat="genre in genres" on-finish-render="initCarousel()">
 				<div class="coverPic">
-					<h2 class="caption">{{genre.title}}</h2>
-					<img src="img/{{genre.image}}" alt="{{genre.title}}">
+					<h2 class="caption">{{genre.name}}</h2>
+					<img src="img/{{genre.image}}" alt="{{genre.name}}">
 				</div>
 				<div class="list">
 					<div ng-repeat="jamGroup in genre.jams">
 						<div class="item-divider">
 							{{jamGroup.divider}}
-						</div> 								
+						</div> 											
 						<a class="list-item" ng-repeat="jamItem in calcDistance(jamGroup.list)" href="detail.html?id={{jamItem.id}}">
 							<span class="title">{{jamItem.name}}</span>
 							<span class="col2 no-marg"><span class="icon green">c</span>{{jamItem.duration}}</span><span class="col2 no-marg"><span class="icon green">l</span>{{jamItem.distance}}</span>
