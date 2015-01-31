@@ -4,8 +4,10 @@ var app = angular.module('unicon', ['geolocation']);
 app.controller('AppCtrl', function($scope, $http, geolocation, $location, Auth) {
 	$scope.loginData = {};
 	$scope.myJams = '';
+	$scope.userData = Auth.getUser();
 
 	$scope.createLink = 'konzert_erstellen.html';
+	$scope.myJamLink = 'myjams.html';
 
 
 	if(typeof Auth.getUser()['id'] != 'undefined'){
@@ -14,8 +16,10 @@ app.controller('AppCtrl', function($scope, $http, geolocation, $location, Auth) 
 		   $scope.myJams = result.data;
 		});
 		$scope.createLink = 'konzert_erstellen.html';
+		$scope.myJamLink = 'myjams.html';
 	} else {
 		$scope.createLink = '#';
+		$scope.myJamLink = '#';
 	}
 
 
@@ -61,6 +65,7 @@ app.controller('AppCtrl', function($scope, $http, geolocation, $location, Auth) 
 		    				$scope.$apply(function(){
 		    					$scope.close();
 		    					$scope.createLink = 'konzert_erstellen.html';
+								$scope.myJamLink = 'myjams.html';
 		    				});
 			    		},4000);
 					} catch(e){
@@ -79,17 +84,7 @@ app.controller('AppCtrl', function($scope, $http, geolocation, $location, Auth) 
 	};
 
 	$scope.logout = function() {
-		/*$http.get('http://kaz.kochab.uberspace.de/MP3/api/user/ajaxlogin?service=logout')
-		.then(function(result) {
-			console.log(result);
-			localStorage.removeItem('userData');
-
-			$('.logout').text('Erfolgreich ausgeloggt')
-			setTimeout(function(){
-				$('.logout').attr('href', 'index.html').click();
-    		},4000);
-
-		});*/
+		console.log('logging user out');
 		Auth.logout();
 	}
 

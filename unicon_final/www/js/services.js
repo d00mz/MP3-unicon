@@ -16,7 +16,7 @@ app.factory('Auth', function($rootScope,geolocation,$http){
 			};
 
 			$rootScope.userData = angular.extend($rootScope.userData, geoObj);
-			
+
 			console.log('set geo');
 			console.log($rootScope.userData);
 			localStorage.setItem('userData', JSON.stringify($rootScope.userData));
@@ -52,18 +52,20 @@ app.factory('Auth', function($rootScope,geolocation,$http){
 			$http.get('http://kaz.kochab.uberspace.de/MP3/api/user/ajaxlogin?service=logout')
 			.then(function(result) {
 				console.log(result);
-				var geo = $rootScope.userData.geo;
+				var geoObj = {geo: $rootScope.userData.geo };
 				$rootScope.userData = {};
-				$rootScope.userData.geo = geo;
+				$rootScope.userData = angular.extend($rootScope.userData,geoObj);
 				localStorage.removeItem('userData');
-				localStorage.setItem('userData', JSON.stringify($rootScope.userData.geo));
+				localStorage.setItem('userData', JSON.stringify($rootScope.userData));
 
 				$('.logout').text('Erfolgreich ausgeloggt')
 				setTimeout(function(){
-					$('.logout').attr('href', 'index.html').click();
-	    		},4000);
+					$('.logout').removeAttr('ng-click').attr('href', 'index.html');
+					$('.logout').click();
+	    		},2000);
 
 			});
 		}
 	}
-})
+});
+

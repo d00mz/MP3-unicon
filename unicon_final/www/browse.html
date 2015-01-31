@@ -11,6 +11,7 @@
         <meta name="apple-mobile-web-app-title" content="unicon">
 <link href='http://fonts.googleapis.com/css?family=Rancho' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Gudea:400,700' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Permanent+Marker|Open+Sans' rel='stylesheet' type='text/css'>
 
 		<link rel="stylesheet" type="text/css" href="css/index.css" />
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
@@ -22,7 +23,7 @@
 		<header>
 		<div class="innerWrap">
 		<div class="col4">
-		<a href="index.html" class="icon">m</a>
+		<a href="index.html" class="icon-back"></a>
 		</div>
 		</div>
 		</header>
@@ -30,18 +31,32 @@
 		<div id="browseCarousel">
 			<div class="item" ng-repeat="genre in genres" on-finish-render="initCarousel()">
 				<div class="coverPic">
-					<h2 class="caption">{{genre.name}}</h2>
+					<h1 class="caption marg-bottom">{{genre.name}}</h1>
 					<img src="img/{{genre.image}}" alt="{{genre.name}}">
 				</div>
+
 				<div class="list">
 					<div ng-repeat="jamGroup in genre.jams">
-						<div class="item-divider">
+						<div class="list-item-center green">
 							{{jamGroup.divider}}
-						</div> 											
-						<a class="list-item" ng-repeat="jamItem in calcDistance(jamGroup.list)" href="detail.html?id={{jamItem.id}}">
+						</div> 
+
+						<a class="list-item " ng-repeat="jamItem in calcDistance(jamGroup.list)" href="detail.html?id={{jamItem.id}}">
+
 							<span class="title">{{jamItem.name}}</span>
-							<span class="col2 no-marg"><span class="icon green">c</span>{{jamItem.duration}}</span><span class="col2 no-marg"><span class="icon green">l</span>{{jamItem.distance}}</span>
+							<span class="icon-clock icon-s green icon-text marg-top"></span>
+							<p class="col1 no-marg">{{jamItem.duration}}</p>
+							<span class="icon-location icon-s green icon-text marg-top"></span>
+							<p class="col2 no-marg">{{jamItem.distance}}</p>
 						</a> 
+
+
+
+						<!-- <div class="box-list-item marg-top marg-bottom pad icon-text">
+						<span class="icon-location icon-float green icon-l"></span>
+						<p>Darmstadt: 1,4km</p>
+					</div> -->
+
 					</div> 
 				</div>
 			</div>

@@ -12,16 +12,23 @@ app.controller('CreateCtrl', function($scope, $http, geolocation, Auth) {
 	});
 
 	$scope.instruments = {};
+	$scope.overview = {};
+
 
 	$scope.clickTest = function() {
 		alert('Example of infowindow with ng-click')
 	};
 
-	$scope.updateGenre = function(id){
-		$('#genre_id').attr('value', id);
-		$http.get('http://kaz.kochab.uberspace.de/MP3/api/jam/getinstruments?id='+id).then(function(result) {
+	$scope.updateGenre = function(genre){
+		console.log(genre);
+		//$('#genre_id').attr('value', id);
+		angular.extend($scope.overview, {'genre':genre});
+		console.log($scope.overview);
+		$http.get('http://kaz.kochab.uberspace.de/MP3/api/jam/getinstruments?id='+genre.id).then(function(result) {
 			$scope.instruments = result.data;
 			console.log($scope.instruments);
+			angular.extend($scope.overview, {'instruments':$scope.instruments});
+			console.log($scope.overview);
 		});
 	};
 
@@ -64,7 +71,19 @@ app.controller('CreateCtrl', function($scope, $http, geolocation, Auth) {
 				formData: JSON.stringify(form.jam),
 			},
 			success: function(data){
-				console.log(data);
+				var json = $.parseJSON(data);
+				
+				form.jam_user.jam_id = json.jam_id;
+				$scope.$apply(function(){
+					$http.get('http://kaz.kochab.uberspace.de/MP3/api/jam/join?jam_id='+form.jam_user.jam_id+'&user_id='+ form.jam_user.user_id +'&instrument_id='+form.jam_user.instrument_id)
+					.then(function(result) {
+						if(typeof result.data['success'] != 'undefined'){
+							alert(result.data['success']);
+						} else {
+							alert(result.data['error']);
+						}
+					});
+				});
 			}
 		});
 	};
@@ -82,6 +101,8 @@ app.controller('CreateCtrl', function($scope, $http, geolocation, Auth) {
 		var zoom = 14;
 
 		var LatLng = new google.maps.LatLng(uGeo[0], uGeo[1]);
+		$('#lat').attr('value',uGeo[0]);
+		$('#lng').attr('value',uGeo[1]);
 
 		var mapOptions = {
 			zoom: zoom,
@@ -103,8 +124,6 @@ app.controller('CreateCtrl', function($scope, $http, geolocation, Auth) {
 
 		google.maps.event.addListener(marker, 'dragend', function(marker){
 			var latLng = marker.latLng;
-				$latitude.value = latLng.lat();
-				$longitude.value = latLng.lng();
 			$('#lat').attr('value',latLng.lat());
 			$('#lng').attr('value',latLng.lng());
 			$scope.$apply(function(){
@@ -138,7 +157,7 @@ $(document).ready(function(){
 		singleItem:true,
 		rewindSpeed: 300,
 		addClassActive: true,
-		autoHeight : false,
+		autoHeight : true,
 		mouseDrag: false,
 		touchDrag: false,
 		afterMove: function(e){
@@ -161,7 +180,5 @@ $(document).ready(function(){
 			owl.data("owlCarousel").next();
 		}
 	});
-
-		
 
 });

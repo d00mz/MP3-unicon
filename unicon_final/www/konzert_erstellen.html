@@ -44,22 +44,26 @@
 				</div> 
 
 
-				<div class="item">
+				<div class="item genreSelection no-pad">
 					<label for="genre">Genre:</label> 
-					<input type="hidden" name="genre_id" id="genre_id" ng-model="jam.genre_id"> 
+					<!-- <input type="hidden" name="genre_id" id="genre_id" ng-model="jam.genre_id"> 
 					<a class="item item-radio nomarg" ng-repeat="genre in genres" data-id="{{genre.id}}" ng-click="updateGenre(genre.id)">
 						<div class="item-content" style="background: url(images/{{genre.image}}) left top no-repeat;">
 							{{genre.name}}
 						</div>
-					</a> 
+					</a>  -->
+					<div class="radioWrap" ng-repeat="genre in genres">
+						<input class="display_none" type="radio" id="genre-{{genre.id}}" value="{{genre.id}}" name="genre_id" ng-model="jam.genre_id">
+						<label value="{{genre.id}}" for="genre-{{genre.id}}" class="radioLabel list-item" style="background: url(img/{{genre.image}}) left top no-repeat;" ng-click="updateGenre(genre)">{{genre.name}}</label>
+					</div>
 				</div> 
 
 				<div class="item instrumentSelection">
 					<label for="instrument">Instrument:</label> 
-					<label ng-repeat="instrument in instruments" value="{{instrument.id}}" for="{{instrument.icon}}" class="icon-{{instrument.icon}}">
-						<input type="radio" id="{{instrument.icon}}" value="{{instrument.id}}" name="instrument_id" ng-model="user.instrument_id">
-						{{instrument.instrumentname}}
-					</label>
+					<div class="radioWrap" ng-repeat="instrument in instruments">
+						<input class="display_none" type="radio" id="{{instrument.icon}}" value="{{instrument.id}}" name="instrument_id" ng-model="user.instrument_id">
+						<label value="{{instrument.id}}" for="{{instrument.icon}}" class="icon-{{instrument.icon}} radioLabel list-item">{{instrument.instrumentname}}</label>
+					</div>
 				</div> 
 
 
@@ -75,12 +79,14 @@
 
 				<div class="item">
 					<div id="anzahl">
-						<label for="max_length">Dauer</label>
-						<input type="range" min="5" max="30" id="max_length" onchange="outputUpdate(value)" ng-model="jam.max_length" name="max_length">
-						<output for="max_length" id="max_length">{{jam.max_length}}</output>
+						<label for="duration">Dauer</label>
+						
+							<input class"bar" type="range" min="5" max="30" id="duration" onchange="outputUpdate(value)" ng-model="jam.duration" name="duration">
+							<output for="duration" id="duration">{{jam.max_length}}</output>
+					
 						<script type="text/javascript">
 							function outputUpdate(vol) {
-								document.querySelector('#max_length').value = vol;
+								document.querySelector('#duration').value = vol;
 							}
 						</script>
 					</div>
@@ -98,48 +104,41 @@
 					<input type="datetime-local" name="startDate" id="startDate" ng-model="jam.startDate"/>
 				</div> 
 
+
+
 				<div class="item no-pad detailView">
+
 					<div class="coverPic">
-						<h2 class="caption">{{jam.name}}</h2>
+						<h1 class="caption marg-bottom">{{jam.name}}</h1>
 						<img class="genreImage"src="img/genreDetailansicht.png">
 					</div>	
-					<div class="list-item">
-						<p>{{jam.description}}</p>
+
+					<div class="col4 marg-top">
+						<p class="">{{jam.description}}</p>
 					</div>
-					<div class="list-item">
-						<div><span class="icon-calendar"></span>{{jam.startDate}}</div>
-						<div class="col2 no-marg"><span class="icon-clock"></span>{{jam.max_length}} Minuten</div><div class="col2 no-marg">
-						<!-- <span class="icon-user"></span>4 Musiker</div> -->
+
+					<div class="col4 marg-top icon-text">
+						<span class="icon-calendar green icon-float icon-l"></span>
+						<p>{{jam.startDate}}</p>
+					</div>
+
+					<div class="col4 icon-text">	
+						<span class="icon-clock green icon-float icon-m"></span>
+						<p>{{jam.max_length}}</p>
+					</div>
+
+					<div class="box-list-item marg-top marg-bottom pad icon-text">
+						<span class="icon-location icon-float green icon-l"></span>
+						<p>Darmstadt: 1,4km</p>
 					</div>
 						
-					<div class="list-item">
-
-					<!--<h2>afihjepfjwa pfjawpifjpwiefjpow afjpfjpwejf wjf wiefjwefjwoi fjwoif jwfijoi</h2>
-					 <div id="thirdRow">
-						<span class="icon-calendar"></span>
-						<h2>18. Januar 20:00 Uhr</h2>
+					<div class="col4 marg-top icon-text">
+						{{overview.genre.instruments}}
+						<span ng-repeat="instrument in overview.instruments" class="icon-{{instrument.icon}} icon-float green icon-l"></span>
+						<p>{{overview.genre.name}}</p>
 					</div>
 
-					<div id="fourthRow">
-						<span class="icon-clock"></span>
-						<h2>15 Min.</h2>
-						<span class="icon-user"></span>
-						<h2>3 Spieler</h2></br>
-					</div>
-								
-					<div id="fifthRow">
-						<span class="icon-location"></span>
-						<h2>Darmstadt: 1km</h2>
-					</div> -->
-
-				<!-- 	<div id="sixthRow"> -->
-						<h2>Genre: Rock</h2>
-						<span class="icon-drums"></span>
-						<span class="icon-guitar"></span>
-						<span class="icon-bass"></span>
-						<span class="icon-syntie"></span>
-					</div>
-					<input type="submit" value="Send jam">
+					<input class="marg-top" type="submit" value="Send jam">
 
 				</div>
 

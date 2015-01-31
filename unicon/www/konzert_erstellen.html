@@ -84,7 +84,7 @@ $.fn.serializeObject=function(){"use strict";var a={},b=function(b,c){var d=a[c.
 						},
 						success: function(data){
 							alert('success');
-							console.log(data);
+							console.log($.parseJSON(data));
 							$('#returnData').html(data);
 						}
 					});
