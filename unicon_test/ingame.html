@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="msapplication-tap-highlight" content="no" />
+		<title>unicon</title>
+		<!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-title" content="unicon">
+<link href='http://fonts.googleapis.com/css?family=Rancho' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Gudea:400,700' rel='stylesheet' type='text/css'>
+
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/plugins.css" />
+		<title>unicon</title>
+
+	</head>
+	<body>
+		<header>
+		<div class="innerWrap">
+		<div class="col4">
+		<a href="myjams.html" class="icon-back"></a>
+		<span class="counter"></span>
+		</div>
+		</div>
+		</header>
+		<div class="innerWrap detailView">
+			<div>
+				<h2 class="headline">Test</h2>
+				<div class="instrument">
+					<audio class="first_stage" src="sounds/soundtrack.wav" controls></audio>
+				</div>
+				<a href="#" class="fadeOut">Musik ausfaden</a>
+				<a href="#" class="fadeIn">Musik einfaden</a>
+				<a href="#" class="play">Musik abspielen</a>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/plugins.js"></script>
+		<script type="text/javascript" src="http://kaz.kochab.uberspace.de/MP3-unicon/unicon_final/www/js/socket.io.js"></script>
+		<script type="text/javascript">
+		$(document).ready(function(){
+			$('a.fadeOut').click(function(e){
+				$('audio').animate({ volume: 0 }, 1000);
+				e.preventDefault();
+			});
+
+			$('a.fadeIn').click(function(e){
+				$('audio').animate({ volume: 1 }, 1000);
+				e.preventDefault();
+			});
+
+			$('a.play').click(function(e){
+				$('audio')[0].play();
+				e.preventDefault();
+			});
+		});
+
+
+		var socket = new io.connect('http://kaz.kochab.uberspace.de:64182');
+		socket.on('connect',function() {
+			console.log('Client has connected to the server!');
+			socket.emit('newUser', {
+				user_id: 1,
+				jam_id: 1
+			});
+		});
+
+		// Add a connect listener
+		socket.on('message',function(data) {
+			console.log('Received a message from the server!',data);
+		});
+
+		socket.on('startTimer',function(data) {
+			console.log('startTimer triggered ',data);
+		});
+
+		socket.on('gude',function(data) {
+			console.log('test data wurde gesendet: ',data);
+		});
+
+		// Add a disconnect listener
+		socket.on('disconnect',function() {
+			console.log('The client has disconnected!');
+		});
+
+
+		</script>
+	</body>
+</html>

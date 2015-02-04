@@ -78,7 +78,7 @@ app.controller('AppCtrl', function($scope, $http, geolocation, $location, Auth) 
 				}
 			},
 			error: function(e){
-          		alert('Unable to get location: ' + e.message);
+          		alert('Unable to get location: ' + e);
 			}
 		});
 	};

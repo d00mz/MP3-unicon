@@ -27,11 +27,19 @@ app.controller('MyjamDetailCtrl', function($scope, $http, geolocation, $window, 
 		result.data[0].distance = $scope.distance(result.data[0].lat,result.data[0].lng,uGeo[0],uGeo[1]) + ' km';
 		result.data[0].joined = false;
 		$scope.details = result.data;
-
+		
 		$('timer')[0].start();
-		$('timer')[0].addCDSeconds(Math.abs(($scope.stringToDate(result.data[0].startDate) - new Date()) / 1000).toFixed(0));
+		var time = ($scope.stringToDate(result.data[0].startDate) - new Date()) / 1000;
+			time = time.toFixed(0);
+		if(time < 0){
+			$scope.startJam();
+		} else {
+			$('timer')[0].addCDSeconds(Math.abs(time));
+		}
 
 	});
+
+
 
 	$scope.distance = function(lat1, lon1, lat2, lon2, unit) {
 	    var radlat1 = Math.PI * lat1/180;
@@ -49,14 +57,15 @@ app.controller('MyjamDetailCtrl', function($scope, $http, geolocation, $window, 
 	};
 
 	$scope.startJam = function(){
-		$scope.startJamLink = "ingame.html?="+$scope.details[0].id;
+		$scope.startJamLink = "ingame.html?id="+$scope.details[0].id;
+		$('a.button.disabled').removeClass('disabled');
 	};
 
 	$scope.$on('timer-tick', function (event, args) {
 		if($scope.allowStartCheck){
 			if(Math.abs(($scope.stringToDate($scope.details[0].startDate) - new Date()) / 1000).toFixed(0) <= 300){
 				console.log('gooogogogogogo');
-				$scope.startJamLink = "ingame.html?="+$scope.details[0].id;
+				$scope.startJam();
 				$scope.allowStartCheck = false;
 			}
 		}

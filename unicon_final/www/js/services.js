@@ -68,4 +68,3 @@ app.factory('Auth', function($rootScope,geolocation,$http){
 		}
 	}
 });
-

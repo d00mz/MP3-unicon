@@ -146,6 +146,19 @@ $(document).on("click",".overview button",function() {
 });
 
 $(document).ready(function(){
+
+
+	$( "#slider" ).slider({
+		min: 5,
+		max: 45,
+		value: 15,
+		animate: "fast",
+		slide: function( event, ui ) {
+			$("#duration").val(ui.value);
+		}
+	});
+
+
 	owl = $("#createForm");
 
 	owl.owlCarousel({

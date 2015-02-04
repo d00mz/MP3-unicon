@@ -31,6 +31,10 @@
 	content: "\e602";
 }
 
+.icon-x2:before {
+	content: "\e602";
+}
+
 .icon-bass:before {
 	content: "\e600";
 }

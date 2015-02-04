@@ -10,8 +10,8 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-title" content="unicon">
 
-        <link href='http://fonts.googleapis.com/css?family=Permanent+Marker|Open+Sans' rel='stylesheet' type='text/css'>
-
+   <!--      <link href='http://fonts.googleapis.com/css?family=Permanent+Marker|Open+Sans' rel='stylesheet' type='text/css'>
+ -->
 		<link rel="stylesheet" type="text/css" href="css/index.css" />
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
 		<link rel="stylesheet" type="text/css" href="css/plugins.css" />
@@ -59,29 +59,32 @@
 
 			
 			<div class="col4 marg-top icon-text">
-			{{detail.instruments}}
+				<span class="icon-{{instrument.instrumentname}}"></span>
 			</div>
 
+			
 			
 			<button class="bg-red button" ng-click="show()">Jam beitreten</button>
 		</div>
 	</div>
 		<div class="overlay overlay-fullscreen" ng-repeat="detail in details">
 			<button type="button" class="overlay-close icon-x" ng-click="close()"></button>
-			<label class="item">Instrument wählen:</label>
+			
 			<form method="post" class="joinForm" ng-submit="jamBeitreten()">
 				
-				<div class=" item item-divider">Verf&uuml;gbare Instrumente</div>
+				<div class="list-item-center-border marg-top-xl green">Verf&uuml;gbare Instrumente:</div>
 
 				<div class="radioWrap" ng-repeat="instrument in isAvailable(detail.instruments)">
 					<input class="display_none" type="radio" id="{{instrument.icon}}" value="{{instrument.id}}" name="instrument" ng-model="formData.instrument_id">
-					<label  value="{{instrument.id}}" for="{{instrument.icon}}" class="icon-{{instrument.icon}} radioLabel list-item">{{instrument.instrumentname}}</label>
+					<label  value="{{instrument.id}}" for="{{instrument.icon}}" class="radioLabel list-item"><span class="icon-{{instrument.icon}} icon-l"></span>{{instrument.instrumentname}}</label>
 				</div>
 			
-				<div class="item-divider">Bereits vergebene Instrumente</div>
-				<div class="item" ng-repeat="instrument in isNotAvailable(detail.instruments)">
+				<div class="list-item-center-border marg-top-xl green">Bereits vergebene Instrumente:</div>
+				<label class="item radioLabel list-item" ng-repeat="instrument in isNotAvailable(detail.instruments)">
+					<span class="icon-{{instrument.icon}} icon-l"></span>
 					{{instrument.instrumentname}}
-				</div>
+				</label>
+
 				<input type="submit" value="beitreten" name="Jam beitreten">
 			</form>
 		</div>

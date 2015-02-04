@@ -18,7 +18,7 @@ ul {
 * {
     font-family: 'Gudea', sans-serif;
     font-size: 16px;
-    color: #fff;
+    color: #f2ede6;
 }
 
 html {
@@ -76,7 +76,7 @@ input[type=range]::-webkit-slider-thumb {
   height: 36px;
   width: 16px;
   border-radius: 3px;
-  background: #ffffff;
+  background: #f2ede6;
   cursor: pointer;
   -webkit-appearance: none;
   margin-top: -14px;
@@ -142,6 +142,15 @@ input[type=range]:focus::-ms-fill-upper {
 }
 
 
+@font-face {
+   font-family: 'Open Sans';
+   src: local('OpenSans-Regular'), url(Open-Sans/OpenSans-Regular.ttf) format('truetype');
+}
+
+@font-face {
+   font-family: 'Permanent Marker';
+   src: local('PermanentMarker'), url(Permanent_Marker/PermanentMarker.ttf) format('truetype');
+}
 
 
 /* ----- cols & rows & spaces ----- */
@@ -168,9 +177,10 @@ input[type=range]:focus::-ms-fill-upper {
 .pad-top { padding-top: 10px !important;}
 .no-pad { padding: 0 !important;}
 .no-pad-bottom {padding-bottom: 0;}
-
+.marg-top-xl{margin-top:50px;}
 .marg-top {margin-top: 10px;}
-.marg-bottom {margin-bottom: 30px;}
+.marg-bottom {margin-bottom: 50px;}
+.marg-left{margin-left: 65px;}
 .no-marg { margin: 0;}
 .no-marg-bottom {margin-bottom: 0;}
 .border { border: 1px solid #CCC; }
@@ -191,13 +201,28 @@ input[type=range]:focus::-ms-fill-upper {
     font-size: 34px;
 }
 
+.icon-xs{
+    font-size: 30px;
+}
+
 .icon-float{
     float:left;
     margin-right: 15px;
 }
 
+.icon-text { 
+display: inline-block;
+vertical-align: middle;
+}
+
 .icon-text p{
     padding-top: 3px;
+    font-size: 1.1em;
+
+}
+
+.text-small p{
+    font-size:1em;
 }
 
 .innerWrap {
@@ -233,7 +258,7 @@ h3 {
 }
 h2 {
     font-family: 'Open Sans', sans-serif;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     font-size: 1.8em;
 }
 
@@ -244,7 +269,7 @@ p {
     
 }
 
-a { color: #fff; text-decoration: none; }
+a { color: #f2ede6; text-decoration: none; }
 
 /* ----- Header ----- */
 header {
@@ -259,7 +284,7 @@ header {
     header .innerWrap { padding: 0; }
     header a { font-size: 2em ;}
 
-button {
+button, .btn {
     color: white;
     border-radius: 4px;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
@@ -322,11 +347,11 @@ body {
     }
 
     #navMain ul li a {
-        line-height: 1.5;
-        font-size: 1.3em;
-        font-family: 'Gudea', cursive;
-        text-transform: uppercase;
-        font-weight: bold;
+        line-height: 1.9;
+        font-size: 1.9em;
+        font-family: 'Permanent Marker', cursive;
+        /*text-transform: uppercase;
+        font-weight: bold;*/
     }
 
         #navMain ul li a span { padding-right: 20px; font-size: 1.5em; }
@@ -354,7 +379,7 @@ body {
     left: 0;
     top: 0;
     z-index: 3;
-    padding: 0 5%;
+    /*padding: 0 5%;*/
     backface-visibility: hidden;
     max-height: 100vh;
     overflow-y: scroll;
@@ -375,11 +400,12 @@ body {
         line-height: 1.5;
         font-size: 1.3em;
         font-family: 'Open Sans', sans-serif;
-        text-transform: uppercase;
         font-weight: bold;
     }
 
-
+.text-center{
+    text-align: center;
+}
 
 
 
@@ -408,7 +434,7 @@ body {
 	font-family: 'Open Sans', sans-serif;
 	/*text-transform: uppercase;*/
 	font-weight: bold;
-	color: #1da671;
+	color: #f2ede6;
 	border: 2px solid #ae4d40;
 	border-left: none;
 	border-right: none;
@@ -418,8 +444,8 @@ body {
     padding: 5px 5%;
     font-family: 'Open Sans', sans-serif;
     /*text-transform: uppercase;*/
-    font-weight: bold;
-    color: #1da671;
+    /*font-weight: bold;*/
+    color: #f2ede6;
     border-top: 2px solid #ae4d40;
     border-left: none;
     border-right: none;
@@ -429,14 +455,17 @@ body {
 .list-item {
 	display: block;
 	text-align: left;
-	padding: 5px 5%;
-	width: 90%;
+	padding: 10px 5%;
+	/*width: 90%;*/
 	border-bottom: 2px solid #ae4d40;
 }
 
+
+
 .list-item-center {
     display: block;
-    font-size: 1.2em;
+    font-size: 1.0em;
+    font-family: 'Open Sans', sans-serif;
     padding: 5px 5%;
     width: 90%;
     border-bottom: 2px solid #ae4d40;
@@ -444,10 +473,22 @@ body {
     background: rgba(255,255,255,0.05);
 }
 
+.list-item-center-border {
+    display: block;
+    font-size: 1.2em;
+    font-family: 'Open Sans', sans-serif;
+    padding: 5px 5%;
+    width: 90%;
+    border-bottom: 2px solid #ae4d40;
+    border-top: 2px solid #ae4d40;
+    text-align: center;
+    background: rgba(255,255,255,0.05);
+}
+
 .box-list-item {
     display: block;
     text-align: left;
-    width: 90%;
+    width: 100%;
     border-bottom: 2px solid #ae4d40;
     border-top: 2px solid #ae4d40;
     padding-top: 15px;
@@ -460,6 +501,7 @@ body {
 		font-size: 1.4em;
 		display: block;
         font-family: 'Open Sans', sans-serif;
+        font-weight: bold;
 	}
 
 	.list-item .icon {
@@ -472,6 +514,7 @@ audio { clear: left; display: block; margin: 20px 0; }
 button:hover { box-shadow: inset 0 2px 1px rgba(0,0,0,0.2);}
 
 .hide { display: none; }
+.hideOpacity { opacity: 0;}
 
 
 .loader { 
@@ -525,16 +568,19 @@ input, select, textarea {
     margin: 0 auto ;
     text-align: center;
     font-size: 1.3em;
-    font-family: 'Permanent Marker', cursive; 
+    font-family: 'Open Sans', sans-serif;
     border: none;
     border-bottom: 2px solid #e16453;
     border-radius: none;
     background:transparent;
-    color: #ffffff;
+    color: #f2ede6;
     width:100%;
     margin-bottom: 1em;
     resize: none;
     padding: 5px 0;
+
+    -webkit-appearance: none;
+    -webkit-border-radius:0px;
  }
 
  textarea { 
@@ -546,15 +592,16 @@ input, select, textarea {
     background: #e16453;
     display: inline-block;
     border-radius: 5px;
-        line-height: 1.5;
-        font-size: 2.0em;
-    font-family: 'Permanent Marker', cursive;
-        text-transform: uppercase;
-        font-weight: bold;
-        width: 100%;
-        padding: 5px 20px;
+    line-height: 1.5;
+    font-size: 2.0em;
+    font-family: 'Open Sans', sans-serif;
+    /*text-transform: uppercase;*/
+    font-weight: bold;
+    width: 100%;
+    padding: 5px 20px;
 
     -webkit-appearance: none;
+    -webkit-border-radius:0px;
  }
 
  button[type=submit], .button {
@@ -562,15 +609,16 @@ input, select, textarea {
     background: #e16453;
     display: inline-block;
     border-radius: 5px;
-        line-height: 1.5;
-        font-size: 2.0em;
+    line-height: 1.5;
+    font-size: 2.0em;
     font-family: 'Open Sans', sans-serif;
-        text-transform: uppercase;
-        font-weight: bold;
-        width: 100%;
-        padding: 5px 20px;
+/*  text-transform: uppercase;
+*/  font-weight: bold;
+    width: 100%;
+    padding: 5px 20px;
 
     -webkit-appearance: none;
+    -webkit-border-radius:0px;
  }
 
  
@@ -616,85 +664,6 @@ label.radioLabel input[type="radio"] { opacity: 0; }
 
 }
 
-#thirdRow .icon-calendar{
-    float:left;
-    font-size: 35px;
-    margin-top: -5px;
-    margin-right: 15px;
-    color: #1da671;
-}
-
-#fourthRow{
-    margin-top: 40px;
-    font-size: 0.7em;
-}
-
-#fourthRow h2{
-    width: 100px;
-    float: left;
-}
-
-#fourthRow .icon-clock{
-    float:left;
-    font-size: 30px;
-    margin-top: -2px;
-    margin-right: 15px;
-    color: #1da671;
-}
-
-#fourthRow .icon-user{
-
-    font-size: 30px;
-    margin-top: -2px;
-    margin-right: 10px;
-    float: left;
-    color: #1da671;
-}
-
-#fifthRow{
-    position:absolute;
-    margin-top: 40px;
-    border-top: 2px solid;
-    border-bottom: 2px solid;
-    color: #e16453;
-    font-size: 0.7em;
-    padding: 30px 5%;
-    width: 375px;
-    left:0px;
-}
-
-#fifthRow .icon-location{
-    float:left;
-    font-size: 35px;
-    margin-top: -5px;
-    margin-right: 15px;
-    color: #1da671;
-}
-
-#sixthRow{
-    margin-top: 160px;
-    font-size: 0.7em;
-}
-
-#sixthRow .icon-drums{
-    margin-right:15px;
-    font-size: 35px;
-}
-
-#sixthRow .icon-guitar{
-    margin-right:15px;
-    font-size: 35px;
-}
-
-#sixthRow .icon-bass{
-    margin-right:15px;
-    font-size: 35px;
-}
-
-#sixthRow .icon-syntie{
-    margin-right:15px;
-    font-size: 35px;
-}
 
 .icon-x{
     float:right;
@@ -703,11 +672,19 @@ label.radioLabel input[type="radio"] { opacity: 0; }
     padding:0px;
 }
 
-.icon-back{
+.icon-x2{
+    float:right;
+    font-size: 40px;
+}
+
+
+.icon-back, header .icon-settings {
     float:left;
     font-size: 25px;
-    margin-top: 10px;
+    margin-top: 20px;
 }
+
+header .icon-settings {float: right;}
 
 .display_none{
     display: none;
@@ -731,3 +708,20 @@ label.radioLabel input[type="radio"] { opacity: 0; }
                                             font-family: 'Open Sans', sans-serif;
                                             font-size: 2em;
                                             }
+
+
+
+span.amount {
+    border-radius: 50%;
+width: 14px;
+height: 14px;
+font-size: 12px !important;
+background: rgba(255,255,255,0.2);
+padding: 2px !important;
+text-align: center;
+display: block;
+line-height: 14px;
+position: absolute;
+right: 0;
+top: 20px;
+}

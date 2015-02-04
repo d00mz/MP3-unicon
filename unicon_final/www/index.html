@@ -9,8 +9,13 @@
 		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
 		<meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-title" content="unicon">
-		<link href='http://fonts.googleapis.com/css?family=Rancho' rel='stylesheet' type='text/css'>
-		<link href='http://fonts.googleapis.com/css?family=Gudea:400,700' rel='stylesheet' type='text/css'>
+		<!-- <link href='http://fonts.googleapis.com/css?family=Rancho' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Gudea:400,700' rel='stylesheet' type='text/css'> -->
+		<!-- <link href='http://fonts.googleapis.com/css?family=Permanent+Marker|Open+Sans' rel='stylesheet' type='text/css'> -->
+		
+
+
+		
 
 		<link rel="stylesheet" type="text/css" href="css/index.css" />
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
@@ -21,32 +26,43 @@
 		<div class="innerWrap">
 			<div id="logo"></div>
 			<nav id="navMain">
-				<ul>
+			<!-- 	<ul>
 					<li><a href="{{createLink}}"><span class="icon-drums"></span>Erstellen</a></li>
 					<li><a href="browse.html"><span class="icon-magnifier"></span>Entdecken</a></li>
 					<li><a href="#" class="profil" ng-click="login()"><span class="icon-user"></span>Profil</a></li>
 					<li><a href="{{myJamLink}}"><span class="icon-settings"></span>Meine Jams<span class="amount">{{myJams}}</span></a></li>
+				</ul> -->
+
+				<ul>
+					<li><a href="{{createLink}}">Jam erstellen</a></li>
+					<li><a href="browse.html">Jam's finden</a></li>
+					<li><a href="{{myJamLink}}">Meine Jams<span class="amount">{{myJams}}</span></a></li>
+					<li><a href="#" class="profil" ng-click="login()">Profil</a></li>
+					
 				</ul>
+
+
 			</nav>
 			<div class="box"></div>
 		</div>
 
 
 
-
-
 		<div class="overlay overlay-login">
-			<button type="button" class="overlay-close" ng-click="close()">Close</button>
+			<button type="button" class="overlay-close icon-x2" ng-click="close()"></button>
 			<form method="post" class="loginForm" ng-submit="doLogin()">
-				<label class="loginUsernameLabel">Benutzername</label>
-				<input type="text" name="username" class="loginUsername" placeholder="Benutzername" ng-model="loginData.username">
+				<label class="loginUsernameLabel">Benutzername:</label>
+				
+				<!-- <div id="createForm"> -->
+				<input class="item" type="text" name="username" class="loginUsername" placeholder="Benutzername" ng-model="loginData.username">
 
-				<label class="loginPasswordLabel">Passwort</label>
+				<label class="loginPasswordLabel">Passwort:</label>
 				<input type="password" name="password" class="loginPassword" placeholder="Passwort" ng-model="loginData.password">
 				<input type="hidden" value="/MP3/" name="returnUrl" class="returnUrl">
 				<input type="hidden" value="login" name="service" class="loginLoginValue">
 				<input type="submit" value="Login" name="Login">
-			</form>
+<!-- 				</div>
+ -->			</form>
 		</div>
 
 		<script type="text/javascript" src="cordova.js"></script>

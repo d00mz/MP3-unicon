@@ -9,8 +9,10 @@
 		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
 		<meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-title" content="unicon">
-<link href='http://fonts.googleapis.com/css?family=Rancho' rel='stylesheet' type='text/css'>
+<!-- <link href='http://fonts.googleapis.com/css?family=Rancho' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Gudea:400,700' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Permanent+Marker|Open+Sans' rel='stylesheet' type='text/css'> -->
+
 
 		<link rel="stylesheet" type="text/css" href="css/index.css" />
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
@@ -22,23 +24,33 @@
 		<header>
 		<div class="innerWrap">
 		<div class="col4">
-		<a href="index.html" class="icon">m</a>
+		<a href="index.html" class="icon-back"></a>
 		</div>
 		</div>
 		</header>
+
 		<div class="innerWrap">
 			<div class="coverPic">
-				<h2 class="caption">{{jams.name}}</h2>
-				<img src="img/{{jams.image}}" alt="{{jams.name}}">
-			</div>
+				<!-- <h2 class="caption">{{jams.name}}</h2>
+				<img src="img/{{jams.image}}" alt="{{jams.name}}"> -->
+				<h1 class="caption marg-bottom">Meine Jams</h1>
+				<img src="img/electro_detail.jpg">
+		</div> 
+
 			<div class="list">
 				<div ng-repeat="jamGroup in jams">
-					<div class="item-divider">
+					<div class="list-item-center green text-small">
 						{{jamGroup.divider}}
-					</div> 											
-					<a class="list-item" ng-repeat="jamItem in calcDistance(jamGroup.list)" href="myjams_detail.html?id={{jamItem.id}}">
+					</div> 	
+
+					<a class="list-item icon-text" ng-repeat="jamItem in calcDistance(jamGroup.list)" href="myjams_detail.html?id={{jamItem.id}}">
+
 						<span class="title">{{jamItem.name}}</span>
-						<span class="col2 no-marg"><span class="icon green">c</span>{{jamItem.duration}}</span><span class="col2 no-marg"><span class="icon green">l</span>{{jamItem.distance}}</span>
+						<span class="icon-clock icon-xs green icon-text marg-top"></span>
+						<p class="col1 no-marg">{{jamItem.duration}}</p>
+						<span class="icon-location icon-xs green icon-text marg-top"></span>
+						<p class="col2 no-marg">{{jamItem.distance}}</p>
+					
 					</a> 
 				</div> 
 			</div>

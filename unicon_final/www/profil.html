@@ -9,8 +9,9 @@
 		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
 		<meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-title" content="unicon">
-<link href='http://fonts.googleapis.com/css?family=Rancho' rel='stylesheet' type='text/css'>
+<!-- <link href='http://fonts.googleapis.com/css?family=Rancho' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Gudea:400,700' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Permanent+Marker|Open+Sans' rel='stylesheet' type='text/css'> -->
 
 		<link rel="stylesheet" type="text/css" href="css/index.css" />
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
@@ -20,20 +21,23 @@
 	<body ng-controller="AppCtrl">
 		<header>
 		<div class="innerWrap">
-		<div class="col4">
-		<a href="index.html" class="icon">m</a>
-		</div>
-		</div>
-		</header>
-		<div class="innerWrap">
-			<div class="col12">
-				<h1>{{userData.fullname}}</h1>
-				<p><strong>E-Mail: </strong>{{userData.email}}<br>
-				<strong>User ID: </strong>{{userData.id}}<br>
-				<strong>MODX Token: </strong> {{userData.token}}</p>
-				<a class="button logout" ng-click="logout()">Ausloggen</a>
+			<div class="col4">
+				<a href="index.html" class="icon-back"></a>
 			</div>
 		</div>
+		</header>
+
+		
+			<div class="item no-pad detailView marg-top-xl">
+				<div class="col4">
+					<h1 marg-bottom>{{userData.fullname}}</h1>
+					<p marg-bottom>E-Mail: {{userData.email}}</p>
+					<p marg-bottom>User ID: {{userData.id}}</p>
+					<p marg-bottom>MODX Token: {{userData.token}}</p>
+				</div>
+				<a class="button logout text-center" ng-click="logout()">Ausloggen</a>
+			</div>
+		
 
 
 		<script type="text/javascript" src="cordova.js"></script>
